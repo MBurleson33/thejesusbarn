@@ -2117,7 +2117,7 @@
     SIGNUPS_URL      : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=1464935464&single=true&output=csv',
     ANNOUNCEMENT_URL : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=124696312&single=true&output=csv',
     SCRIPT_URL       : 'https://script.google.com/macros/s/AKfycbycmcGiPFA0Pfj0w1G8QVWeR_UpOmu2DNhpY8TXMQigL8-HJPHjDi7E0mdRVw4FXoMusQ/exec',
-    SECRET           : 'admin'
+    SECRET           : 'jbadmin'
   };
 
   let jbTyped='', jbFunding={}, jbNeeds=[], jbWall=[], jbSignups=[];
@@ -2440,13 +2440,18 @@
 
   document.addEventListener('keydown',e=>{
     if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) return;
-    jbTyped+=e.key.toLowerCase();
-    if(jbTyped.length>JB.SECRET.length) jbTyped=jbTyped.slice(-JB.SECRET.length);
-    if(jbTyped===JB.SECRET){
-      jbTyped='';
+    const key = e.key.toLowerCase();
+    // only track single character keys
+    if(key.length !== 1) return;
+    jbTyped += key;
+    // if typed string ends with secret, trigger
+    if(jbTyped.endsWith(JB.SECRET)){
+      jbTyped = '';
       e.preventDefault();
       setTimeout(jbPromptAdmin, 50);
     }
+    // keep buffer from growing unbounded
+    if(jbTyped.length > 20) jbTyped = jbTyped.slice(-20);
   });
 
   function jbPromptAdmin() {
