@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found — The Jesus Barn</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="images/The-Jesus-Barn-Logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Lato:wght@300;400;700&family=Cinzel:wght@400&display=swap" rel="stylesheet">
+<style>
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 18px; }
+
+  :root {
+    --white:      #FFFFFF;
+    --off-white:  #F5F5F5;
+    --light-grey: #E8E8E8;
+    --mid-grey:   #AAAAAA;
+    --dark-grey:  #555555;
+    --near-black: #1C1C1C;
+    --black:      #0A0A0A;
+  }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 24px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* subtle background texture */
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #0a0a0a 0%, #1c1c1c 50%, #0a0a0a 100%);
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: repeating-linear-gradient(
+      90deg, transparent, transparent 2px,
+      rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 3px
+    );
+    z-index: 0;
+  }
+
+  /* radiant light */
+  .glow {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+  }
+
+  /* logo */
+  .logo {
+    margin-bottom: 48px;
+    display: inline-block;
+  }
+
+  .logo img {
+    height: 100px;
+    width: auto;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+  }
+
+  /* 404 number */
+  .four-oh-four {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(5rem, 18vw, 10rem);
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    margin-bottom: -24px;
+    letter-spacing: -4px;
+    user-select: none;
+  }
+
+  /* eyebrow */
+  .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 4px;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  /* heading */
+  .heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  /* rule */
+  .rule {
+    width: 40px;
+    height: 1px;
+    background: rgba(255,255,255,0.2);
+    margin: 0 auto 24px;
+  }
+
+  /* body text */
+  .body-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.8;
+    margin-bottom: 48px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* buttons */
+  .buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 56px;
+  }
+
+  .btn-primary {
+    background: var(--white);
+    color: var(--black);
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 15px 32px;
+    border: none;
+    border-radius: 2px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--light-grey); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 2px;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s;
+  }
+
+  .btn-outline:hover { border-color: var(--white); }
+
+  /* quick links */
+  .quick-links {
+    display: flex;
+    gap: 8px 28px;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+  }
+
+  .quick-links a {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .quick-links a:hover { color: rgba(255,255,255,0.7); }
+
+  /* scripture */
+  .scripture {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.12);
+    white-space: nowrap;
+    z-index: 1;
+  }
+
+  /* focus */
+  :focus-visible {
+    outline: 2px solid rgba(255,255,255,0.6);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 560px) {
+    .four-oh-four { font-size: 6rem; }
+    .buttons { flex-direction: column; align-items: center; }
+    .btn-primary, .btn-outline { width: 100%; max-width: 280px; text-align: center; }
+    .scripture { display: none; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="glow"></div>
+
+<div class="content">
+
+  <a class="logo" href="/" aria-label="Go to The Jesus Barn homepage">
+    <img src="images/The-Jesus-Barn-Logo.png" alt="The Jesus Barn">
+  </a>
+
+  <p class="four-oh-four" aria-hidden="true">404</p>
+
+  <p class="eyebrow">Page Not Found</p>
+
+  <h1 class="heading">You Seem a Little Lost.</h1>
+
+  <div class="rule"></div>
+
+  <p class="body-text">
+    That's okay — this is a place for everyone, even those who wander. The page you're looking for isn't here, but the door is still open.
+  </p>
+
+  <div class="buttons">
+    <a href="/" class="btn-primary">Take Me Home</a>
+    <a href="/#partner" class="btn-outline">Get Involved</a>
+  </div>
+
+  <ul class="quick-links" aria-label="Quick navigation links">
+    <li><a href="/#story">Our Heart</a></li>
+    <li><a href="/#free">What's Here</a></li>
+    <li><a href="/#give">Build With Us</a></li>
+    <li><a href="/#community">Community Wall</a></li>
+  </ul>
+
+</div>
+
+<p class="scripture">"For the Son of Man came to seek and to save the lost." — Luke 19:10</p>
+
+</body>
+</html>
