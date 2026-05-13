@@ -1115,6 +1115,182 @@
   .wall-submit-status.success { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); display: block; }
   .wall-submit-status.error   { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.45); display: block; }
 
+  /* ── CONTACT ── */
+  #contact { background: var(--near-black); }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-body {
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.9;
+    margin-bottom: 40px;
+  }
+
+  .contact-details { display: flex; flex-direction: column; gap: 0; }
+
+  .contact-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .contact-detail-item:last-child { border-bottom: none; }
+
+  .contact-detail-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+  }
+
+  .contact-detail-value {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  a.contact-detail-value:hover { color: var(--white); }
+
+  .contact-social {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .contact-social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 2px;
+    color: rgba(255,255,255,0.35);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .contact-social-link:hover { border-color: rgba(255,255,255,0.6); color: var(--white); }
+
+  /* form */
+  .contact-form-wrap {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 2px;
+    padding: 36px;
+  }
+
+  .contact-input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .contact-input-group {
+    margin-bottom: 18px;
+  }
+
+  .contact-input-group label {
+    display: block;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 6px;
+  }
+
+  .contact-input-group input,
+  .contact-input-group textarea {
+    display: block;
+    width: 100%;
+    padding: 11px 14px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 2px;
+    color: var(--white);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .contact-input-group input:focus,
+  .contact-input-group textarea:focus {
+    border-color: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.09);
+  }
+
+  .contact-input-group input::placeholder,
+  .contact-input-group textarea::placeholder { color: rgba(255,255,255,0.2); }
+
+  .contact-input-group textarea { height: 140px; resize: vertical; }
+
+  .contact-input-group.error input,
+  .contact-input-group.error textarea {
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  .contact-field-error {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.45);
+    margin-top: 4px;
+    display: none;
+  }
+
+  .contact-input-group.error .contact-field-error { display: block; }
+
+  .contact-submit {
+    background: var(--white);
+    color: var(--black);
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 15px 36px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-top: 4px;
+  }
+
+  .contact-submit:hover { background: var(--light-grey); transform: translateY(-1px); }
+  .contact-submit:disabled { opacity: 0.5; cursor: default; transform: none; }
+
+  .contact-status {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 2px;
+    display: none;
+    line-height: 1.6;
+  }
+
+  .contact-status.success { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); display: block; }
+  .contact-status.error   { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.45); display: block; }
+
   /* ── FOOTER ── */
   footer {
     background: var(--black);
@@ -1392,10 +1568,10 @@
     .nav-burger { display: flex; }
     .nav-admin-link { display: block; }
     .container { padding: 72px 24px; }
-    .heart-layout, .building-layout, .form-body { grid-template-columns: 1fr; gap: 48px; }
+    .heart-layout, .building-layout, .form-body, .contact-layout { grid-template-columns: 1fr; gap: 48px; }
     .heart-image-accent { display: none; }
     .find-grid, .role-grid { grid-template-columns: repeat(2, 1fr); }
-    .input-row, .wall-row { grid-template-columns: 1fr; }
+    .input-row, .wall-row, .contact-input-row { grid-template-columns: 1fr; }
     .jb-admin-panel { width: 100%; }
     footer { padding: 48px 24px 32px; }
   }
@@ -1468,6 +1644,7 @@
     <li role="listitem"><a href="#give">Build With Us</a></li>
     <li role="listitem"><a href="#partner">Get Involved</a></li>
     <li role="listitem"><a href="#community">Community Wall</a></li>
+    <li role="listitem"><a href="#contact">Contact</a></li>
     <li role="listitem"><a href="#give" class="nav-cta">Give Now</a></li>
     <li role="listitem"><a onclick="jbPromptAdmin(); toggleNav();" class="nav-admin-link" aria-label="Admin login">Admin Login</a></li>
   </ul>
@@ -1707,7 +1884,68 @@
       <div class="wall-submit-status" id="wallStatus"></div>
     </div>
   </div>
+<!-- ── CONTACT ── -->
+<section id="contact" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="contact-layout">
+      <div class="contact-left">
+        <p class="section-eyebrow light">Get In Touch</p>
+        <h2 class="section-title" id="contact-title" style="color:var(--white);">Have a Question?<br>We're Here.</h2>
+        <p class="contact-body">Have a question? A prayer request? Just want to connect? We're here — and we'd love to hear from you. Whether you're curious about The Jesus Barn, want to learn how to get involved, or simply need someone to talk to, reach out. No question is too small. No need is too big.</p>
+        <div class="contact-details">
+          <div class="contact-detail-item">
+            <span class="contact-detail-label">Email</span>
+            <a href="mailto:hello@thejesusbarn.org" class="contact-detail-value">hello@thejesusbarn.org</a>
+          </div>
+          <div class="contact-detail-item">
+            <span class="contact-detail-label">Location</span>
+            <span class="contact-detail-value">Piedmont, Oklahoma</span>
+          </div>
+          <div class="contact-detail-item">
+            <span class="contact-detail-label">Follow Along</span>
+            <div class="contact-social">
+              <a href="#" aria-label="Facebook" class="contact-social-link">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </a>
+              <a href="#" aria-label="Instagram" class="contact-social-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              </a>
+              <a href="#" aria-label="YouTube" class="contact-social-link">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1C1C1C"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-right">
+        <div class="contact-form-wrap">
+          <div class="contact-input-row">
+            <div class="contact-input-group" id="ctGrpName">
+              <label for="ctName">Your Name <span class="required">*</span></label>
+              <input type="text" id="ctName" placeholder="First and last name" autocomplete="name">
+              <p class="contact-field-error">Please enter your name.</p>
+            </div>
+            <div class="contact-input-group" id="ctGrpEmail">
+              <label for="ctEmail">Email <span class="required">*</span></label>
+              <input type="email" id="ctEmail" placeholder="you@email.com" autocomplete="email">
+              <p class="contact-field-error">Please enter a valid email.</p>
+            </div>
+          </div>
+          <div class="contact-input-group" id="ctGrpMsg">
+            <label for="ctMessage">Your Message <span class="required">*</span></label>
+            <textarea id="ctMessage" placeholder="A question, a prayer request, or just a hello — we'd love to hear from you..."></textarea>
+            <p class="contact-field-error">Please enter a message.</p>
+          </div>
+          <!-- honeypot -->
+          <input type="text" id="ctHoneypot" style="display:none;" tabindex="-1" autocomplete="off">
+          <button class="contact-submit" onclick="submitContact()">Send a Message</button>
+          <div class="contact-status" id="ctStatus"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
 </main>
 
 <!-- ── FOOTER ── -->
@@ -1720,6 +1958,7 @@
     <li><a href="#give">Build With Us</a></li>
     <li><a href="#partner">Get Involved</a></li>
     <li><a href="#community">Community Wall</a></li>
+    <li><a href="#contact">Contact</a></li>
     <li><a href="/privacy-policy.html">Privacy Policy</a></li>
   </ul>
   <div class="footer-social">
@@ -2190,6 +2429,52 @@
       status.textContent='Deleted.'; status.className='jb-status success';
     } catch(e){status.textContent='Error deleting.'; status.className='jb-status error';}
     setTimeout(()=>{status.className='jb-status';},2500);
+  }
+
+  function submitContact() {
+    // honeypot check
+    if (document.getElementById('ctHoneypot').value) return;
+
+    let valid = true;
+    const name  = document.getElementById('ctName');
+    const email = document.getElementById('ctEmail');
+    const msg   = document.getElementById('ctMessage');
+    const grpName  = document.getElementById('ctGrpName');
+    const grpEmail = document.getElementById('ctGrpEmail');
+    const grpMsg   = document.getElementById('ctGrpMsg');
+    const status   = document.getElementById('ctStatus');
+    const btn      = document.querySelector('.contact-submit');
+
+    if (!name.value.trim())  { grpName.classList.add('error');  valid=false; } else { grpName.classList.remove('error'); }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { grpEmail.classList.add('error'); valid=false; } else { grpEmail.classList.remove('error'); }
+    if (!msg.value.trim())   { grpMsg.classList.add('error');   valid=false; } else { grpMsg.classList.remove('error'); }
+
+    if (!valid) return;
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    fetch(JB.SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sheet:   'contact',
+        name:    name.value.trim(),
+        email:   email.value.trim(),
+        message: msg.value.trim()
+      })
+    }).then(() => {
+      status.textContent = 'Thank you, ' + name.value.trim().split(' ')[0] + '! Your message has been received. We\'ll be in touch soon.';
+      status.className = 'contact-status success';
+      name.value = ''; email.value = ''; msg.value = '';
+    }).catch(() => {
+      status.textContent = 'Something went wrong. Please try again or email us directly at hello@thejesusbarn.org.';
+      status.className = 'contact-status error';
+    }).finally(() => {
+      btn.textContent = 'Send a Message';
+      btn.disabled = false;
+    });
   }
 
   jbLoadAll();
