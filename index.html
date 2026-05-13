@@ -1733,7 +1733,7 @@
     if(!grid) return;
     const approved=jbWall.filter(w=>w.status==='approved');
     if(!approved.length){
-      grid.innerHTML='<p style="font-family:\'Playfair Display\',serif;font-style:italic;color:rgba(255,255,255,0.2);padding:40px 0;">Be the first to leave an encouraging word.</p>';
+      grid.innerHTML='<p style="font-family:\'Playfair Display\',serif;font-style:italic;color:rgba(255,255,255,0.25);padding:40px 32px;">Be the first to leave an encouraging word.</p>';
       return;
     }
     grid.innerHTML=approved.map(w=>`
