@@ -2117,13 +2117,13 @@
     SIGNUPS_URL      : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=1464935464&single=true&output=csv',
     ANNOUNCEMENT_URL : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=124696312&single=true&output=csv',
     SCRIPT_URL       : 'https://script.google.com/macros/s/AKfycbycmcGiPFA0Pfj0w1G8QVWeR_UpOmu2DNhpY8TXMQigL8-HJPHjDi7E0mdRVw4FXoMusQ/exec',
-    SECRET           : 'barnadmin',
-    PASSWORD         : 'barn2026'
+    SECRET           : 'barnadmin'
   };
 
   let jbTyped='', jbFunding={}, jbNeeds=[], jbWall=[], jbSignups=[];
   let jbWallFilter='all', jbSignupFilter='all', selectedRole='';
   let jbAnnouncement = { text: '', active: false };
+  let jbAdminToken = null;
 
   function parseCSV(text) {
     const rows = [];
@@ -2475,10 +2475,40 @@
     }, 100);
   }
 
-  function jbCheckPassword() {
-    const input=document.getElementById('jbPasswordInput');
-    if(input.value===JB.PASSWORD){jbDismissPassword();jbOpenAdmin();}
-    else{document.getElementById('jbPasswordError').textContent='Incorrect password.';input.value='';input.focus();}
+  async function jbCheckPassword() {
+    const input = document.getElementById('jbPasswordInput');
+    const error = document.getElementById('jbPasswordError');
+    const btn   = document.querySelector('.jb-pw-enter');
+
+    btn.textContent = 'Checking...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: input.value })
+      });
+      const data = await res.json();
+
+      if (data.success && data.token) {
+        jbAdminToken = data.token;
+        jbDismissPassword();
+        jbOpenAdmin();
+      } else {
+        error.textContent = 'Incorrect password. Please try again.';
+        input.value = '';
+        input.focus();
+        btn.textContent = 'Enter';
+        btn.disabled = false;
+      }
+    } catch(e) {
+      error.textContent = 'Could not connect. Please try again.';
+      input.value = '';
+      input.focus();
+      btn.textContent = 'Enter';
+      btn.disabled = false;
+    }
   }
 
   function jbDismissPassword() {
