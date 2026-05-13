@@ -151,8 +151,8 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 200;
-    background: var(--near-black);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    background: #E8C96A;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
     padding: 10px 48px;
     display: flex;
     align-items: center;
@@ -169,7 +169,7 @@
     font-size: 0.72rem;
     font-weight: 400;
     letter-spacing: 1.5px;
-    color: rgba(255,255,255,0.85);
+    color: #1A1410;
     text-align: center;
   }
 
@@ -178,7 +178,7 @@
     right: 16px;
     background: none;
     border: none;
-    color: rgba(255,255,255,0.4);
+    color: rgba(26,20,16,0.4);
     font-size: 1rem;
     cursor: pointer;
     padding: 0 4px;
@@ -187,7 +187,7 @@
     flex-shrink: 0;
   }
 
-  .jb-announcement-close:hover { color: var(--white); }
+  .jb-announcement-close:hover { color: #1A1410; }
 
   /* push nav down when banner visible */
   body.has-announcement nav { top: 37px; }
@@ -213,7 +213,7 @@
     display: flex;
     align-items: center;
     position: fixed;
-    top: 0 !important;
+    top: 0;
     left: 40px;
     z-index: 101;
   }
@@ -1752,7 +1752,24 @@
       <label>Announcement Text</label>
       <input type="text" id="jbAnnouncementInput" placeholder="e.g. Now Open Every Saturday 10am–4pm · Piedmont, OK">
     </div>
-    <p style="font-family:'Lato',sans-serif;font-size:0.72rem;color:var(--mid-grey);margin-top:8px;line-height:1.6;">Keep it short — one line works best. Toggle on to show it, off to hide it without losing the text.</p>
+    <p class="jb-section-label">Optional Link</p>
+    <div class="jb-field">
+      <label>Link Label <span style="color:var(--mid-grey);font-size:0.6rem;letter-spacing:1px;">OPTIONAL</span></label>
+      <input type="text" id="jbAnnouncementLinkLabel" placeholder="e.g. Help us reach our goal →">
+    </div>
+    <div class="jb-field">
+      <label>Link To Section <span style="color:var(--mid-grey);font-size:0.6rem;letter-spacing:1px;">OPTIONAL</span></label>
+      <select id="jbAnnouncementLinkTarget">
+        <option value="">— No link —</option>
+        <option value="#story">Our Heart</option>
+        <option value="#free">What's Here</option>
+        <option value="#give">Build With Us</option>
+        <option value="#partner">Get Involved</option>
+        <option value="#community">Community Wall</option>
+        <option value="#contact">Contact</option>
+      </select>
+    </div>
+    <p style="font-family:'Lato',sans-serif;font-size:0.72rem;color:var(--mid-grey);margin-top:8px;line-height:1.6;">If a link is set, it will appear at the end of the announcement text as a clickable link.</p>
     <div class="jb-admin-buttons">
       <button class="jb-save-btn" onclick="jbSaveAnnouncement()">Save &amp; Publish</button>
     </div>
@@ -2124,7 +2141,7 @@
 
   let jbTyped='', jbFunding={}, jbNeeds=[], jbWall=[], jbSignups=[];
   let jbWallFilter='all', jbSignupFilter='all', selectedRole='';
-  let jbAnnouncement = { text: '', active: false };
+  let jbAnnouncement = { text: '', active: false, linkLabel: '', linkTarget: '' };
   let jbAdminToken = null;
 
   function parseCSV(text) {
@@ -2160,8 +2177,10 @@
     try {
       const rows = parseCSV(await (await fetch(JB.ANNOUNCEMENT_URL+'&t='+Date.now())).text());
       rows.forEach(r => {
-        if (r[0] === 'text')   jbAnnouncement.text   = r[1] || '';
-        if (r[0] === 'active') jbAnnouncement.active = r[1] === 'true';
+        if (r[0] === 'text')        jbAnnouncement.text        = r[1] || '';
+        if (r[0] === 'active')      jbAnnouncement.active      = r[1] === 'true';
+        if (r[0] === 'linkLabel')   jbAnnouncement.linkLabel   = r[1] || '';
+        if (r[0] === 'linkTarget')  jbAnnouncement.linkTarget  = r[1] || '';
       });
       renderAnnouncement();
     } catch(e) { console.warn('Announcement load failed', e); }
@@ -2175,7 +2194,13 @@
 
     if (jbAnnouncement.active && jbAnnouncement.text &&
         !(dismissed === 'true' && dismissedText === jbAnnouncement.text)) {
-      textEl.textContent = jbAnnouncement.text;
+
+      // build inner HTML — text + optional link
+      let html = `<span>${jbAnnouncement.text}</span>`;
+      if (jbAnnouncement.linkLabel && jbAnnouncement.linkTarget) {
+        html += ` <a href="${jbAnnouncement.linkTarget}" onclick="event.preventDefault();jbDismissAnnouncement();document.querySelector('${jbAnnouncement.linkTarget}').scrollIntoView({behavior:'smooth'});" style="color:#1A1410;font-weight:700;text-decoration:underline;text-underline-offset:2px;margin-left:8px;white-space:nowrap;">${jbAnnouncement.linkLabel}</a>`;
+      }
+      textEl.innerHTML = html;
       banner.classList.add('visible');
       document.body.classList.add('has-announcement');
     } else {
@@ -2192,12 +2217,14 @@
   }
 
   async function jbSaveAnnouncement() {
-    const btn    = document.querySelector('#jbPane-announcement .jb-save-btn');
-    const status = document.getElementById('jbAnnouncementStatus');
-    const text   = document.getElementById('jbAnnouncementInput').value.trim();
-    const activeEl = document.getElementById('jbAnnouncementActive') ||
-                     document.querySelector('#jbPane-announcement input[type="checkbox"]');
-    const active = activeEl ? activeEl.checked : false;
+    const btn       = document.querySelector('#jbPane-announcement .jb-save-btn');
+    const status    = document.getElementById('jbAnnouncementStatus');
+    const text      = document.getElementById('jbAnnouncementInput').value.trim();
+    const linkLabel = document.getElementById('jbAnnouncementLinkLabel').value.trim();
+    const linkTarget= document.getElementById('jbAnnouncementLinkTarget').value;
+    const activeEl  = document.getElementById('jbAnnouncementActive') ||
+                      document.querySelector('#jbPane-announcement input[type="checkbox"]');
+    const active    = activeEl ? activeEl.checked : false;
 
     btn.textContent = 'Saving...'; btn.disabled = true;
 
@@ -2205,12 +2232,11 @@
       await fetch(JB.SCRIPT_URL, {
         method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sheet: 'announcement', text, active: String(active) })
+        body: JSON.stringify({ sheet: 'announcement', text, active: String(active), linkLabel, linkTarget })
       });
 
-      jbAnnouncement = { text, active };
+      jbAnnouncement = { text, active, linkLabel, linkTarget };
       renderAnnouncement();
-      // clear dismiss if new text was saved
       if (active && text) {
         localStorage.removeItem('jbAnnouncementDismissed');
         localStorage.removeItem('jbAnnouncementDismissedText');
@@ -2566,14 +2592,17 @@
   }
 
   function jbPopulateAnnouncementPane() {
-    const input  = document.getElementById('jbAnnouncementInput');
-    const toggle = document.getElementById('jbAnnouncementActive');
-    const label  = document.getElementById('jbToggleLabel');
+    const input       = document.getElementById('jbAnnouncementInput');
+    const linkLabel   = document.getElementById('jbAnnouncementLinkLabel');
+    const linkTarget  = document.getElementById('jbAnnouncementLinkTarget');
+    const toggle      = document.getElementById('jbAnnouncementActive');
+    const label       = document.getElementById('jbToggleLabel');
     if (!input || !toggle || !label) return;
-    input.value    = jbAnnouncement.text;
-    toggle.checked = jbAnnouncement.active;
+    input.value       = jbAnnouncement.text;
+    linkLabel.value   = jbAnnouncement.linkLabel || '';
+    linkTarget.value  = jbAnnouncement.linkTarget || '';
+    toggle.checked    = jbAnnouncement.active;
     label.textContent = jbAnnouncement.active ? 'Banner is live' : 'Banner is off';
-    // remove old listener before adding new one
     const newToggle = toggle.cloneNode(true);
     toggle.parentNode.replaceChild(newToggle, toggle);
     newToggle.addEventListener('change', () => {
