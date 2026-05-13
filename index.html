@@ -3,15 +3,130 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="The Jesus Barn — A free community space in Piedmont, Oklahoma. Built by the community, for the community, with Jesus as our guide.">
-<title>The Jesus Barn — Piedmont, Oklahoma</title>
+
+<!-- ── PRIMARY SEO ── -->
+<title>The Jesus Barn — Free Community Space in Piedmont, Oklahoma</title>
+<meta name="description" content="The Jesus Barn is a free community gathering space in Piedmont, Oklahoma. Free coffee, Bible study, prayer, games, and more — open to everyone. Built by the community, for the community, with Jesus as our guide.">
+<meta name="keywords" content="Jesus Barn, Piedmont Oklahoma, free community space, Christian community center, Bible study Piedmont, prayer Piedmont OK, community gathering, faith community Oklahoma">
+<meta name="author" content="The Jesus Barn LLC">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.thejesusbarn.org">
+
+<!-- ── OPEN GRAPH (Facebook, LinkedIn) ── -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.thejesusbarn.org">
+<meta property="og:title" content="The Jesus Barn — Free Community Space in Piedmont, Oklahoma">
+<meta property="og:description" content="A free place to gather, belong, and grow — built by the community, for the community, with Jesus as our guide. Free coffee, Bible study, prayer, and more.">
+<meta property="og:image" content="https://www.thejesusbarn.org/images/The-Jesus-Barn-Logo.png">
+<meta property="og:site_name" content="The Jesus Barn">
+<meta property="og:locale" content="en_US">
+
+<!-- ── TWITTER CARD ── -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://www.thejesusbarn.org">
+<meta name="twitter:title" content="The Jesus Barn — Free Community Space in Piedmont, Oklahoma">
+<meta name="twitter:description" content="A free place to gather, belong, and grow — built by the community, for the community, with Jesus as our guide.">
+<meta name="twitter:image" content="https://www.thejesusbarn.org/images/The-Jesus-Barn-Logo.png">
+
+<!-- ── GEO / LOCAL SEO ── -->
+<meta name="geo.region" content="US-OK">
+<meta name="geo.placename" content="Piedmont, Oklahoma">
+
+<!-- ── FAVICON ── -->
 <link rel="icon" type="image/png" href="images/The-Jesus-Barn-Logo.png">
+<link rel="apple-touch-icon" href="images/The-Jesus-Barn-Logo.png">
+
+<!-- ── FONT PRECONNECT (performance) ── -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- ── STRUCTURED DATA (JSON-LD) ── -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CommunityCenter",
+  "name": "The Jesus Barn",
+  "description": "A free community gathering space in Piedmont, Oklahoma. Open to everyone — free coffee, Bible study, prayer, games, and more.",
+  "url": "https://www.thejesusbarn.org",
+  "logo": "https://www.thejesusbarn.org/images/The-Jesus-Barn-Logo.png",
+  "image": "https://www.thejesusbarn.org/images/The-Jesus-Barn-Logo.png",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Piedmont",
+    "addressRegion": "OK",
+    "addressCountry": "US"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Piedmont"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "hello@thejesusbarn.com",
+    "contactType": "General Inquiry"
+  },
+  "sameAs": [
+    "https://www.facebook.com/thejesusbarn",
+    "https://www.instagram.com/thejesusbarn"
+  ],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "description": "Check our website for current hours"
+  },
+  "priceRange": "Free",
+  "isAccessibleForFree": true
+}
+</script>
 <style>
 
   /* ── RESET & BASE ── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; font-size: 18px; }
+
+  /* ── SKIP TO MAIN CONTENT (ADA) ── */
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: var(--white);
+    color: var(--black);
+    padding: 12px 24px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    z-index: 99999;
+    border-bottom-right-radius: 4px;
+    transition: top 0.2s;
+  }
+  .skip-link:focus { top: 0; }
+
+  /* ── FOCUS VISIBLE (keyboard nav ADA) ── */
+  :focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 2px;
+  }
+
+  /* ── REDUCED MOTION (ADA) ── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    html { scroll-behavior: auto; }
+  }
 
   :root {
     --white:       #FFFFFF;
@@ -1294,6 +1409,9 @@
 </head>
 <body>
 
+<!-- ── SKIP TO MAIN CONTENT (ADA) ── -->
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
 <!-- ── ADMIN OVERLAY ── -->
 <div class="jb-admin-overlay" id="jbOverlay"></div>
 <div class="jb-admin-panel" id="jbPanel">
@@ -1340,26 +1458,29 @@
 </div>
 
 <!-- ── NAV ── -->
-<nav>
-  <a class="nav-logo" href="#home">
-    <img src="images/The-Jesus-Barn-Logo.png" alt="The Jesus Barn">
+<nav role="navigation" aria-label="Main navigation">
+  <a class="nav-logo" href="#home" aria-label="The Jesus Barn - Go to homepage">
+    <img src="images/The-Jesus-Barn-Logo.png" alt="The Jesus Barn logo">
   </a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#story">Our Heart</a></li>
-    <li><a href="#free">What's Here</a></li>
-    <li><a href="#give">Build With Us</a></li>
-    <li><a href="#partner">Get Involved</a></li>
-    <li><a href="#community">Community Wall</a></li>
-    <li><a href="#give" class="nav-cta">Give Now</a></li>
-    <li><a onclick="jbPromptAdmin(); toggleNav();" class="nav-admin-link">Admin Login</a></li>
+  <ul class="nav-links" id="navLinks" role="list">
+    <li role="listitem"><a href="#story">Our Heart</a></li>
+    <li role="listitem"><a href="#free">What's Here</a></li>
+    <li role="listitem"><a href="#give">Build With Us</a></li>
+    <li role="listitem"><a href="#partner">Get Involved</a></li>
+    <li role="listitem"><a href="#community">Community Wall</a></li>
+    <li role="listitem"><a href="#give" class="nav-cta">Give Now</a></li>
+    <li role="listitem"><a onclick="jbPromptAdmin(); toggleNav();" class="nav-admin-link" aria-label="Admin login">Admin Login</a></li>
   </ul>
-  <button class="nav-burger" id="navBurger" onclick="toggleNav()">
-    <span></span><span></span><span></span>
+  <button class="nav-burger" id="navBurger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
   </button>
 </nav>
 
 <!-- ── HERO ── -->
-<section id="home">
+<main id="main-content">
+<section id="home" aria-label="Hero — One Body. One Table. All Welcome.">
   <div class="hero-bg"></div>
   <div class="hero-texture"></div>
   <div class="hero-light"></div>
@@ -1380,12 +1501,12 @@
 </section>
 
 <!-- ── ACTS 2 BANNER ── -->
-<div id="acts">
+<div id="acts" role="complementary" aria-label="Scripture call to action">
   <p>The Lord is Calling for His True Acts 2 Church to Rise Up, Come Together, &amp; Be One Body — Alive in Jesus Christ</p>
 </div>
 
 <!-- ── OUR HEART ── -->
-<section id="story">
+<section id="story" aria-labelledby="story-title">
   <div class="container">
     <div class="heart-layout">
       <div class="heart-image-block">
@@ -1396,7 +1517,7 @@
       </div>
       <div>
         <p class="section-eyebrow">Our Heart</p>
-        <h2 class="section-title">Why We Do<br>What We Do</h2>
+        <h2 class="section-title" id="story-title">Why We Do<br>What We Do</h2>
         <div class="heart-body">
           <p>We believe we should be one body in Christ — and we have an opportunity to gather our neighbors and use our individual gifts and giftings to serve our amazing Piedmont community.</p>
           <p>As followers of Christ, we have the answer the world is seeking. And not only that — we each have unique tools and talents to build a brighter future for all who choose to gather with us.</p>
@@ -1409,10 +1530,10 @@
 </section>
 
 <!-- ── WHAT YOU'LL FIND ── -->
-<section id="free">
+<section id="free" aria-labelledby="free-title">
   <div class="container">
     <p class="section-eyebrow light">What You'll Find Here</p>
-    <h2 class="section-title" style="color:var(--white);">A Free Place<br>for Everyone</h2>
+    <h2 class="section-title" id="free-title" style="color:var(--white);">A Free Place<br>for Everyone</h2>
     <p class="find-sub">Moms, dads, teens, children — all welcome. No cost, no catch. Just community, warmth, and the love of Jesus.</p>
     <div class="find-grid">
       <div class="find-card">
@@ -1437,12 +1558,12 @@
 </section>
 
 <!-- ── BUILDING TOGETHER ── -->
-<section id="give">
+<section id="give" aria-labelledby="give-title">
   <div class="container">
     <div class="building-layout">
       <div>
         <p class="section-eyebrow">Building Together</p>
-        <h2 class="section-title">Help Us Open<br>the Doors</h2>
+        <h2 class="section-title" id="give-title">Help Us Open<br>the Doors</h2>
         <p class="building-body">The Jesus Barn is community-funded and community-built. Every dollar given, every hour served, every supply donated brings us one step closer to opening our doors to Piedmont.</p>
         <div class="funding-stats">
           <div class="funding-stat">
@@ -1458,7 +1579,7 @@
             <span class="stat-label">Contributors</span>
           </div>
         </div>
-        <div class="progress-track">
+        <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Funding progress">
           <div class="progress-fill" id="jbProgressFill" style="width:0%"></div>
         </div>
         <p class="progress-label" id="jbProgressLabel">Loading...</p>
@@ -1475,26 +1596,26 @@
 </section>
 
 <!-- ── GET INVOLVED ── -->
-<section id="partner">
+<section id="partner" aria-labelledby="partner-title">
   <div class="container">
     <p class="section-eyebrow">Get Involved</p>
-    <h2 class="section-title">Ways to Partner With Us</h2>
+    <h2 class="section-title" id="partner-title">Ways to Partner With Us</h2>
     <p class="involve-sub">Will you help us build a spot to gather as one — to love on the lost and grow our wonderful community together? Choose how you'd like to partner below.</p>
 
-    <div class="role-grid">
-      <div class="role-card" onclick="pickRole(this,'Sow - Give Financially','How much would you like to give, and would you prefer a one-time or recurring gift?')">
+    <div class="role-grid" role="group" aria-label="Ways to partner with The Jesus Barn">
+      <div class="role-card" role="button" tabindex="0" aria-pressed="false" onclick="pickRole(this,'Sow - Give Financially','How much would you like to give, and would you prefer a one-time or recurring gift?')" onkeydown="if(event.key==='Enter'||event.key===' ')pickRole(this,'Sow - Give Financially','How much would you like to give, and would you prefer a one-time or recurring gift?')">
         <div class="role-title">Sow</div>
         <div class="role-desc">Give financially — one-time or recurring. Every seed matters.</div>
       </div>
-      <div class="role-card" onclick="pickRole(this,'Serve - Volunteer My Time','How would you like to serve — coffee bar, prayer, greeting, or youth — and when are you available?')">
+      <div class="role-card" role="button" tabindex="0" aria-pressed="false" onclick="pickRole(this,'Serve - Volunteer My Time','How would you like to serve — coffee bar, prayer, greeting, or youth — and when are you available?')" onkeydown="if(event.key==='Enter'||event.key===' ')pickRole(this,'Serve - Volunteer My Time','How would you like to serve — coffee bar, prayer, greeting, or youth — and when are you available?')">
         <div class="role-title">Serve</div>
         <div class="role-desc">Volunteer your time — coffee, prayer, hospitality, and more.</div>
       </div>
-      <div class="role-card" onclick="pickRole(this,'Gather - Collect Supplies or Funds','What are you gathering — supplies, funds, or both — and do you have a specific item or amount in mind?')">
+      <div class="role-card" role="button" tabindex="0" aria-pressed="false" onclick="pickRole(this,'Gather - Collect Supplies or Funds','What are you gathering — supplies, funds, or both — and do you have a specific item or amount in mind?')" onkeydown="if(event.key==='Enter'||event.key===' ')pickRole(this,'Gather - Collect Supplies or Funds','What are you gathering — supplies, funds, or both — and do you have a specific item or amount in mind?')">
         <div class="role-title">Gather</div>
         <div class="role-desc">Collect supplies or funds to help build and stock the barn.</div>
       </div>
-      <div class="role-card" onclick="pickRole(this,'Work - Offer a Skill or Trade','What skill or trade do you offer, and how would you like to put it to work for the barn?')">
+      <div class="role-card" role="button" tabindex="0" aria-pressed="false" onclick="pickRole(this,'Work - Offer a Skill or Trade','What skill or trade do you offer, and how would you like to put it to work for the barn?')" onkeydown="if(event.key==='Enter'||event.key===' ')pickRole(this,'Work - Offer a Skill or Trade','What skill or trade do you offer, and how would you like to put it to work for the barn?')">
         <div class="role-title">Work</div>
         <div class="role-desc">Offer a trade or talent — construction, cooking, tech, design.</div>
       </div>
@@ -1559,10 +1680,10 @@
 </section>
 
 <!-- ── COMMUNITY WALL ── -->
-<section id="community">
+<section id="community" aria-labelledby="community-title">
   <div class="container">
     <p class="section-eyebrow light">Community Wall</p>
-    <h2 class="section-title" style="color:var(--white);">What People Are Saying</h2>
+    <h2 class="section-title" id="community-title" style="color:var(--white);">What People Are Saying</h2>
     <div class="wall-grid" id="jbWallGrid">
       <p style="font-family:'Playfair Display',serif;font-style:italic;color:rgba(255,255,255,0.25);padding:40px 32px;white-space:nowrap;">Be the first to leave an encouraging word.</p>
     </div>
@@ -1587,9 +1708,10 @@
     </div>
   </div>
 </section>
+</main>
 
 <!-- ── FOOTER ── -->
-<footer>
+<footer role="contentinfo" aria-label="Site footer">
   <p class="footer-logo">The Jesus Barn</p>
   <div class="footer-rule"></div>
   <ul class="footer-nav">
@@ -1710,6 +1832,8 @@
     g('jbStatRaised').textContent='$'+Number(raised).toLocaleString();
     g('jbStatContributors').textContent=contributors;
     g('jbProgressFill').style.width=pct+'%';
+    const track = g('jbProgressFill').parentElement;
+    if(track) track.setAttribute('aria-valuenow', pct);
     g('jbProgressLabel').textContent=pct+'% funded · $'+Number(goal-raised).toLocaleString()+' remaining';
   }
 
@@ -1779,8 +1903,12 @@
   };
 
   function pickRole(card,role,hint) {
-    document.querySelectorAll('.role-card').forEach(c=>c.classList.remove('selected'));
+    document.querySelectorAll('.role-card').forEach(c=>{
+      c.classList.remove('selected');
+      c.setAttribute('aria-pressed','false');
+    });
     card.classList.add('selected');
+    card.setAttribute('aria-pressed','true');
     selectedRole=role;
     document.getElementById('roleHint').textContent=hint;
     document.getElementById('msgLabel').innerHTML='Tell Us More <span class="required">*</span>';
@@ -1866,7 +1994,10 @@
   }
 
   function toggleNav() {
-    document.getElementById('navLinks').classList.toggle('open');
+    const links = document.getElementById('navLinks');
+    const burger = document.getElementById('navBurger');
+    const isOpen = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   }
 
   document.addEventListener('keydown',e=>{
