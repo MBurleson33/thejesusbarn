@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — The Jesus Barn</title>
+<meta name="description" content="Privacy Policy for The Jesus Barn LLC. Learn how we collect, use, and protect your information.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://www.thejesusbarn.org/privacy-policy">
+<link rel="icon" type="image/png" href="images/The-Jesus-Barn-Logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400;700&family=Cinzel:wght@400&display=swap" rel="stylesheet">
+<style>
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 18px; scroll-behavior: smooth; }
+
+  :root {
+    --white:      #FFFFFF;
+    --off-white:  #F5F5F5;
+    --light-grey: #E8E8E8;
+    --mid-grey:   #AAAAAA;
+    --dark-grey:  #555555;
+    --near-black: #1C1C1C;
+    --black:      #0A0A0A;
+  }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--white);
+    color: var(--near-black);
+  }
+
+  /* ── HEADER ── */
+  .pp-header {
+    background: var(--black);
+    padding: 48px 48px 52px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .pp-logo {
+    display: inline-block;
+    margin-bottom: 28px;
+  }
+
+  .pp-logo img {
+    height: 80px;
+    width: auto;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+  }
+
+  .pp-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 4px;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .pp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .pp-updated {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ── LAYOUT ── */
+  .pp-layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 72px 48px;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  /* ── SIDEBAR NAV ── */
+  .pp-nav {
+    position: sticky;
+    top: 32px;
+  }
+
+  .pp-nav-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--mid-grey);
+    margin-bottom: 16px;
+  }
+
+  .pp-nav ul {
+    list-style: none;
+    border-left: 1px solid var(--light-grey);
+  }
+
+  .pp-nav li a {
+    display: block;
+    padding: 8px 0 8px 16px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    color: var(--mid-grey);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: color 0.2s, border-color 0.2s;
+    border-left: 2px solid transparent;
+    margin-left: -1px;
+  }
+
+  .pp-nav li a:hover {
+    color: var(--near-black);
+    border-left-color: var(--near-black);
+  }
+
+  /* ── CONTENT ── */
+  .pp-content {}
+
+  .pp-section {
+    margin-bottom: 56px;
+    padding-bottom: 56px;
+    border-bottom: 1px solid var(--light-grey);
+  }
+
+  .pp-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .pp-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--near-black);
+    margin-bottom: 20px;
+    scroll-margin-top: 32px;
+  }
+
+  .pp-section-sub {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--near-black);
+    margin: 28px 0 12px;
+  }
+
+  .pp-text {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--dark-grey);
+    line-height: 1.9;
+    margin-bottom: 16px;
+  }
+
+  .pp-text:last-child { margin-bottom: 0; }
+
+  .pp-list {
+    list-style: none;
+    margin: 12px 0 16px;
+  }
+
+  .pp-list li {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--dark-grey);
+    line-height: 1.8;
+    padding: 6px 0 6px 20px;
+    position: relative;
+    border-bottom: 1px solid var(--light-grey);
+  }
+
+  .pp-list li:last-child { border-bottom: none; }
+
+  .pp-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--mid-grey);
+    font-size: 0.8rem;
+  }
+
+  .pp-highlight {
+    background: var(--off-white);
+    border-left: 3px solid var(--near-black);
+    padding: 20px 24px;
+    border-radius: 2px;
+    margin: 20px 0;
+  }
+
+  .pp-highlight p {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--near-black);
+    line-height: 1.8;
+  }
+
+  .pp-link {
+    color: var(--near-black);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.2s;
+  }
+
+  .pp-link:hover { opacity: 0.6; }
+
+  /* ── CONTACT BOX ── */
+  .pp-contact-box {
+    background: var(--near-black);
+    padding: 32px 36px;
+    border-radius: 2px;
+    margin-top: 24px;
+  }
+
+  .pp-contact-box p {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+
+  .pp-contact-box p:last-child { margin-bottom: 0; }
+
+  .pp-contact-box a {
+    color: var(--white);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ── FOOTER ── */
+  .pp-footer {
+    background: var(--black);
+    padding: 40px 48px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .pp-footer-links {
+    display: flex;
+    gap: 8px 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    list-style: none;
+  }
+
+  .pp-footer-links a {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .pp-footer-links a:hover { color: var(--white); }
+
+  .pp-footer-copy {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.15);
+  }
+
+  /* ── FOCUS ── */
+  :focus-visible {
+    outline: 2px solid var(--near-black);
+    outline-offset: 3px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .pp-layout {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding: 48px 24px;
+    }
+    .pp-nav { display: none; }
+    .pp-header { padding: 40px 24px; }
+    .pp-footer { padding: 32px 24px; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="pp-header" role="banner">
+  <a class="pp-logo" href="/" aria-label="Return to The Jesus Barn homepage">
+    <img src="images/The-Jesus-Barn-Logo.png" alt="The Jesus Barn">
+  </a>
+  <p class="pp-eyebrow">The Jesus Barn LLC</p>
+  <h1 class="pp-title">Privacy Policy</h1>
+  <p class="pp-updated">Last updated: May 2026</p>
+</header>
+
+<main id="main-content">
+<div class="pp-layout">
+
+  <!-- SIDEBAR NAV -->
+  <nav class="pp-nav" aria-label="Privacy policy sections">
+    <p class="pp-nav-title">On This Page</p>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#what-we-collect">What We Collect</a></li>
+      <li><a href="#how-we-use">How We Use It</a></li>
+      <li><a href="#how-we-store">How We Store It</a></li>
+      <li><a href="#third-parties">Third Parties</a></li>
+      <li><a href="#cookies">Cookies &amp; Tracking</a></li>
+      <li><a href="#your-rights">Your Rights</a></li>
+      <li><a href="#children">Children</a></li>
+      <li><a href="#changes">Policy Changes</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTENT -->
+  <article class="pp-content" aria-label="Privacy policy content">
+
+    <!-- OVERVIEW -->
+    <section class="pp-section" id="overview" aria-labelledby="overview-title">
+      <h2 class="pp-section-title" id="overview-title">Overview</h2>
+      <p class="pp-text">The Jesus Barn LLC ("The Jesus Barn," "we," "us," or "our") operates the website located at <a class="pp-link" href="https://www.thejesusbarn.org">thejesusbarn.org</a>. We are a community organization based in Piedmont, Oklahoma.</p>
+      <p class="pp-text">We take your privacy seriously. This policy explains what personal information we collect through our website, how we use it, and what rights you have over it. We collect only what we need, we don't sell it, and we use it only to connect with you as a member of our community.</p>
+      <div class="pp-highlight">
+        <p>The short version: We collect your name, email, and contact info when you fill out a form on our site. We use it to follow up with you about your interest in The Jesus Barn. We don't sell it, share it with advertisers, or use it for anything you wouldn't expect.</p>
+      </div>
+    </section>
+
+    <!-- WHAT WE COLLECT -->
+    <section class="pp-section" id="what-we-collect" aria-labelledby="collect-title">
+      <h2 class="pp-section-title" id="collect-title">What We Collect</h2>
+
+      <h3 class="pp-section-sub">Get Involved Form</h3>
+      <p class="pp-text">When you fill out our partner signup form, we collect:</p>
+      <ul class="pp-list">
+        <li>Your full name</li>
+        <li>Your email address</li>
+        <li>Your phone number (optional)</li>
+        <li>How you'd like to partner with us (Sow, Serve, Gather, or Work)</li>
+        <li>Any additional information you choose to share in the message field</li>
+      </ul>
+
+      <h3 class="pp-section-sub">Community Wall</h3>
+      <p class="pp-text">When you submit a note to our Community Wall, we collect:</p>
+      <ul class="pp-list">
+        <li>Your name or a chosen anonymous identifier</li>
+        <li>Your general location (city, optional)</li>
+        <li>Your submitted message</li>
+      </ul>
+      <p class="pp-text">Community Wall submissions are reviewed before they appear publicly. Approved messages may be displayed on our website. You may request removal of your message at any time by contacting us.</p>
+
+      <h3 class="pp-section-sub">Donations (Donorbox)</h3>
+      <p class="pp-text">If you make a donation through our site, you will be directed to or presented with a form powered by Donorbox, a third-party payment processor. Donorbox collects payment and contact information directly and securely. We receive only the information necessary to acknowledge your gift and send a receipt. We do not store your payment card information. Donorbox's privacy policy is available at <a class="pp-link" href="https://donorbox.org/privacy" target="_blank" rel="noopener noreferrer">donorbox.org/privacy</a>.</p>
+
+      <h3 class="pp-section-sub">Information We Do Not Collect</h3>
+      <p class="pp-text">We do not collect sensitive personal information such as government ID numbers, financial account details, health information, or precise geolocation data.</p>
+    </section>
+
+    <!-- HOW WE USE IT -->
+    <section class="pp-section" id="how-we-use" aria-labelledby="use-title">
+      <h2 class="pp-section-title" id="use-title">How We Use Your Information</h2>
+      <p class="pp-text">We use the information you provide solely to:</p>
+      <ul class="pp-list">
+        <li>Follow up with you about your interest in partnering with The Jesus Barn</li>
+        <li>Coordinate volunteer schedules, supply donations, or financial gifts</li>
+        <li>Display your approved Community Wall message on our website</li>
+        <li>Send you occasional updates about The Jesus Barn if you have opted in</li>
+        <li>Respond to questions or requests you send us directly</li>
+      </ul>
+      <p class="pp-text">We will never use your information to send unsolicited marketing, sell products, or contact you for any purpose unrelated to The Jesus Barn community.</p>
+    </section>
+
+    <!-- HOW WE STORE IT -->
+    <section class="pp-section" id="how-we-store" aria-labelledby="store-title">
+      <h2 class="pp-section-title" id="store-title">How We Store Your Information</h2>
+      <p class="pp-text">Form submissions from our website are stored in a private Google Sheets spreadsheet accessible only to authorized members of The Jesus Barn team. This spreadsheet is hosted on Google's servers and protected by Google Workspace security standards.</p>
+      <p class="pp-text">We retain your information for as long as it is relevant to your involvement with The Jesus Barn. If you would like your information removed, please contact us and we will delete it promptly.</p>
+      <div class="pp-highlight">
+        <p>We do not use a traditional database or server to store your personal information. All form data is stored in a private Google Sheet that is not publicly accessible.</p>
+      </div>
+    </section>
+
+    <!-- THIRD PARTIES -->
+    <section class="pp-section" id="third-parties" aria-labelledby="third-title">
+      <h2 class="pp-section-title" id="third-title">Third-Party Services</h2>
+      <p class="pp-text">Our website uses the following third-party services. Each has its own privacy policy governing how they handle data:</p>
+
+      <h3 class="pp-section-sub">Google Sheets &amp; Google Apps Script</h3>
+      <p class="pp-text">We use Google Sheets to store form submissions and Google Apps Script to process them. Data is transmitted securely via HTTPS. Google's privacy policy is available at <a class="pp-link" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a>.</p>
+
+      <h3 class="pp-section-sub">Google Analytics</h3>
+      <p class="pp-text">We use Google Analytics to understand how visitors use our website. Google Analytics collects anonymized data about page views, time on site, and general geographic location. It does not collect your name or contact information. You can opt out of Google Analytics tracking by installing the <a class="pp-link" href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out Browser Add-on</a>. Google's privacy policy is available at <a class="pp-link" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a>.</p>
+
+      <h3 class="pp-section-sub">Donorbox</h3>
+      <p class="pp-text">Donations are processed through Donorbox, which uses Stripe or PayPal for secure payment processing. Donorbox's privacy policy is available at <a class="pp-link" href="https://donorbox.org/privacy" target="_blank" rel="noopener noreferrer">donorbox.org/privacy</a>.</p>
+
+      <h3 class="pp-section-sub">Google Fonts</h3>
+      <p class="pp-text">Our website uses Google Fonts to display typography. When you visit our site, your browser may make a request to Google's servers to load these fonts. Google may collect your IP address as part of this request. Google's privacy policy applies.</p>
+
+      <h3 class="pp-section-sub">Vercel (Website Hosting)</h3>
+      <p class="pp-text">Our website is hosted on Vercel. Vercel may collect basic access logs including IP addresses for security and performance purposes. Vercel's privacy policy is available at <a class="pp-link" href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">vercel.com/legal/privacy-policy</a>.</p>
+
+      <p class="pp-text">We do not share your personal information with any third party for marketing, advertising, or commercial purposes.</p>
+    </section>
+
+    <!-- COOKIES -->
+    <section class="pp-section" id="cookies" aria-labelledby="cookies-title">
+      <h2 class="pp-section-title" id="cookies-title">Cookies &amp; Tracking</h2>
+      <p class="pp-text">Cookies are small text files stored on your device when you visit a website. Here is how our site uses them:</p>
+
+      <h3 class="pp-section-sub">Essential Cookies</h3>
+      <p class="pp-text">Our website itself does not set any cookies. However, third-party services embedded in our site may set cookies as part of their normal operation.</p>
+
+      <h3 class="pp-section-sub">Analytics Cookies (Google Analytics)</h3>
+      <p class="pp-text">Google Analytics sets cookies to track anonymous usage data such as which pages you visit and how long you spend on the site. These cookies do not identify you personally. The primary cookies used are:</p>
+      <ul class="pp-list">
+        <li><strong>_ga</strong> — distinguishes unique users. Expires after 2 years.</li>
+        <li><strong>_ga_[ID]</strong> — maintains session state. Expires after 2 years.</li>
+        <li><strong>_gid</strong> — distinguishes users. Expires after 24 hours.</li>
+      </ul>
+
+      <h3 class="pp-section-sub">Payment Cookies (Donorbox)</h3>
+      <p class="pp-text">If you interact with a Donorbox donation form, Donorbox may set cookies to maintain your session and prevent fraud. These are governed by Donorbox's cookie policy.</p>
+
+      <h3 class="pp-section-sub">How to Control Cookies</h3>
+      <p class="pp-text">You can control or delete cookies through your browser settings. Most browsers allow you to refuse or delete cookies. Note that disabling cookies may affect the functionality of some features on our site. You can also opt out of Google Analytics specifically using the <a class="pp-link" href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out Browser Add-on</a>.</p>
+
+      <div class="pp-highlight">
+        <p>We do not use advertising cookies, retargeting pixels, or social media tracking pixels at this time. If this changes, we will update this policy.</p>
+      </div>
+    </section>
+
+    <!-- YOUR RIGHTS -->
+    <section class="pp-section" id="your-rights" aria-labelledby="rights-title">
+      <h2 class="pp-section-title" id="rights-title">Your Rights</h2>
+      <p class="pp-text">Regardless of where you are located, you have the following rights regarding your personal information:</p>
+      <ul class="pp-list">
+        <li><strong>Access</strong> — You may request a copy of the personal information we hold about you.</li>
+        <li><strong>Correction</strong> — You may ask us to correct inaccurate information.</li>
+        <li><strong>Deletion</strong> — You may ask us to delete your personal information. We will do so promptly unless we are required by law to retain it.</li>
+        <li><strong>Opt-out</strong> — You may opt out of any communications from us at any time by contacting us directly.</li>
+        <li><strong>Community Wall removal</strong> — You may request that your Community Wall submission be removed at any time.</li>
+      </ul>
+      <p class="pp-text">To exercise any of these rights, please contact us at <a class="pp-link" href="mailto:hello@thejesusbarn.org">hello@thejesusbarn.org</a>. We will respond within 30 days.</p>
+
+      <h3 class="pp-section-sub">California Residents (CCPA)</h3>
+      <p class="pp-text">If you are a California resident, you have additional rights under the California Consumer Privacy Act (CCPA), including the right to know what personal information we collect, the right to delete it, and the right to opt out of the sale of your personal information. We do not sell personal information. To exercise your CCPA rights, contact us at <a class="pp-link" href="mailto:hello@thejesusbarn.org">hello@thejesusbarn.org</a>.</p>
+    </section>
+
+    <!-- CHILDREN -->
+    <section class="pp-section" id="children" aria-labelledby="children-title">
+      <h2 class="pp-section-title" id="children-title">Children's Privacy</h2>
+      <p class="pp-text">The Jesus Barn is a family-friendly community space welcoming people of all ages. However, our website's forms are intended for adults (18 and older) or minors with parental consent. We do not knowingly collect personal information from children under 13 without verifiable parental consent.</p>
+      <p class="pp-text">If you believe a child under 13 has submitted personal information through our website without parental consent, please contact us at <a class="pp-link" href="mailto:hello@thejesusbarn.org">hello@thejesusbarn.org</a> and we will remove it promptly.</p>
+    </section>
+
+    <!-- CHANGES -->
+    <section class="pp-section" id="changes" aria-labelledby="changes-title">
+      <h2 class="pp-section-title" id="changes-title">Policy Changes</h2>
+      <p class="pp-text">We may update this Privacy Policy from time to time as our website or services change. When we do, we will update the "Last updated" date at the top of this page. We encourage you to review this policy periodically.</p>
+      <p class="pp-text">Continued use of our website after any changes constitutes your acceptance of the updated policy.</p>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="pp-section" id="contact" aria-labelledby="contact-title">
+      <h2 class="pp-section-title" id="contact-title">Contact Us</h2>
+      <p class="pp-text">If you have questions about this Privacy Policy or how we handle your information, please reach out. We're a small community organization and we're happy to talk through any concerns.</p>
+      <div class="pp-contact-box">
+        <p><strong style="color:var(--white);font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;">The Jesus Barn LLC</strong></p>
+        <p>Piedmont, Oklahoma</p>
+        <p>Email: <a href="mailto:hello@thejesusbarn.org">hello@thejesusbarn.org</a></p>
+        <p>Website: <a href="https://www.thejesusbarn.org">thejesusbarn.org</a></p>
+      </div>
+    </section>
+
+  </article>
+</div>
+</main>
+
+<!-- FOOTER -->
+<footer class="pp-footer" role="contentinfo">
+  <ul class="pp-footer-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/#story">Our Heart</a></li>
+    <li><a href="/#free">What's Here</a></li>
+    <li><a href="/#give">Build With Us</a></li>
+    <li><a href="/#partner">Get Involved</a></li>
+    <li><a href="/#community">Community Wall</a></li>
+  </ul>
+  <p class="pp-footer-copy">© 2026 The Jesus Barn LLC · Piedmont, Oklahoma</p>
+</footer>
+
+</body>
+</html>
