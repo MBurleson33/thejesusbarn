@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The Jesus Barn — A free community space in Piedmont, Oklahoma. Built by the community, for the community, with Jesus as our guide.">
+<title>The Jesus Barn — Piedmont, Oklahoma</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+
+  /* ── RESET & BASE ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  :root {
+    --white:       #FFFFFF;
+    --off-white:   #F5F5F5;
+    --light-grey:  #E8E8E8;
+    --mid-grey:    #AAAAAA;
+    --dark-grey:   #555555;
+    --near-black:  #1C1C1C;
+    --black:       #0A0A0A;
+    --accent:      #333333;
+  }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--white);
+    color: var(--near-black);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 48px;
+    background: rgba(10, 10, 10, 0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .nav-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--white);
+    letter-spacing: 3px;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--white) !important;
+    color: var(--black) !important;
+    padding: 8px 20px !important;
+    border-radius: 2px !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--light-grey) !important; color: var(--black) !important; }
+
+  .nav-burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .nav-burger span {
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--white);
+    transition: all 0.3s;
+  }
+
+  .nav-admin-link {
+    font-family: 'Lato', sans-serif !important;
+    font-size: 0.7rem !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    color: rgba(255,255,255,0.2) !important;
+    cursor: pointer !important;
+    border-top: 1px solid rgba(255,255,255,0.07) !important;
+    padding-top: 16px !important;
+    margin-top: 8px !important;
+    display: none;
+  }
+
+  .nav-admin-link:hover { color: rgba(255,255,255,0.45) !important; }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: var(--black);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #0a0a0a 0%, #1c1c1c 50%, #0a0a0a 100%);
+  }
+
+  .hero-texture {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: repeating-linear-gradient(
+      90deg, transparent, transparent 2px,
+      rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 3px
+    );
+  }
+
+  .hero-light {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 120px 24px 80px;
+    max-width: 900px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.08;
+    margin-bottom: 12px;
+    animation: fadeUp 0.9s ease 0.4s both;
+  }
+
+  .hero-title .highlight { color: var(--white); }
+
+  .hero-rule {
+    width: 60px;
+    height: 1px;
+    background: rgba(255,255,255,0.3);
+    margin: 28px auto;
+    animation: fadeUp 0.8s ease 0.6s both;
+  }
+
+  .hero-sub {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    max-width: 660px;
+    margin: 0 auto 48px;
+    animation: fadeUp 0.9s ease 0.8s both;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 1s both;
+  }
+
+  .btn-primary {
+    background: var(--white);
+    color: var(--black);
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--light-grey); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 15px 36px;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-outline:hover { border-color: var(--white); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+    animation: fadeIn 1s ease 1.6s both;
+  }
+
+  .hero-scroll:hover { opacity: 0.9; }
+
+  .hero-scroll span {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* ── ACTS 2 BANNER ── */
+  #acts {
+    background: var(--near-black);
+    padding: 28px 24px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  #acts p {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.65rem, 1.6vw, 0.88rem);
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 2px;
+    line-height: 1.9;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* ── SHARED SECTION ── */
+  .section-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 4px;
+    color: var(--dark-grey);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-eyebrow::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--light-grey);
+  }
+
+  .section-eyebrow.light { color: var(--mid-grey); }
+  .section-eyebrow.light::after { background: rgba(255,255,255,0.15); }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 48px;
+  }
+
+  /* ── OUR HEART ── */
+  #story { background: var(--white); }
+
+  .heart-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .heart-image-block { position: relative; }
+
+  .heart-image-placeholder {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: var(--light-grey);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--mid-grey);
+  }
+
+  .heart-image-rule {
+    width: 40px;
+    height: 2px;
+    background: var(--near-black);
+    margin-bottom: 18px;
+  }
+
+  .heart-image-accent {
+    position: absolute;
+    bottom: -18px;
+    right: -18px;
+    width: 90px;
+    height: 90px;
+    border: 2px solid var(--light-grey);
+    border-radius: 2px;
+    z-index: -1;
+  }
+
+  #story .section-title { color: var(--near-black); }
+
+  .heart-body {
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--dark-grey);
+    line-height: 1.9;
+    margin-bottom: 32px;
+  }
+
+  .heart-body p + p { margin-top: 16px; }
+
+  .pullquote {
+    padding: 20px 0 20px 24px;
+    border-left: 3px solid var(--near-black);
+    margin: 32px 0 40px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    color: var(--near-black);
+    line-height: 1.6;
+  }
+
+  /* ── WHAT YOU'LL FIND ── */
+  #free { background: var(--near-black); }
+
+  #free .section-title { color: var(--white); }
+
+  .find-sub {
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.9;
+    margin-bottom: 52px;
+  }
+
+  .find-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .find-card {
+    background: var(--near-black);
+    padding: 44px 32px;
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .find-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--white);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .find-card:hover { background: #2a2a2a; }
+  .find-card:hover::before { transform: scaleX(1); }
+
+  .find-card-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .find-card-desc {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.8;
+  }
+
+  .find-footer {
+    margin-top: 56px;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    color: rgba(255,255,255,0.6);
+    padding-top: 48px;
+    position: relative;
+  }
+
+  .find-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* ── BUILDING TOGETHER ── */
+  #give { background: var(--off-white); }
+
+  .building-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  #give .section-title { color: var(--near-black); }
+
+  .building-body {
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--dark-grey);
+    line-height: 1.9;
+    margin-bottom: 36px;
+  }
+
+  .funding-stats {
+    display: flex;
+    border: 1px solid var(--light-grey);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .funding-stat {
+    flex: 1;
+    padding: 20px 16px;
+    text-align: center;
+    border-right: 1px solid var(--light-grey);
+    background: var(--white);
+  }
+
+  .funding-stat:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--near-black);
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mid-grey);
+    margin-top: 4px;
+    display: block;
+  }
+
+  .progress-track {
+    background: var(--light-grey);
+    border-radius: 2px;
+    height: 6px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--near-black);
+    border-radius: 2px;
+    transition: width 1.2s ease;
+  }
+
+  .progress-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.72rem;
+    color: var(--dark-grey);
+    letter-spacing: 1px;
+  }
+
+  .needs-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--near-black);
+    margin-bottom: 20px;
+  }
+
+  #jbNeedsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #jbNeedsList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--light-grey);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    color: var(--near-black);
+    font-weight: 300;
+  }
+
+  #jbNeedsList li:last-child { border-bottom: none; }
+
+  .need-status {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .need-status.covered { background: var(--near-black); color: var(--white); }
+  .need-status.needed  { background: var(--light-grey); color: var(--dark-grey); }
+  .need-status.partial { background: var(--off-white);  color: var(--dark-grey); border: 1px solid var(--light-grey); }
+
+  /* ── GET INVOLVED ── */
+  #partner { background: var(--white); }
+
+  #partner .section-title { color: var(--near-black); }
+
+  .involve-sub {
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--dark-grey);
+    line-height: 1.9;
+    margin-bottom: 48px;
+  }
+
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--light-grey);
+    border: 1px solid var(--light-grey);
+    margin-bottom: 48px;
+  }
+
+  .role-card {
+    background: var(--white);
+    padding: 32px 24px;
+    cursor: pointer;
+    border-top: 3px solid transparent;
+    transition: background 0.2s;
+    user-select: none;
+  }
+
+  .role-card:hover { background: var(--off-white); }
+
+  .role-card.selected {
+    background: var(--near-black);
+    border-top-color: var(--white);
+  }
+
+  .role-card.selected .role-title { color: var(--white); }
+  .role-card.selected .role-desc  { color: rgba(255,255,255,0.45); }
+
+  .role-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--near-black);
+    margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+
+  .role-desc {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: var(--dark-grey);
+    line-height: 1.65;
+    transition: color 0.2s;
+  }
+
+  .role-error {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.72rem;
+    color: #888;
+    margin-bottom: 16px;
+    display: none;
+  }
+
+  .role-error.show { display: block; }
+
+  .form-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .input-group { margin-bottom: 18px; }
+
+  .input-group label {
+    display: block;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dark-grey);
+    margin-bottom: 6px;
+  }
+
+  .input-group input,
+  .input-group textarea {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--off-white);
+    border: 1px solid var(--light-grey);
+    border-radius: 2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    color: var(--near-black);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .input-group input:focus,
+  .input-group textarea:focus {
+    border-color: var(--near-black);
+    background: var(--white);
+  }
+
+  .input-group input::placeholder,
+  .input-group textarea::placeholder { color: var(--mid-grey); }
+
+  .input-group textarea { height: 130px; resize: vertical; }
+
+  .input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .input-group.error input,
+  .input-group.error textarea {
+    border-color: #888;
+    background: var(--off-white);
+  }
+
+  .field-error {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    color: #888;
+    margin-top: 4px;
+    display: none;
+  }
+
+  .input-group.error .field-error { display: block; }
+
+  .required { color: var(--mid-grey); margin-left: 2px; }
+
+  .form-submit {
+    background: var(--near-black);
+    color: var(--white);
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .form-submit:hover { background: var(--accent); transform: translateY(-1px); }
+  .form-submit:disabled { opacity: 0.5; cursor: default; transform: none; }
+
+  .form-status {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 2px;
+    display: none;
+  }
+
+  .form-status.success { background: var(--off-white); color: var(--dark-grey); border: 1px solid var(--light-grey); display: block; }
+  .form-status.error   { background: var(--off-white); color: #888; border: 1px solid var(--light-grey); display: block; }
+
+  .form-aside {
+    background: var(--near-black);
+    padding: 40px 36px;
+    border-radius: 2px;
+  }
+
+  .aside-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--mid-grey);
+    margin-bottom: 20px;
+  }
+
+  .aside-item {
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .aside-item:last-of-type { border-bottom: none; }
+
+  .aside-icon { font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; }
+
+  .aside-item-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .aside-item-desc {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.65;
+  }
+
+  .aside-scripture {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .aside-scripture-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+
+  .aside-scripture-ref {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ── COMMUNITY WALL ── */
+  #community { background: var(--near-black); }
+
+  #community .section-title { color: var(--white); }
+
+  .wall-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+    margin-bottom: 60px;
+  }
+
+  .wall-card {
+    background: var(--near-black);
+    padding: 32px 28px;
+    transition: background 0.2s;
+  }
+
+  .wall-card:hover { background: #252525; }
+
+  .wall-quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    color: rgba(255,255,255,0.1);
+    line-height: 0.6;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .wall-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .wall-author {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mid-grey);
+  }
+
+  .wall-form-wrap {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 2px;
+    padding: 36px;
+    max-width: 600px;
+  }
+
+  .wall-form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .wall-form-sub {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  .wall-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .wall-field label {
+    display: block;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 6px;
+  }
+
+  .wall-field input,
+  .wall-field textarea {
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 2px;
+    color: var(--white);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    box-sizing: border-box;
+  }
+
+  .wall-field input:focus,
+  .wall-field textarea:focus {
+    border-color: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.09);
+  }
+
+  .wall-field input::placeholder,
+  .wall-field textarea::placeholder { color: rgba(255,255,255,0.2); }
+
+  .wall-field textarea { height: 100px; resize: vertical; margin-bottom: 14px; }
+
+  .wall-submit {
+    background: var(--white);
+    color: var(--black);
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 13px 32px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .wall-submit:hover { background: var(--light-grey); }
+
+  .wall-submit-status {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 2px;
+    display: none;
+  }
+
+  .wall-submit-status.success { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); display: block; }
+  .wall-submit-status.error   { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.45); display: block; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    padding: 72px 48px 40px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    letter-spacing: 4px;
+    color: var(--white);
+    margin-bottom: 32px;
+  }
+
+  .footer-rule {
+    width: 40px;
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+    margin: 0 auto 36px;
+  }
+
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 36px;
+    margin-bottom: 36px;
+    list-style: none;
+  }
+
+  .footer-nav a {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-nav a:hover { color: var(--white); }
+
+  .footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 2px;
+    color: rgba(255,255,255,0.35);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .social-link:hover { border-color: rgba(255,255,255,0.6); color: var(--white); }
+  .social-link svg { width: 16px; height: 16px; fill: currentColor; }
+
+  .footer-address {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.2);
+    line-height: 1.8;
+    margin-bottom: 36px;
+  }
+
+  .footer-address a { color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
+  .footer-address a:hover { color: rgba(255,255,255,0.6); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .footer-copy {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.15);
+  }
+
+  .footer-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* ── ADMIN PANEL ── */
+  .jb-admin-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 9998;
+    backdrop-filter: blur(4px);
+  }
+  .jb-admin-overlay.open { display: block; }
+
+  .jb-admin-panel {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: 500px;
+    background: var(--white);
+    z-index: 9999;
+    overflow-y: auto;
+    padding: 36px;
+    box-shadow: -8px 0 40px rgba(0,0,0,0.3);
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+  }
+  .jb-admin-panel.open { transform: translateX(0); }
+
+  .jb-admin-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
+  .jb-admin-logo { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--dark-grey); }
+  .jb-admin-close { background: none; border: none; font-size: 1.4rem; color: var(--mid-grey); cursor: pointer; line-height: 1; padding: 0; transition: color 0.2s; }
+  .jb-admin-close:hover { color: var(--near-black); }
+
+  .jb-admin-tabs {
+    display: flex;
+    border-bottom: 2px solid var(--light-grey);
+    margin-bottom: 28px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .jb-admin-tabs::-webkit-scrollbar { display: none; }
+  .jb-admin-tab { font-family: 'Lato', sans-serif; font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-grey); padding: 10px 16px; cursor: pointer; border: none; background: none; border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; transition: color 0.2s, border-color 0.2s; }
+  .jb-admin-tab.active { color: var(--near-black); border-bottom-color: var(--near-black); }
+  .jb-admin-tab:hover  { color: var(--dark-grey); }
+
+  .jb-admin-pane { display: none; }
+  .jb-admin-pane.active { display: block; }
+
+  .jb-section-label { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--near-black); margin: 24px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--light-grey); }
+
+  .jb-field { margin-bottom: 12px; }
+  .jb-field label { display: block; font-family: 'Lato', sans-serif; font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: var(--dark-grey); margin-bottom: 5px; }
+  .jb-field input, .jb-field select { width: 100%; padding: 9px 12px; border: 1px solid var(--light-grey); border-radius: 2px; font-family: 'Lato', sans-serif; font-size: 0.88rem; color: var(--near-black); background: var(--off-white); outline: none; transition: border-color 0.2s; box-sizing: border-box; }
+  .jb-field input:focus, .jb-field select:focus { border-color: var(--near-black); }
+
+  .jb-need-row { display: grid; grid-template-columns: 1fr auto auto; gap: 6px; margin-bottom: 6px; align-items: center; }
+  .jb-need-row input { padding: 7px 10px; border: 1px solid var(--light-grey); border-radius: 2px; font-family: 'Lato', sans-serif; font-size: 0.82rem; color: var(--near-black); outline: none; width: 100%; box-sizing: border-box; background: var(--off-white); }
+  .jb-need-row select { padding: 7px 8px; border: 1px solid var(--light-grey); border-radius: 2px; font-family: 'Lato', sans-serif; font-size: 0.78rem; color: var(--near-black); background: var(--off-white); outline: none; cursor: pointer; }
+  .jb-remove-btn { background: none; border: none; color: var(--mid-grey); cursor: pointer; font-size: 1.1rem; padding: 0 2px; transition: color 0.2s; line-height: 1; }
+  .jb-remove-btn:hover { color: var(--near-black); }
+  .jb-add-btn { background: none; border: 1px dashed var(--light-grey); border-radius: 2px; color: var(--dark-grey); font-family: 'Lato', sans-serif; font-size: 0.7rem; letter-spacing: 1px; padding: 7px 14px; cursor: pointer; width: 100%; margin-top: 4px; transition: background 0.2s; }
+  .jb-add-btn:hover { background: var(--off-white); }
+
+  .jb-wall-item { background: var(--off-white); border: 1px solid var(--light-grey); border-radius: 2px; padding: 14px 16px; margin-bottom: 10px; }
+  .jb-wall-item-name { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 2px; color: var(--dark-grey); margin-bottom: 4px; }
+  .jb-wall-item-msg { font-family: 'Lato', sans-serif; font-size: 0.82rem; color: var(--near-black); line-height: 1.6; margin-bottom: 10px; }
+  .jb-wall-item-actions { display: flex; gap: 8px; }
+
+  .jb-approve-btn { background: var(--near-black); color: var(--white); border: 1px solid var(--near-black); border-radius: 2px; font-family: 'Lato', sans-serif; font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; cursor: pointer; transition: background 0.2s; }
+  .jb-approve-btn:hover { background: var(--accent); }
+  .jb-approve-btn.approved { background: var(--light-grey); color: var(--dark-grey); border-color: var(--light-grey); cursor: default; }
+
+  .jb-delete-btn { background: none; color: var(--mid-grey); border: 1px solid var(--light-grey); border-radius: 2px; font-family: 'Lato', sans-serif; font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; cursor: pointer; transition: all 0.2s; }
+  .jb-delete-btn:hover { border-color: var(--dark-grey); color: var(--near-black); }
+
+  .jb-wall-badge { display: inline-block; font-size: 0.58rem; letter-spacing: 1px; padding: 2px 8px; border-radius: 20px; margin-left: 8px; vertical-align: middle; }
+  .jb-wall-badge.pending  { background: var(--light-grey); color: var(--dark-grey); }
+  .jb-wall-badge.approved { background: var(--near-black); color: var(--white); }
+
+  .jb-signup-item { background: var(--off-white); border: 1px solid var(--light-grey); border-radius: 2px; padding: 16px; margin-bottom: 10px; }
+  .jb-signup-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .jb-signup-name { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 2px; color: var(--dark-grey); }
+  .jb-signup-date { font-family: 'Lato', sans-serif; font-size: 0.6rem; color: var(--mid-grey); letter-spacing: 1px; }
+  .jb-signup-role { display: inline-block; font-family: 'Lato', sans-serif; font-size: 0.62rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; background: var(--near-black); color: var(--white); margin-bottom: 8px; }
+  .jb-signup-contact { font-family: 'Lato', sans-serif; font-size: 0.78rem; color: var(--dark-grey); font-weight: 300; margin-bottom: 6px; }
+  .jb-signup-message { font-family: 'Lato', sans-serif; font-size: 0.82rem; color: var(--near-black); line-height: 1.6; font-style: italic; border-left: 2px solid var(--light-grey); padding-left: 10px; margin-top: 8px; }
+
+  .jb-empty-state { font-family: 'Lato', sans-serif; font-size: 0.82rem; color: var(--mid-grey); text-align: center; padding: 32px 0; font-style: italic; }
+
+  .jb-admin-buttons { display: flex; gap: 10px; margin-top: 28px; }
+  .jb-save-btn { flex: 1; background: var(--near-black); color: var(--white); font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; padding: 13px; border: none; border-radius: 2px; cursor: pointer; transition: background 0.2s; }
+  .jb-save-btn:hover { background: var(--accent); }
+
+  .jb-status { font-family: 'Lato', sans-serif; font-size: 0.75rem; text-align: center; padding: 10px; border-radius: 2px; margin-top: 10px; display: none; }
+  .jb-status.success { background: var(--off-white); color: var(--dark-grey); border: 1px solid var(--light-grey); display: block; }
+  .jb-status.error   { background: var(--off-white); color: var(--mid-grey); border: 1px solid var(--light-grey); display: block; }
+
+  .jb-filter-wrap { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+  .jb-filter-btn { font-family: 'Lato', sans-serif; font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; border: 1px solid var(--light-grey); background: none; color: var(--mid-grey); cursor: pointer; transition: all 0.2s; }
+  .jb-filter-btn.active { background: var(--near-black); color: var(--white); border-color: var(--near-black); }
+
+  /* ── PASSWORD MODAL ── */
+  .jb-pw-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 99997; backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; }
+  .jb-pw-modal { background: var(--white); padding: 48px 40px; border-radius: 2px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.4); box-sizing: border-box; margin: 20px; }
+  .jb-pw-eyebrow { font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 4px; color: var(--dark-grey); text-transform: uppercase; margin-bottom: 8px; }
+  .jb-pw-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--near-black); margin-bottom: 6px; }
+  .jb-pw-sub { font-family: 'Lato', sans-serif; font-size: 0.82rem; color: var(--mid-grey); font-weight: 300; margin-bottom: 28px; }
+  .jb-pw-input { width: 100%; padding: 12px 16px; border: 1px solid var(--light-grey); border-radius: 2px; font-family: 'Lato', sans-serif; font-size: 1rem; color: var(--near-black); background: var(--off-white); outline: none; box-sizing: border-box; text-align: center; letter-spacing: 4px; margin-bottom: 10px; display: block; }
+  .jb-pw-input:focus { border-color: var(--near-black); }
+  .jb-pw-error { font-family: 'Lato', sans-serif; font-size: 0.75rem; color: var(--mid-grey); margin-bottom: 14px; min-height: 1.2em; }
+  .jb-pw-buttons { display: flex; gap: 10px; }
+  .jb-pw-enter { flex: 1; background: var(--near-black); color: var(--white); border: none; border-radius: 2px; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; padding: 13px; cursor: pointer; transition: background 0.2s; }
+  .jb-pw-enter:hover { background: var(--accent); }
+  .jb-pw-cancel { background: transparent; color: var(--mid-grey); border: 1px solid var(--light-grey); border-radius: 2px; font-family: 'Lato', sans-serif; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; padding: 13px 20px; cursor: pointer; transition: border-color 0.2s; }
+  .jb-pw-cancel:hover { border-color: var(--dark-grey); color: var(--dark-grey); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.9); }
+    50%       { opacity: 0.8; transform: scaleY(1.1); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--black);
+      padding: 8px 32px 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      z-index: 99;
+    }
+    .nav-links.open li {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-links.open a {
+      display: block;
+      padding: 16px 0;
+      font-size: 0.85rem !important;
+      letter-spacing: 2px !important;
+      text-align: left !important;
+      opacity: 1 !important;
+      color: rgba(255,255,255,0.75) !important;
+    }
+    .nav-links.open a:hover { color: var(--white) !important; }
+    .nav-links.open .nav-cta {
+      display: inline-block !important;
+      padding: 12px 24px !important;
+      margin: 8px 0 !important;
+      font-size: 0.72rem !important;
+      background: var(--white) !important;
+      color: var(--black) !important;
+      border: none !important;
+    }
+    .nav-links.open .nav-admin-link {
+      display: block !important;
+      text-align: left !important;
+      padding: 14px 0 !important;
+      font-size: 0.62rem !important;
+      color: rgba(255,255,255,0.2) !important;
+    }
+    .nav-burger { display: flex; }
+    .nav-admin-link { display: block; }
+    .container { padding: 72px 24px; }
+    .heart-layout, .building-layout, .form-body { grid-template-columns: 1fr; gap: 48px; }
+    .heart-image-accent { display: none; }
+    .find-grid, .role-grid { grid-template-columns: repeat(2, 1fr); }
+    .input-row, .wall-row { grid-template-columns: 1fr; }
+    .jb-admin-panel { width: 100%; }
+    footer { padding: 48px 24px 32px; }
+  }
+
+  @media (max-width: 560px) {
+    .find-grid, .role-grid { grid-template-columns: 1fr; }
+    .hero-buttons { flex-direction: column; align-items: center; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ── ADMIN OVERLAY ── -->
+<div class="jb-admin-overlay" id="jbOverlay"></div>
+<div class="jb-admin-panel" id="jbPanel">
+  <div class="jb-admin-header">
+    <span class="jb-admin-logo">Jesus Barn · Admin</span>
+    <button class="jb-admin-close" onclick="jbCloseAdmin()">×</button>
+  </div>
+  <div class="jb-admin-tabs">
+    <button class="jb-admin-tab active" onclick="jbSwitchTab('funding', this)">Funding &amp; Needs</button>
+    <button class="jb-admin-tab" onclick="jbSwitchTab('signups', this)">Signups</button>
+    <button class="jb-admin-tab" onclick="jbSwitchTab('wall', this)">Community Wall</button>
+  </div>
+  <div class="jb-admin-pane active" id="jbPane-funding">
+    <p class="jb-section-label">Funding</p>
+    <div class="jb-field"><label>Goal Amount ($)</label><input type="number" id="jbGoal"></div>
+    <div class="jb-field"><label>Amount Raised ($)</label><input type="number" id="jbRaised"></div>
+    <div class="jb-field"><label>Contributors</label><input type="number" id="jbContributors"></div>
+    <p class="jb-section-label">Needs List</p>
+    <div id="jbNeedsRows"></div>
+    <button class="jb-add-btn" onclick="jbAddNeedRow()">+ Add Item</button>
+    <div class="jb-admin-buttons"><button class="jb-save-btn" onclick="jbSaveFunding()">Save &amp; Publish</button></div>
+    <div class="jb-status" id="jbFundingStatus"></div>
+  </div>
+  <div class="jb-admin-pane" id="jbPane-signups">
+    <div class="jb-filter-wrap" id="jbSignupFilters">
+      <button class="jb-filter-btn active" onclick="jbFilterSignups('all',this)">All</button>
+      <button class="jb-filter-btn" onclick="jbFilterSignups('Sow - Give Financially',this)">Sow</button>
+      <button class="jb-filter-btn" onclick="jbFilterSignups('Serve - Volunteer My Time',this)">Serve</button>
+      <button class="jb-filter-btn" onclick="jbFilterSignups('Gather - Collect Supplies or Funds',this)">Gather</button>
+      <button class="jb-filter-btn" onclick="jbFilterSignups('Work - Offer a Skill or Trade',this)">Work</button>
+    </div>
+    <div id="jbSignupItems"></div>
+    <div class="jb-status" id="jbSignupStatus"></div>
+  </div>
+  <div class="jb-admin-pane" id="jbPane-wall">
+    <div class="jb-filter-wrap">
+      <button class="jb-filter-btn active" onclick="jbFilterWall('all',this)">All</button>
+      <button class="jb-filter-btn" onclick="jbFilterWall('pending',this)">Pending</button>
+      <button class="jb-filter-btn" onclick="jbFilterWall('approved',this)">Approved</button>
+    </div>
+    <div id="jbWallItems"></div>
+    <div class="jb-status" id="jbWallStatus"></div>
+  </div>
+</div>
+
+<!-- ── NAV ── -->
+<nav>
+  <a class="nav-logo" href="#home">The Jesus Barn</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#story">Our Heart</a></li>
+    <li><a href="#free">What's Here</a></li>
+    <li><a href="#give">Build With Us</a></li>
+    <li><a href="#partner">Get Involved</a></li>
+    <li><a href="#community">Community Wall</a></li>
+    <li><a href="#give" class="nav-cta">Give Now</a></li>
+    <li><a onclick="jbPromptAdmin(); toggleNav();" class="nav-admin-link">Admin Login</a></li>
+  </ul>
+  <button class="nav-burger" id="navBurger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-light"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Piedmont, Oklahoma · Est. 2026</p>
+    <h1 class="hero-title">One Body. One Table.<br>All Welcome.</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">A free place to gather, belong, and grow — built by the community, for the community, with Jesus as our guide.</p>
+    <div class="hero-buttons">
+      <a href="#give" class="btn-primary">Help Us Build It</a>
+      <a href="#free" class="btn-outline">Come Gather With Us</a>
+    </div>
+  </div>
+  <a class="hero-scroll" href="#acts">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </a>
+</section>
+
+<!-- ── ACTS 2 BANNER ── -->
+<div id="acts">
+  <p>The Lord is Calling for His True Acts 2 Church to Rise Up, Come Together, &amp; Be One Body — Alive in Jesus Christ</p>
+</div>
+
+<!-- ── OUR HEART ── -->
+<section id="story">
+  <div class="container">
+    <div class="heart-layout">
+      <div class="heart-image-block">
+        <div class="heart-image-rule"></div>
+        <!-- Replace with: <img src="your-photo.jpg" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:2px;" alt="The Jesus Barn community"> -->
+        <div class="heart-image-placeholder">Your Photo Here</div>
+        <div class="heart-image-accent"></div>
+      </div>
+      <div>
+        <p class="section-eyebrow">Our Heart</p>
+        <h2 class="section-title">Why We Do<br>What We Do</h2>
+        <div class="heart-body">
+          <p>We believe we should be one body in Christ — and we have an opportunity to gather our neighbors and use our individual gifts and giftings to serve our amazing Piedmont community.</p>
+          <p>As followers of Christ, we have the answer the world is seeking. And not only that — we each have unique tools and talents to build a brighter future for all who choose to gather with us.</p>
+        </div>
+        <blockquote class="pullquote">Can you imagine what we could build together with Jesus as our guide?</blockquote>
+        <a href="#partner" class="btn-primary">Partner With Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHAT YOU'LL FIND ── -->
+<section id="free">
+  <div class="container">
+    <p class="section-eyebrow light">What You'll Find Here</p>
+    <h2 class="section-title" style="color:var(--white);">A Free Place<br>for Everyone</h2>
+    <p class="find-sub">Moms, dads, teens, children — all welcome. No cost, no catch. Just community, warmth, and the love of Jesus.</p>
+    <div class="find-grid">
+      <div class="find-card">
+        <div class="find-card-title">Coffee &amp; Refreshments</div>
+        <div class="find-card-desc">Free coffee, tea, juice, and snacks. Always fresh, always free, always welcoming.</div>
+      </div>
+      <div class="find-card">
+        <div class="find-card-title">Study &amp; Learn</div>
+        <div class="find-card-desc">Bible studies, homework help, books to borrow — a quiet place to grow in faith and knowledge.</div>
+      </div>
+      <div class="find-card">
+        <div class="find-card-title">Play &amp; Unwind</div>
+        <div class="find-card-desc">Pool table, 9 square, board games — fun and fellowship for every age.</div>
+      </div>
+      <div class="find-card">
+        <div class="find-card-title">Prayer &amp; Support</div>
+        <div class="find-card-desc">Need prayer? Someone is here. No appointment, no judgment — just open hands and open hearts.</div>
+      </div>
+    </div>
+    <p class="find-footer">Find a friend here. Be one too.</p>
+  </div>
+</section>
+
+<!-- ── BUILDING TOGETHER ── -->
+<section id="give">
+  <div class="container">
+    <div class="building-layout">
+      <div>
+        <p class="section-eyebrow">Building Together</p>
+        <h2 class="section-title">Help Us Open<br>the Doors</h2>
+        <p class="building-body">The Jesus Barn is community-funded and community-built. Every dollar given, every hour served, every supply donated brings us one step closer to opening our doors to Piedmont.</p>
+        <div class="funding-stats">
+          <div class="funding-stat">
+            <span class="stat-num" id="jbStatRaised">—</span>
+            <span class="stat-label">Raised</span>
+          </div>
+          <div class="funding-stat">
+            <span class="stat-num" id="jbStatGoal">—</span>
+            <span class="stat-label">Goal</span>
+          </div>
+          <div class="funding-stat">
+            <span class="stat-num" id="jbStatContributors">—</span>
+            <span class="stat-label">Contributors</span>
+          </div>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="jbProgressFill" style="width:0%"></div>
+        </div>
+        <p class="progress-label" id="jbProgressLabel">Loading...</p>
+      </div>
+      <div>
+        <p class="section-eyebrow">Current Needs</p>
+        <h3 class="needs-title">What's Still Needed</h3>
+        <ul id="jbNeedsList">
+          <li><span style="color:var(--mid-grey);font-style:italic;">Loading...</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GET INVOLVED ── -->
+<section id="partner">
+  <div class="container">
+    <p class="section-eyebrow">Get Involved</p>
+    <h2 class="section-title">Ways to Partner With Us</h2>
+    <p class="involve-sub">Will you help us build a spot to gather as one — to love on the lost and grow our wonderful community together? Choose how you'd like to partner below.</p>
+
+    <div class="role-grid">
+      <div class="role-card" onclick="pickRole(this,'Sow - Give Financially','How much would you like to give, and would you prefer a one-time or recurring gift?')">
+        <div class="role-title">Sow</div>
+        <div class="role-desc">Give financially — one-time or recurring. Every seed matters.</div>
+      </div>
+      <div class="role-card" onclick="pickRole(this,'Serve - Volunteer My Time','How would you like to serve — coffee bar, prayer, greeting, or youth — and when are you available?')">
+        <div class="role-title">Serve</div>
+        <div class="role-desc">Volunteer your time — coffee, prayer, hospitality, and more.</div>
+      </div>
+      <div class="role-card" onclick="pickRole(this,'Gather - Collect Supplies or Funds','What are you gathering — supplies, funds, or both — and do you have a specific item or amount in mind?')">
+        <div class="role-title">Gather</div>
+        <div class="role-desc">Collect supplies or funds to help build and stock the barn.</div>
+      </div>
+      <div class="role-card" onclick="pickRole(this,'Work - Offer a Skill or Trade','What skill or trade do you offer, and how would you like to put it to work for the barn?')">
+        <div class="role-title">Work</div>
+        <div class="role-desc">Offer a trade or talent — construction, cooking, tech, design.</div>
+      </div>
+    </div>
+
+    <p class="role-error" id="roleError">Please select how you'd like to partner above.</p>
+
+    <div class="form-body">
+      <div>
+        <div class="input-row">
+          <div class="input-group" id="grpName">
+            <label>Name <span class="required">*</span></label>
+            <input type="text" id="fldName" placeholder="First and last name">
+            <p class="field-error">Please enter your name.</p>
+          </div>
+          <div class="input-group" id="grpEmail">
+            <label>Email <span class="required">*</span></label>
+            <input type="email" id="fldEmail" placeholder="you@email.com">
+            <p class="field-error">Please enter a valid email.</p>
+          </div>
+        </div>
+        <div class="input-group">
+          <label>Phone <span style="color:var(--mid-grey);font-size:0.58rem;letter-spacing:1px;">OPTIONAL</span></label>
+          <input type="tel" id="fldPhone" placeholder="(405) 000-0000">
+        </div>
+        <div class="input-group" id="grpMsg">
+          <label id="msgLabel">Tell Us More <span class="required">*</span></label>
+          <textarea id="fldMsg" placeholder="Select a role above and this field will update..."></textarea>
+          <p class="field-error">Please tell us a little more.</p>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Count Me In</button>
+        <div class="form-status" id="formStatus"></div>
+      </div>
+      <div class="form-aside">
+        <p class="aside-title">What Your Partnership Means</p>
+        <div class="aside-item">
+          <span class="aside-icon">🌱</span>
+          <div>
+            <p class="aside-item-title">Your gift opens doors</p>
+            <p class="aside-item-desc">Every financial seed helps cover supplies, utilities, and the everyday needs that keep the barn running freely for everyone.</p>
+          </div>
+        </div>
+        <div class="aside-item">
+          <span class="aside-icon">☕</span>
+          <div>
+            <p class="aside-item-title">Your presence is the ministry</p>
+            <p class="aside-item-desc">Showing up, pouring coffee, praying with a stranger — these are the acts that change lives and build community.</p>
+          </div>
+        </div>
+        <div class="aside-item">
+          <span class="aside-icon">🔨</span>
+          <div>
+            <p class="aside-item-title">Your skills build the vision</p>
+            <p class="aside-item-desc">Every trade, talent, and hour of work given brings the barn closer to opening its doors to Piedmont.</p>
+          </div>
+        </div>
+        <div class="aside-scripture">
+          <p class="aside-scripture-text">"Each of you should use whatever gift you have received to serve others, as faithful stewards of God's grace in its various forms."</p>
+          <p class="aside-scripture-ref">— 1 Peter 4:10</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMMUNITY WALL ── -->
+<section id="community">
+  <div class="container">
+    <p class="section-eyebrow light">Community Wall</p>
+    <h2 class="section-title" style="color:var(--white);">What People Are Saying</h2>
+    <div class="wall-grid" id="jbWallGrid">
+      <p style="font-family:'Playfair Display',serif;font-style:italic;color:rgba(255,255,255,0.25);padding:40px 0;">Loading...</p>
+    </div>
+    <div class="wall-form-wrap">
+      <p class="wall-form-title">Leave a Word of Encouragement</p>
+      <p class="wall-form-sub">Your note will appear on the wall once approved. Thank you for being part of this community.</p>
+      <div class="wall-row">
+        <div class="wall-field">
+          <label>Your Name</label>
+          <input type="text" id="wallName" placeholder="First name or anonymous">
+        </div>
+        <div class="wall-field">
+          <label>From</label>
+          <input type="text" id="wallLocation" placeholder="Piedmont, OK">
+        </div>
+      </div>
+      <div class="wall-field">
+        <textarea id="wallMessage" placeholder="Share what The Jesus Barn means to you..."></textarea>
+      </div>
+      <button class="wall-submit" onclick="submitWall()">Post to the Wall</button>
+      <div class="wall-submit-status" id="wallStatus"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p class="footer-logo">The Jesus Barn</p>
+  <div class="footer-rule"></div>
+  <ul class="footer-nav">
+    <li><a href="#story">Our Heart</a></li>
+    <li><a href="#free">What's Here</a></li>
+    <li><a href="#give">Build With Us</a></li>
+    <li><a href="#partner">Get Involved</a></li>
+    <li><a href="#community">Community Wall</a></li>
+  </ul>
+  <div class="footer-social">
+    <a class="social-link" href="#" title="Facebook">
+      <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    </a>
+    <a class="social-link" href="#" title="Instagram">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+    </a>
+    <a class="social-link" href="#" title="YouTube">
+      <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0A0A0A"/></svg>
+    </a>
+  </div>
+  <div class="footer-address">
+    <p>123 Your Street · Piedmont, OK 73078</p>
+    <p><a href="mailto:hello@thejesusbarn.com">hello@thejesusbarn.com</a></p>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 The Jesus Barn</span>
+    <div class="footer-dot"></div>
+    <span class="footer-copy">Built by the Community, for the Community</span>
+  </div>
+</footer>
+
+<script>
+  const JB = {
+    FUNDING_URL : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=0&single=true&output=csv',
+    NEEDS_URL   : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=463994235&single=true&output=csv',
+    WALL_URL    : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=79572446&single=true&output=csv',
+    SIGNUPS_URL : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=1464935464&single=true&output=csv',
+    SCRIPT_URL  : 'https://script.google.com/macros/s/AKfycbycmcGiPFA0Pfj0w1G8QVWeR_UpOmu2DNhpY8TXMQigL8-HJPHjDi7E0mdRVw4FXoMusQ/exec',
+    SECRET      : 'barnadmin',
+    PASSWORD    : 'barn2026'
+  };
+
+  let jbTyped='', jbFunding={}, jbNeeds=[], jbWall=[], jbSignups=[];
+  let jbWallFilter='all', jbSignupFilter='all', selectedRole='';
+
+  function parseCSV(text) {
+    const rows = [];
+    const lines = text.trim().split('\n');
+    for (const line of lines) {
+      const row = [];
+      let cell = '';
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"') {
+          if (inQuotes && line[i+1] === '"') { cell += '"'; i++; }
+          else { inQuotes = !inQuotes; }
+        } else if (ch === ',' && !inQuotes) {
+          row.push(cell.trim());
+          cell = '';
+        } else {
+          cell += ch;
+        }
+      }
+      row.push(cell.trim());
+      rows.push(row);
+    }
+    return rows;
+  }
+
+  async function jbLoadAll() {
+    await Promise.all([loadFunding(),loadNeeds(),loadWall(),loadSignups()]);
+  }
+
+  async function loadFunding() {
+    try {
+      const rows=parseCSV(await (await fetch(JB.FUNDING_URL+'&t='+Date.now())).text());
+      rows.forEach(r=>{
+        if(r[0]==='goal')         jbFunding.goal=Number(r[1]);
+        if(r[0]==='raised')       jbFunding.raised=Number(r[1]);
+        if(r[0]==='contributors') jbFunding.contributors=Number(r[1]);
+      });
+      renderFunding();
+    } catch(e){}
+  }
+
+  async function loadNeeds() {
+    try {
+      const res = await fetch(JB.NEEDS_URL+'&t='+Date.now());
+      const text = await res.text();
+      console.log('JB needs raw CSV:', text);
+      const rows=parseCSV(text);
+      console.log('JB needs parsed rows:', rows);
+      jbNeeds=rows.slice(1).filter(r=>r[0]).map(r=>({item:r[0],status:(r[1]||'needed').toLowerCase()}));
+      console.log('JB needs data:', jbNeeds);
+      renderNeeds();
+    } catch(e){ console.error('JB loadNeeds failed:', e); }
+  }
+
+  async function loadWall() {
+    try {
+      const rows=parseCSV(await (await fetch(JB.WALL_URL+'&t='+Date.now())).text());
+      jbWall=rows.slice(1).filter(r=>r[0]).map(r=>({name:r[0],location:r[1],message:r[2],status:(r[3]||'pending').toLowerCase()}));
+      renderWallPublic();
+    } catch(e){}
+  }
+
+  async function loadSignups() {
+    try {
+      const rows=parseCSV(await (await fetch(JB.SIGNUPS_URL+'&t='+Date.now())).text());
+      jbSignups=rows.slice(1).filter(r=>r[0]).map(r=>({name:r[0],email:r[1],phone:r[2],role:r[3],message:r[4],date:r[5]}));
+    } catch(e){}
+  }
+
+  function renderFunding() {
+    const g=id=>document.getElementById(id);
+    if(!g('jbStatRaised')) return;
+    const {goal,raised,contributors}=jbFunding;
+    const pct=Math.min(Math.round((raised/goal)*100),100);
+    g('jbStatGoal').textContent='$'+Number(goal).toLocaleString();
+    g('jbStatRaised').textContent='$'+Number(raised).toLocaleString();
+    g('jbStatContributors').textContent=contributors;
+    g('jbProgressFill').style.width=pct+'%';
+    g('jbProgressLabel').textContent=pct+'% funded · $'+Number(goal-raised).toLocaleString()+' remaining';
+  }
+
+  function renderNeeds() {
+    const list=document.getElementById('jbNeedsList');
+    if(!list) return;
+    if(!jbNeeds.length){list.innerHTML='<li style="color:var(--mid-grey);font-style:italic;">No items listed yet.</li>';return;}
+    list.innerHTML=jbNeeds.map(n=>{
+      const label=n.status==='covered'?'Covered ✓':n.status==='partial'?'In Progress':'Needed';
+      return`<li><span>${n.item}</span><span class="need-status ${n.status}">${label}</span></li>`;
+    }).join('');
+  }
+
+  function renderWallPublic() {
+    const grid=document.getElementById('jbWallGrid');
+    if(!grid) return;
+    const approved=jbWall.filter(w=>w.status==='approved');
+    if(!approved.length){
+      grid.innerHTML='<p style="font-family:\'Playfair Display\',serif;font-style:italic;color:rgba(255,255,255,0.2);padding:40px 0;">Be the first to leave an encouraging word.</p>';
+      return;
+    }
+    grid.innerHTML=approved.map(w=>`
+      <div class="wall-card">
+        <span class="wall-quote-mark">"</span>
+        <p class="wall-text">${w.message}</p>
+        <p class="wall-author">— ${w.name}${w.location?', '+w.location:''}</p>
+      </div>`).join('');
+  }
+
+  function pickRole(card,role,hint) {
+    document.querySelectorAll('.role-card').forEach(c=>c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedRole=role;
+    document.getElementById('msgLabel').innerHTML=hint.split('?')[0]+'? <span class="required">*</span>';
+    document.getElementById('fldMsg').placeholder=hint;
+    document.getElementById('roleError').classList.remove('show');
+  }
+
+  function submitForm() {
+    let valid=true;
+    if(!selectedRole){document.getElementById('roleError').classList.add('show');valid=false;}
+    const name=document.getElementById('fldName');
+    const grpName=document.getElementById('grpName');
+    if(!name.value.trim()){grpName.classList.add('error');valid=false;}else{grpName.classList.remove('error');}
+    const email=document.getElementById('fldEmail');
+    const grpEmail=document.getElementById('grpEmail');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){grpEmail.classList.add('error');valid=false;}else{grpEmail.classList.remove('error');}
+    const msg=document.getElementById('fldMsg');
+    const grpMsg=document.getElementById('grpMsg');
+    if(!msg.value.trim()){grpMsg.classList.add('error');valid=false;}else{grpMsg.classList.remove('error');}
+    if(!valid) return;
+    const btn=document.querySelector('.form-submit');
+    const status=document.getElementById('formStatus');
+    btn.textContent='Submitting...'; btn.disabled=true;
+    fetch(JB.SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({sheet:'signup',name:name.value.trim(),email:email.value.trim(),
+        phone:document.getElementById('fldPhone').value.trim(),role:selectedRole,message:msg.value.trim()})
+    }).then(()=>{
+      status.textContent='Thank you, '+name.value.trim().split(' ')[0]+'! We\'ve received your submission and will be in touch soon. Welcome to the family.';
+      status.className='form-status success';
+      name.value=''; email.value=''; document.getElementById('fldPhone').value=''; msg.value='';
+      document.querySelectorAll('.role-card').forEach(c=>c.classList.remove('selected'));
+      selectedRole='';
+    }).catch(()=>{
+      status.textContent='Something went wrong. Please try again.';
+      status.className='form-status error';
+    }).finally(()=>{btn.textContent='Count Me In';btn.disabled=false;});
+  }
+
+  function submitWall() {
+    const name=document.getElementById('wallName').value.trim();
+    const location=document.getElementById('wallLocation').value.trim();
+    const message=document.getElementById('wallMessage').value.trim();
+    const status=document.getElementById('wallStatus');
+    const btn=document.querySelector('.wall-submit');
+    if(!name||!message){status.textContent='Please enter your name and a message.';status.className='wall-submit-status error';return;}
+    btn.textContent='Submitting...'; btn.disabled=true;
+    fetch(JB.SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({sheet:'wall-submit',name,location,message})
+    }).then(()=>{
+      status.textContent='Thank you! Your note has been submitted and will appear once approved.';
+      status.className='wall-submit-status success';
+      document.getElementById('wallName').value='';
+      document.getElementById('wallLocation').value='';
+      document.getElementById('wallMessage').value='';
+    }).catch(()=>{
+      status.textContent='Something went wrong. Please try again.';
+      status.className='wall-submit-status error';
+    }).finally(()=>{btn.textContent='Post to the Wall';btn.disabled=false;});
+  }
+
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  document.addEventListener('keydown',e=>{
+    if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) return;
+    jbTyped+=e.key.toLowerCase();
+    if(jbTyped.length>JB.SECRET.length) jbTyped=jbTyped.slice(-JB.SECRET.length);
+    if(jbTyped===JB.SECRET){jbTyped='';jbPromptAdmin();}
+  });
+
+  function jbPromptAdmin() {
+    const modal=document.createElement('div');
+    modal.id='jbPasswordModal';
+    modal.innerHTML=`
+      <div class="jb-pw-backdrop">
+        <div class="jb-pw-modal">
+          <p class="jb-pw-eyebrow">The Jesus Barn</p>
+          <p class="jb-pw-title">Admin Access</p>
+          <p class="jb-pw-sub">Enter your password to continue</p>
+          <input class="jb-pw-input" id="jbPasswordInput" type="password" placeholder="········">
+          <p class="jb-pw-error" id="jbPasswordError"></p>
+          <div class="jb-pw-buttons">
+            <button class="jb-pw-enter" onclick="jbCheckPassword()">Enter</button>
+            <button class="jb-pw-cancel" onclick="jbDismissPassword()">Cancel</button>
+          </div>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+    const input=document.getElementById('jbPasswordInput');
+    input.focus();
+    input.addEventListener('keydown',e=>{
+      if(e.key==='Enter') jbCheckPassword();
+      if(e.key==='Escape') jbDismissPassword();
+    });
+  }
+
+  function jbCheckPassword() {
+    const input=document.getElementById('jbPasswordInput');
+    if(input.value===JB.PASSWORD){jbDismissPassword();jbOpenAdmin();}
+    else{document.getElementById('jbPasswordError').textContent='Incorrect password.';input.value='';input.focus();}
+  }
+
+  function jbDismissPassword() {
+    const m=document.getElementById('jbPasswordModal');
+    if(m) m.remove();
+  }
+
+  async function jbOpenAdmin() {
+    document.getElementById('jbGoal').value=jbFunding.goal||'';
+    document.getElementById('jbRaised').value=jbFunding.raised||'';
+    document.getElementById('jbContributors').value=jbFunding.contributors||'';
+
+    // always reload needs fresh from sheet
+    await loadNeeds();
+    const nr=document.getElementById('jbNeedsRows');
+    nr.innerHTML='';
+    if(jbNeeds.length) {
+      jbNeeds.forEach(n=>jbAddNeedRow(n.item,n.status));
+    } else {
+      // sheet is empty — add one blank row so admin can start adding
+      jbAddNeedRow('','needed');
+    }
+
+    jbRenderWallAdmin();
+    jbRenderSignupsAdmin();
+    ['jbFundingStatus','jbWallStatus','jbSignupStatus'].forEach(id=>{
+      const el=document.getElementById(id);
+      el.className='jb-status';el.textContent='';
+    });
+    document.getElementById('jbOverlay').classList.add('open');
+    setTimeout(()=>document.getElementById('jbPanel').classList.add('open'),10);
+  }
+
+  function jbCloseAdmin() {
+    document.getElementById('jbPanel').classList.remove('open');
+    document.getElementById('jbOverlay').classList.remove('open');
+  }
+
+  document.getElementById('jbOverlay').addEventListener('click',jbCloseAdmin);
+
+  function jbSwitchTab(tab,btn) {
+    document.querySelectorAll('.jb-admin-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.jb-admin-pane').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('jbPane-'+tab).classList.add('active');
+    if(tab==='signups') loadSignups().then(jbRenderSignupsAdmin);
+    if(tab==='wall')    loadWall().then(jbRenderWallAdmin);
+  }
+
+  function jbAddNeedRow(item='',status='needed') {
+    const nr=document.getElementById('jbNeedsRows');
+    const row=document.createElement('div');
+    row.className='jb-need-row';
+    row.innerHTML=`
+      <input type="text" placeholder="Item name" value="${item}">
+      <select>
+        <option value="needed"  ${status==='needed' ?'selected':''}>Needed</option>
+        <option value="partial" ${status==='partial'?'selected':''}>In Progress</option>
+        <option value="covered" ${status==='covered'?'selected':''}>Covered</option>
+      </select>
+      <button class="jb-remove-btn" onclick="this.parentElement.remove()">×</button>`;
+    nr.appendChild(row);
+  }
+
+  async function jbSaveFunding() {
+    const btn=document.querySelector('#jbPane-funding .jb-save-btn');
+    const status=document.getElementById('jbFundingStatus');
+    btn.textContent='Saving...'; btn.disabled=true;
+    const goal=Number(document.getElementById('jbGoal').value);
+    const raised=Number(document.getElementById('jbRaised').value);
+    const contributors=Number(document.getElementById('jbContributors').value);
+    const needs=Array.from(document.querySelectorAll('#jbNeedsRows .jb-need-row'))
+      .map(r=>({item:r.querySelector('input').value.trim(),status:r.querySelector('select').value}))
+      .filter(n=>n.item);
+    try {
+      await fetch(JB.SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({sheet:'funding',goal,raised,contributors})});
+      await fetch(JB.SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({sheet:'needs',needs})});
+      jbFunding={goal,raised,contributors}; jbNeeds=needs;
+      renderFunding(); renderNeeds();
+      status.textContent='Saved! Page updated.'; status.className='jb-status success';
+      setTimeout(jbCloseAdmin,1600);
+    } catch(e){
+      status.textContent='Error saving. Try again.'; status.className='jb-status error';
+    }
+    btn.textContent='Save & Publish'; btn.disabled=false;
+  }
+
+  function jbFilterSignups(filter,btn) {
+    jbSignupFilter=filter;
+    document.querySelectorAll('#jbSignupFilters .jb-filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    jbRenderSignupsAdmin();
+  }
+
+  function jbRenderSignupsAdmin() {
+    const c=document.getElementById('jbSignupItems');
+    const filtered=jbSignupFilter==='all'?jbSignups:jbSignups.filter(s=>s.role===jbSignupFilter);
+    if(!filtered.length){c.innerHTML='<p class="jb-empty-state">No signups yet.</p>';return;}
+    c.innerHTML=filtered.map(s=>`
+      <div class="jb-signup-item">
+        <div class="jb-signup-header">
+          <span class="jb-signup-name">${s.name}</span>
+          <span class="jb-signup-date">${s.date||''}</span>
+        </div>
+        <span class="jb-signup-role">${s.role}</span>
+        <div class="jb-signup-contact">${s.email}${s.phone?' · '+s.phone:''}</div>
+        ${s.message?`<div class="jb-signup-message">${s.message}</div>`:''}
+      </div>`).join('');
+  }
+
+  function jbFilterWall(filter,btn) {
+    jbWallFilter=filter;
+    document.querySelectorAll('#jbPane-wall .jb-filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    jbRenderWallAdmin();
+  }
+
+  function jbRenderWallAdmin() {
+    const c=document.getElementById('jbWallItems');
+    const filtered=jbWallFilter==='all'?jbWall:jbWall.filter(w=>w.status===jbWallFilter);
+    if(!filtered.length){c.innerHTML='<p class="jb-empty-state">No submissions yet.</p>';return;}
+    c.innerHTML=filtered.map((w,i)=>`
+      <div class="jb-wall-item">
+        <div class="jb-wall-item-name">${w.name}${w.location?' · '+w.location:''}<span class="jb-wall-badge ${w.status}">${w.status}</span></div>
+        <p class="jb-wall-item-msg">${w.message}</p>
+        <div class="jb-wall-item-actions">
+          <button class="jb-approve-btn ${w.status==='approved'?'approved':''}" onclick="jbApproveWall(${i})" ${w.status==='approved'?'disabled':''}>
+            ${w.status==='approved'?'Approved ✓':'Approve'}
+          </button>
+          <button class="jb-delete-btn" onclick="jbDeleteWall(${i})">Delete</button>
+        </div>
+      </div>`).join('');
+  }
+
+  async function jbApproveWall(i) {
+    const entry=jbWall[i]; const status=document.getElementById('jbWallStatus');
+    entry.status='approved'; jbRenderWallAdmin(); renderWallPublic();
+    try {
+      await fetch(JB.SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({sheet:'wall-update',name:entry.name,message:entry.message,status:'approved'})});
+      status.textContent='Approved and published!'; status.className='jb-status success';
+    } catch(e){status.textContent='Approved locally.'; status.className='jb-status error';}
+    setTimeout(()=>{status.className='jb-status';},2500);
+  }
+
+  async function jbDeleteWall(i) {
+    const entry=jbWall[i];
+    if(!confirm('Delete this submission? This cannot be undone.')) return;
+    const status=document.getElementById('jbWallStatus');
+    try {
+      await fetch(JB.SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({sheet:'wall-delete',name:entry.name,message:entry.message})});
+      jbWall.splice(i,1); jbRenderWallAdmin(); renderWallPublic();
+      status.textContent='Deleted.'; status.className='jb-status success';
+    } catch(e){status.textContent='Error deleting.'; status.className='jb-status error';}
+    setTimeout(()=>{status.className='jb-status';},2500);
+  }
+
+  jbLoadAll();
+</script>
+</body>
+</html>
