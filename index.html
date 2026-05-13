@@ -1189,6 +1189,91 @@
   .wall-submit-status.success { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); display: block; }
   .wall-submit-status.error   { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.45); display: block; }
 
+  /* ── DISCLAIMER MODAL ── */
+  .jb-disclaimer-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 9990;
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .jb-disclaimer-modal {
+    background: var(--white);
+    border-radius: 2px;
+    max-width: 520px;
+    width: 100%;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .jb-disclaimer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .jb-disclaimer-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--dark-grey);
+  }
+
+  .jb-disclaimer-close {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    color: var(--mid-grey);
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.2s;
+  }
+
+  .jb-disclaimer-close:hover { color: var(--near-black); }
+
+  .jb-disclaimer-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .jb-disclaimer-body p {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--dark-grey);
+    line-height: 1.8;
+  }
+
+  .jb-disclaimer-body strong { color: var(--near-black); font-weight: 700; }
+  .jb-disclaimer-body em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--near-black); }
+
+  .jb-disclaimer-btn {
+    background: var(--near-black);
+    color: var(--white);
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+  }
+
+  .jb-disclaimer-btn:hover { background: var(--accent); }
+
   #contact { background: var(--off-white); }
   #contact .section-title { color: var(--near-black); }
   #contact .section-eyebrow { color: var(--dark-grey); }
@@ -2005,6 +2090,10 @@
     <h2 class="section-title" id="partner-title">Ways to Partner With Us</h2>
     <p class="involve-sub">Will you help us build a spot to gather as one — to love on the lost and grow our wonderful community together? Choose how you'd like to partner below.</p>
 
+    <p style="margin-bottom:28px;margin-top:-20px;">
+      <a onclick="jbOpenDisclaimer()" style="font-family:'Lato',sans-serif;font-size:0.72rem;letter-spacing:1.5px;color:var(--dark-grey);text-decoration:underline;text-underline-offset:3px;cursor:pointer;">⚠ Important notice before you partner →</a>
+    </p>
+
     <div class="role-grid" role="group" aria-label="Ways to partner with The Jesus Barn">
       <div class="role-card" role="button" tabindex="0" aria-pressed="false" onclick="pickRole(this,'Sow - Give Financially','How much would you like to give, and would you prefer a one-time or recurring gift?')" onkeydown="if(event.key==='Enter'||event.key===' ')pickRole(this,'Sow - Give Financially','How much would you like to give, and would you prefer a one-time or recurring gift?')">
         <div class="role-title">Sow</div>
@@ -2110,7 +2199,22 @@
       <div class="wall-submit-status" id="wallStatus"></div>
     </div>
   </div>
-<!-- ── CONTACT ── -->
+<!-- ── DISCLAIMER MODAL ── -->
+<div class="jb-disclaimer-backdrop" id="jbDisclaimerBackdrop" onclick="jbCloseDisclaimer()" style="display:none;">
+  <div class="jb-disclaimer-modal" onclick="event.stopPropagation()">
+    <div class="jb-disclaimer-header">
+      <p class="jb-disclaimer-eyebrow">A Note Before You Partner</p>
+      <button class="jb-disclaimer-close" onclick="jbCloseDisclaimer()" aria-label="Close">×</button>
+    </div>
+    <div class="jb-disclaimer-body">
+      <p>The Jesus Barn is currently pending city approval and cannot begin construction or operations until July or August 2026. We want to be fully transparent with our community about where things stand.</p>
+      <p>In the unlikely event that city approval is not granted, <strong>every donation — monetary and physical — will be returned at 100% of what was given.</strong> Careful documentation will be kept of all contributions throughout this process.</p>
+      <p>That said, we believe wholeheartedly that God has placed this vision on our hearts for a reason. <em>We know our God is bigger than any obstacle, and we trust He will provide a way.</em></p>
+      <p>Thank you for standing with us in faith.</p>
+    </div>
+    <button class="jb-disclaimer-btn" onclick="jbCloseDisclaimer()">I Understand — Let's Go</button>
+  </div>
+</div>
 <section id="contact" aria-labelledby="contact-title">
   <div class="container">
     <div class="contact-layout">
@@ -2857,6 +2961,18 @@
       btn.textContent = 'Send a Message';
       btn.disabled = false;
     });
+  }
+
+  function jbOpenDisclaimer() {
+    const el = document.getElementById('jbDisclaimerBackdrop');
+    el.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function jbCloseDisclaimer() {
+    const el = document.getElementById('jbDisclaimerBackdrop');
+    el.style.display = 'none';
+    document.body.style.overflow = '';
   }
 
   jbLoadAll();
