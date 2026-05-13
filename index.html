@@ -2117,7 +2117,7 @@
     SIGNUPS_URL      : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=1464935464&single=true&output=csv',
     ANNOUNCEMENT_URL : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=124696312&single=true&output=csv',
     SCRIPT_URL       : 'https://script.google.com/macros/s/AKfycbycmcGiPFA0Pfj0w1G8QVWeR_UpOmu2DNhpY8TXMQigL8-HJPHjDi7E0mdRVw4FXoMusQ/exec',
-    SECRET           : 'barnadmin'
+    SECRET           : 'admin'
   };
 
   let jbTyped='', jbFunding={}, jbNeeds=[], jbWall=[], jbSignups=[];
@@ -2193,7 +2193,9 @@
     const btn    = document.querySelector('#jbPane-announcement .jb-save-btn');
     const status = document.getElementById('jbAnnouncementStatus');
     const text   = document.getElementById('jbAnnouncementInput').value.trim();
-    const active = document.getElementById('jbAnnouncementActive').checked;
+    const activeEl = document.getElementById('jbAnnouncementActive') ||
+                     document.querySelector('#jbPane-announcement input[type="checkbox"]');
+    const active = activeEl ? activeEl.checked : false;
 
     btn.textContent = 'Saving...'; btn.disabled = true;
 
@@ -2560,11 +2562,15 @@
     const input  = document.getElementById('jbAnnouncementInput');
     const toggle = document.getElementById('jbAnnouncementActive');
     const label  = document.getElementById('jbToggleLabel');
+    if (!input || !toggle || !label) return;
     input.value    = jbAnnouncement.text;
     toggle.checked = jbAnnouncement.active;
     label.textContent = jbAnnouncement.active ? 'Banner is live' : 'Banner is off';
-    toggle.addEventListener('change', () => {
-      label.textContent = toggle.checked ? 'Banner is live' : 'Banner is off';
+    // remove old listener before adding new one
+    const newToggle = toggle.cloneNode(true);
+    toggle.parentNode.replaceChild(newToggle, toggle);
+    newToggle.addEventListener('change', () => {
+      label.textContent = newToggle.checked ? 'Banner is live' : 'Banner is off';
     });
   }
 
