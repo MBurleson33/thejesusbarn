@@ -366,6 +366,23 @@
     animation: fadeUp 0.9s ease 0.4s both;
   }
 
+  .hero-underline {
+    position: relative;
+    display: inline-block;
+  }
+
+  .hero-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 100%;
+    height: 14px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M2 11 Q100 2 198 11' stroke='%23ff0000' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center bottom;
+    background-size: 100% 100%;
+    animation: fadeIn 0.8s ease 0.6s both;
+  }
+
   .hero-title .highlight { color: var(--white); }
 
   .hero-rule {
@@ -1872,7 +1889,7 @@
   <div class="hero-light"></div>
   <div class="hero-content">
     <p class="hero-eyebrow">Piedmont, Oklahoma · Est. 2026</p>
-    <h1 class="hero-title">One Body. One Table.<br>All Welcome.</h1>
+    <h1 class="hero-title"><span class="hero-underline">One Body.</span> One Table.<br>All Welcome.</h1>
     <div class="hero-rule"></div>
     <p class="hero-sub">A free place to gather, belong, and grow — built by the community, for the community, with Jesus as our guide.</p>
     <div class="hero-buttons">
