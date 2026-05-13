@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ── PRIMARY SEO ── -->
-
 <title>The Jesus Barn — Free Community Space in Piedmont, Oklahoma</title>
 <meta name="description" content="The Jesus Barn is a free community gathering space in Piedmont, Oklahoma. Free coffee, Bible study, prayer, games, and more — open to everyone. Built by the community, for the community, with Jesus as our guide.">
 <meta name="keywords" content="Jesus Barn, Piedmont Oklahoma, free community space, Christian community center, Bible study Piedmont, prayer Piedmont OK, community gathering, faith community Oklahoma">
@@ -16,9 +14,7 @@
 <meta name="google-site-verification" content="zwENcyuWNJkk9jTpwOewaGYdMXM4jQGKcQM6qvZ1xPE">
 
 <!-- Google tag (gtag.js) -->
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWNL2CG0DE"></script>
-
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -27,7 +23,6 @@
 </script>
 
 <!-- ── OPEN GRAPH (Facebook, LinkedIn) ── -->
-
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.thejesusbarn.org">
 <meta property="og:title" content="The Jesus Barn — Free Community Space in Piedmont, Oklahoma">
@@ -37,7 +32,6 @@
 <meta property="og:locale" content="en_US">
 
 <!-- ── TWITTER CARD ── -->
-
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://www.thejesusbarn.org">
 <meta name="twitter:title" content="The Jesus Barn — Free Community Space in Piedmont, Oklahoma">
@@ -45,23 +39,19 @@
 <meta name="twitter:image" content="https://www.thejesusbarn.org/images/The-Jesus-Barn-Logo.png">
 
 <!-- ── GEO / LOCAL SEO ── -->
-
 <meta name="geo.region" content="US-OK">
 <meta name="geo.placename" content="Piedmont, Oklahoma">
 
 <!-- ── FAVICON ── -->
-
 <link rel="icon" type="image/png" href="images/The-Jesus-Barn-Logo.png">
 <link rel="apple-touch-icon" href="images/The-Jesus-Barn-Logo.png">
 
 <!-- ── FONT PRECONNECT (performance) ── -->
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 
 <!-- ── STRUCTURED DATA (JSON-LD) ── -->
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -98,7 +88,6 @@
   "isAccessibleForFree": true
 }
 </script>
-
 <style>
 
   /* ── RESET & BASE ── */
@@ -1688,8 +1677,16 @@
     }
     .nav-burger { display: flex; }
     .nav-admin-link { display: block; }
-    .nav-logo img { height: 90px; }
+    .nav-logo img { height: 90px; filter: none; }
     .form-aside { display: none; }
+    /* funding stats */
+    .funding-stats { flex-direction: row; flex-wrap: nowrap; }
+    .funding-stat { padding: 14px 6px; flex: 1; min-width: 0; }
+    .stat-num { font-size: 1.1rem; }
+    .stat-label { font-size: 0.55rem; letter-spacing: 1px; }
+    /* needs list */
+    #jbNeedsList li { font-size: 0.82rem; }
+    .needs-title { text-align: center; }
     .container { padding: 72px 24px; }
     .heart-layout, .building-layout, .form-body, .contact-layout { grid-template-columns: 1fr; gap: 48px; }
     .heart-image-accent { display: none; }
@@ -1698,15 +1695,23 @@
     .jb-admin-panel { width: 100%; }
     footer { padding: 48px 24px 32px; }
 
-    /* section eyebrows and titles — center on mobile */
-    .section-eyebrow { justify-content: center; }
-    .section-title { text-align: center; }
-    .building-body { text-align: center; }
-    .find-sub { text-align: center; }
-    .involve-sub { text-align: center; }
-    .needs-title { text-align: center; }
-    .progress-label { text-align: center; }
-    .pullquote { text-align: left; }
+    /* section eyebrows and titles — left aligned on mobile */
+    .section-eyebrow { justify-content: flex-start !important; }
+    .section-title { text-align: left !important; }
+    #give .section-title { text-align: left !important; }
+    #partner .section-title { text-align: left !important; }
+    #story .section-title { text-align: left !important; }
+    #free .section-title { text-align: left !important; }
+    #community .section-title { text-align: left !important; }
+    #contact .section-title { text-align: left !important; }
+    /* body content centered */
+    .building-body { text-align: center !important; }
+    .find-sub { text-align: center !important; }
+    .involve-sub { text-align: center !important; }
+    .needs-title { text-align: left !important; }
+    .progress-label { text-align: center !important; }
+    .pullquote { text-align: left !important; }
+    .heart-body { text-align: center !important; }
 
     /* funding stats full width */
     .funding-stats { flex-direction: row; }
@@ -1738,23 +1743,19 @@
   }
 
 </style>
-
 </head>
 <body>
 
 <!-- ── SKIP TO MAIN CONTENT (ADA) ── -->
-
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
 <!-- ── ANNOUNCEMENT BANNER ── -->
-
 <div class="jb-announcement" id="jbAnnouncement" role="alert" aria-live="polite">
   <p class="jb-announcement-text" id="jbAnnouncementText"></p>
   <button class="jb-announcement-close" onclick="jbDismissAnnouncement()" aria-label="Dismiss announcement">×</button>
 </div>
 
 <!-- ── ADMIN OVERLAY ── -->
-
 <div class="jb-admin-overlay" id="jbOverlay"></div>
 <div class="jb-admin-panel" id="jbPanel">
   <div class="jb-admin-header">
@@ -1775,7 +1776,10 @@
     <p class="jb-section-label">Needs List</p>
     <div id="jbNeedsRows"></div>
     <button class="jb-add-btn" onclick="jbAddNeedRow()">+ Add Item</button>
-    <div class="jb-admin-buttons"><button class="jb-save-btn" onclick="jbSaveFunding()">Save &amp; Publish</button></div>
+    <div class="jb-admin-buttons">
+      <button class="jb-save-btn" onclick="jbSaveFunding()">Save Funding &amp; Needs</button>
+    </div>
+    <p style="font-family:'Lato',sans-serif;font-size:0.7rem;color:var(--mid-grey);margin-top:8px;line-height:1.6;">⚠️ Only save when the needs list is fully loaded above. Saving with an empty list will clear your needs.</p>
     <div class="jb-status" id="jbFundingStatus"></div>
   </div>
   <div class="jb-admin-pane" id="jbPane-signups">
@@ -1839,7 +1843,6 @@
 </div>
 
 <!-- ── NAV ── -->
-
 <nav role="navigation" aria-label="Main navigation">
   <a class="nav-logo" href="#home" aria-label="The Jesus Barn - Go to homepage">
     <img src="images/The-Jesus-Barn-Logo.png" alt="The Jesus Barn logo">
@@ -1862,7 +1865,6 @@
 </nav>
 
 <!-- ── HERO ── -->
-
 <main id="main-content">
 <section id="home" aria-label="Hero — One Body. One Table. All Welcome.">
   <div class="hero-bg"></div>
@@ -1885,13 +1887,11 @@
 </section>
 
 <!-- ── ACTS 2 BANNER ── -->
-
 <div id="acts" role="complementary" aria-label="Scripture call to action">
   <p>The Lord is Calling for His True Acts 2 Church to Rise Up, Come Together, &amp; Be One Body — Alive in Jesus Christ</p>
 </div>
 
 <!-- ── OUR HEART ── -->
-
 <section id="story" aria-labelledby="story-title">
   <div class="container">
     <div class="heart-layout">
@@ -1916,7 +1916,6 @@
 </section>
 
 <!-- ── WHAT YOU'LL FIND ── -->
-
 <section id="free" aria-labelledby="free-title">
   <div class="container">
     <p class="section-eyebrow light">What You'll Find Here</p>
@@ -1945,7 +1944,6 @@
 </section>
 
 <!-- ── BUILDING TOGETHER ── -->
-
 <section id="give" aria-labelledby="give-title">
   <div class="container">
     <div class="building-layout">
@@ -1984,95 +1982,90 @@
 </section>
 
 <!-- ── GET INVOLVED ── -->
-
 <section id="partner" aria-labelledby="partner-title">
   <div class="container">
     <p class="section-eyebrow">Get Involved</p>
     <h2 class="section-title" id="partner-title">Ways to Partner With Us</h2>
     <p class="involve-sub">Will you help us build a spot to gather as one — to love on the lost and grow our wonderful community together? Choose how you'd like to partner below.</p>
 
-```
-<div class="role-grid" role="group" aria-label="Ways to partner with The Jesus Barn">
-  <div class="role-card" role="button" tabindex="0" aria-pressed="false" onclick="pickRole(this,'Sow - Give Financially','How much would you like to give, and would you prefer a one-time or recurring gift?')" onkeydown="if(event.key==='Enter'||event.key===' ')pickRole(this,'Sow - Give Financially','How much would you like to give, and would you prefer a one-time or recurring gift?')">
-    <div class="role-title">Sow</div>
-    <div class="role-desc">Give financially — one-time or recurring. Every seed matters.</div>
-  </div>
-  <div class="role-card" role="button" tabindex="0" aria-pressed="false" onclick="pickRole(this,'Serve - Volunteer My Time','How would you like to serve — coffee bar, prayer, greeting, or youth — and when are you available?')" onkeydown="if(event.key==='Enter'||event.key===' ')pickRole(this,'Serve - Volunteer My Time','How would you like to serve — coffee bar, prayer, greeting, or youth — and when are you available?')">
-    <div class="role-title">Serve</div>
-    <div class="role-desc">Volunteer your time — coffee, prayer, hospitality, and more.</div>
-  </div>
-  <div class="role-card" role="button" tabindex="0" aria-pressed="false" onclick="pickRole(this,'Gather - Collect Supplies or Funds','What are you gathering — supplies, funds, or both — and do you have a specific item or amount in mind?')" onkeydown="if(event.key==='Enter'||event.key===' ')pickRole(this,'Gather - Collect Supplies or Funds','What are you gathering — supplies, funds, or both — and do you have a specific item or amount in mind?')">
-    <div class="role-title">Gather</div>
-    <div class="role-desc">Collect supplies or funds to help build and stock the barn.</div>
-  </div>
-  <div class="role-card" role="button" tabindex="0" aria-pressed="false" onclick="pickRole(this,'Work - Offer a Skill or Trade','What skill or trade do you offer, and how would you like to put it to work for the barn?')" onkeydown="if(event.key==='Enter'||event.key===' ')pickRole(this,'Work - Offer a Skill or Trade','What skill or trade do you offer, and how would you like to put it to work for the barn?')">
-    <div class="role-title">Work</div>
-    <div class="role-desc">Offer a trade or talent — construction, cooking, tech, design.</div>
-  </div>
-</div>
+    <div class="role-grid" role="group" aria-label="Ways to partner with The Jesus Barn">
+      <div class="role-card" role="button" tabindex="0" aria-pressed="false" onclick="pickRole(this,'Sow - Give Financially','How much would you like to give, and would you prefer a one-time or recurring gift?')" onkeydown="if(event.key==='Enter'||event.key===' ')pickRole(this,'Sow - Give Financially','How much would you like to give, and would you prefer a one-time or recurring gift?')">
+        <div class="role-title">Sow</div>
+        <div class="role-desc">Give financially — one-time or recurring. Every seed matters.</div>
+      </div>
+      <div class="role-card" role="button" tabindex="0" aria-pressed="false" onclick="pickRole(this,'Serve - Volunteer My Time','How would you like to serve — coffee bar, prayer, greeting, or youth — and when are you available?')" onkeydown="if(event.key==='Enter'||event.key===' ')pickRole(this,'Serve - Volunteer My Time','How would you like to serve — coffee bar, prayer, greeting, or youth — and when are you available?')">
+        <div class="role-title">Serve</div>
+        <div class="role-desc">Volunteer your time — coffee, prayer, hospitality, and more.</div>
+      </div>
+      <div class="role-card" role="button" tabindex="0" aria-pressed="false" onclick="pickRole(this,'Gather - Collect Supplies or Funds','What are you gathering — supplies, funds, or both — and do you have a specific item or amount in mind?')" onkeydown="if(event.key==='Enter'||event.key===' ')pickRole(this,'Gather - Collect Supplies or Funds','What are you gathering — supplies, funds, or both — and do you have a specific item or amount in mind?')">
+        <div class="role-title">Gather</div>
+        <div class="role-desc">Collect supplies or funds to help build and stock the barn.</div>
+      </div>
+      <div class="role-card" role="button" tabindex="0" aria-pressed="false" onclick="pickRole(this,'Work - Offer a Skill or Trade','What skill or trade do you offer, and how would you like to put it to work for the barn?')" onkeydown="if(event.key==='Enter'||event.key===' ')pickRole(this,'Work - Offer a Skill or Trade','What skill or trade do you offer, and how would you like to put it to work for the barn?')">
+        <div class="role-title">Work</div>
+        <div class="role-desc">Offer a trade or talent — construction, cooking, tech, design.</div>
+      </div>
+    </div>
 
-<p class="role-error" id="roleError">Please select how you'd like to partner above.</p>
+    <p class="role-error" id="roleError">Please select how you'd like to partner above.</p>
 
-<div class="form-body">
-  <div>
-    <div class="input-row">
-      <div class="input-group" id="grpName">
-        <label>Name <span class="required">*</span></label>
-        <input type="text" id="fldName" placeholder="First and last name">
-        <p class="field-error">Please enter your name.</p>
-      </div>
-      <div class="input-group" id="grpEmail">
-        <label>Email <span class="required">*</span></label>
-        <input type="email" id="fldEmail" placeholder="you@email.com">
-        <p class="field-error">Please enter a valid email.</p>
-      </div>
-    </div>
-    <div class="input-group">
-      <label>Phone <span style="color:var(--mid-grey);font-size:0.58rem;letter-spacing:1px;">OPTIONAL</span></label>
-      <input type="tel" id="fldPhone" placeholder="(405) 000-0000">
-    </div>
-    <div class="input-group" id="grpMsg">
-      <p id="roleHint" style="font-family:'Playfair Display',serif;font-style:italic;font-size:0.88rem;color:var(--mid-grey);margin-bottom:16px;margin-top:16px;padding:14px 16px;background:var(--off-white);border-left:2px solid var(--light-grey);min-height:1.4em;">Select a role above to get started.</p>
-      <label id="msgLabel">Tell Us More <span class="required">*</span></label>
-      <textarea id="fldMsg" placeholder="We'd love to hear from you..."></textarea>
-      <p class="field-error">Please tell us a little more.</p>
-    </div>
-    <button class="form-submit" onclick="submitForm()">Count Me In</button>
-    <div class="form-status" id="formStatus"></div>
-  </div>
-  <div class="form-aside" id="formAside">
-    <p class="aside-title">What Your Partnership Means</p>
-    <div class="aside-item">
+    <div class="form-body">
       <div>
-        <p class="aside-item-title">Your gift opens doors</p>
-        <p class="aside-item-desc">Every financial seed helps cover supplies, utilities, and the everyday needs that keep the barn running freely for everyone.</p>
+        <div class="input-row">
+          <div class="input-group" id="grpName">
+            <label>Name <span class="required">*</span></label>
+            <input type="text" id="fldName" placeholder="First and last name">
+            <p class="field-error">Please enter your name.</p>
+          </div>
+          <div class="input-group" id="grpEmail">
+            <label>Email <span class="required">*</span></label>
+            <input type="email" id="fldEmail" placeholder="you@email.com">
+            <p class="field-error">Please enter a valid email.</p>
+          </div>
+        </div>
+        <div class="input-group">
+          <label>Phone <span style="color:var(--mid-grey);font-size:0.58rem;letter-spacing:1px;">OPTIONAL</span></label>
+          <input type="tel" id="fldPhone" placeholder="(405) 000-0000">
+        </div>
+        <div class="input-group" id="grpMsg">
+          <p id="roleHint" style="font-family:'Playfair Display',serif;font-style:italic;font-size:0.88rem;color:var(--mid-grey);margin-bottom:16px;margin-top:16px;padding:14px 16px;background:var(--off-white);border-left:2px solid var(--light-grey);min-height:1.4em;">Select a role above to get started.</p>
+          <label id="msgLabel">Tell Us More <span class="required">*</span></label>
+          <textarea id="fldMsg" placeholder="We'd love to hear from you..."></textarea>
+          <p class="field-error">Please tell us a little more.</p>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Count Me In</button>
+        <div class="form-status" id="formStatus"></div>
+      </div>
+      <div class="form-aside" id="formAside">
+        <p class="aside-title">What Your Partnership Means</p>
+        <div class="aside-item">
+          <div>
+            <p class="aside-item-title">Your gift opens doors</p>
+            <p class="aside-item-desc">Every financial seed helps cover supplies, utilities, and the everyday needs that keep the barn running freely for everyone.</p>
+          </div>
+        </div>
+        <div class="aside-item">
+          <div>
+            <p class="aside-item-title">Your presence is the ministry</p>
+            <p class="aside-item-desc">Showing up, pouring coffee, praying with a stranger — these are the acts that change lives and build community.</p>
+          </div>
+        </div>
+        <div class="aside-item">
+          <div>
+            <p class="aside-item-title">Your skills build the vision</p>
+            <p class="aside-item-desc">Every trade, talent, and hour of work given brings the barn closer to opening its doors to Piedmont.</p>
+          </div>
+        </div>
+        <div class="aside-scripture">
+          <p class="aside-scripture-text">"Each of you should use whatever gift you have received to serve others, as faithful stewards of God's grace in its various forms."</p>
+          <p class="aside-scripture-ref">— 1 Peter 4:10</p>
+        </div>
       </div>
     </div>
-    <div class="aside-item">
-      <div>
-        <p class="aside-item-title">Your presence is the ministry</p>
-        <p class="aside-item-desc">Showing up, pouring coffee, praying with a stranger — these are the acts that change lives and build community.</p>
-      </div>
-    </div>
-    <div class="aside-item">
-      <div>
-        <p class="aside-item-title">Your skills build the vision</p>
-        <p class="aside-item-desc">Every trade, talent, and hour of work given brings the barn closer to opening its doors to Piedmont.</p>
-      </div>
-    </div>
-    <div class="aside-scripture">
-      <p class="aside-scripture-text">"Each of you should use whatever gift you have received to serve others, as faithful stewards of God's grace in its various forms."</p>
-      <p class="aside-scripture-ref">— 1 Peter 4:10</p>
-    </div>
-  </div>
-</div>
-```
-
   </div>
 </section>
 
 <!-- ── COMMUNITY WALL ── -->
-
 <section id="community" aria-labelledby="community-title">
   <div class="container">
     <p class="section-eyebrow light">Community Wall</p>
@@ -2165,7 +2158,6 @@
 </main>
 
 <!-- ── FOOTER ── -->
-
 <footer role="contentinfo" aria-label="Site footer">
   <p class="footer-logo">The Jesus Barn</p>
   <div class="footer-rule"></div>
@@ -2715,6 +2707,11 @@
     const needs=Array.from(document.querySelectorAll('#jbNeedsRows .jb-need-row'))
       .map(r=>({item:r.querySelector('input').value.trim(),status:r.querySelector('select').value}))
       .filter(n=>n.item);
+    // warn if needs list is empty but we had items before
+    if(!needs.length && jbNeeds.length) {
+      const confirm = window.confirm('The needs list appears empty — saving will delete all existing items. Are you sure?');
+      if(!confirm) { btn.textContent='Save & Publish'; btn.disabled=false; return; }
+    }
     try {
       await fetch(JB.SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({sheet:'funding',goal,raised,contributors})});
       await fetch(JB.SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({sheet:'needs',needs})});
@@ -2847,6 +2844,5 @@
 
   jbLoadAll();
 </script>
-
 </body>
 </html>
