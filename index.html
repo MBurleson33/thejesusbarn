@@ -50,6 +50,17 @@
     text-decoration: none;
     display: flex;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 101;
+  }
+
+  .nav-logo img {
+    height: 140px;
+    width: auto;
+    display: block;
+    filter: drop-shadow(0 6px 16px rgba(0,0,0,0.5));
   }
 
   .nav-links {
@@ -1333,7 +1344,7 @@
 <!-- ── NAV ── -->
 <nav>
   <a class="nav-logo" href="#home">
-    <img src="images/The-Jesus-Barn-Logo.png" alt="The Jesus Barn" style="height:140px;width:auto;display:block;margin-top:-40px;filter:drop-shadow(0 6px 16px rgba(0,0,0,0.5));">
+    <img src="images/The-Jesus-Barn-Logo.png" alt="The Jesus Barn">
   </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#story">Our Heart</a></li>
