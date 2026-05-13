@@ -862,12 +862,13 @@
   #community .section-title { color: var(--white); }
 
   .wall-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1px;
-    background: rgba(255,255,255,0.06);
-    margin-bottom: 60px;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  margin-bottom: 60px;
+  min-width: 100%;
+}
 
   .wall-card {
     background: var(--near-black);
