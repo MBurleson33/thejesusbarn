@@ -146,6 +146,53 @@
     overflow-x: hidden;
   }
 
+  /* ── ANNOUNCEMENT BANNER ── */
+  .jb-announcement {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: var(--near-black);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 10px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .jb-announcement.visible { transform: translateY(0); }
+
+  .jb-announcement-text {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.85);
+    text-align: center;
+  }
+
+  .jb-announcement-close {
+    position: absolute;
+    right: 16px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+
+  .jb-announcement-close:hover { color: var(--white); }
+
+  /* push nav down when banner visible */
+  body.has-announcement nav { top: 37px; }
+  body.has-announcement .nav-logo { top: 37px; }
+
   /* ── NAV ── */
   nav {
     position: fixed;
@@ -1490,6 +1537,57 @@
   .jb-status.success { background: var(--off-white); color: var(--dark-grey); border: 1px solid var(--light-grey); display: block; }
   .jb-status.error   { background: var(--off-white); color: var(--mid-grey); border: 1px solid var(--light-grey); display: block; }
 
+  .jb-toggle-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .jb-toggle {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .jb-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+
+  .jb-toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: var(--light-grey);
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .jb-toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.2s;
+  }
+
+  .jb-toggle input:checked + .jb-toggle-slider { background: var(--near-black); }
+  .jb-toggle input:checked + .jb-toggle-slider::before { transform: translateX(20px); }
+
+  .jb-toggle-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.82rem;
+    color: var(--dark-grey);
+  }
+
   .jb-filter-wrap { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
   .jb-filter-btn { font-family: 'Lato', sans-serif; font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; border: 1px solid var(--light-grey); background: none; color: var(--mid-grey); cursor: pointer; transition: all 0.2s; }
   .jb-filter-btn.active { background: var(--near-black); color: var(--white); border-color: var(--near-black); }
@@ -1589,6 +1687,12 @@
 <!-- ── SKIP TO MAIN CONTENT (ADA) ── -->
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
+<!-- ── ANNOUNCEMENT BANNER ── -->
+<div class="jb-announcement" id="jbAnnouncement" role="alert" aria-live="polite">
+  <p class="jb-announcement-text" id="jbAnnouncementText"></p>
+  <button class="jb-announcement-close" onclick="jbDismissAnnouncement()" aria-label="Dismiss announcement">×</button>
+</div>
+
 <!-- ── ADMIN OVERLAY ── -->
 <div class="jb-admin-overlay" id="jbOverlay"></div>
 <div class="jb-admin-panel" id="jbPanel">
@@ -1600,6 +1704,7 @@
     <button class="jb-admin-tab active" onclick="jbSwitchTab('funding', this)">Funding &amp; Needs</button>
     <button class="jb-admin-tab" onclick="jbSwitchTab('signups', this)">Signups</button>
     <button class="jb-admin-tab" onclick="jbSwitchTab('wall', this)">Community Wall</button>
+    <button class="jb-admin-tab" onclick="jbSwitchTab('announcement', this)">Announcement</button>
   </div>
   <div class="jb-admin-pane active" id="jbPane-funding">
     <p class="jb-section-label">Funding</p>
@@ -1631,6 +1736,26 @@
     </div>
     <div id="jbWallItems"></div>
     <div class="jb-status" id="jbWallStatus"></div>
+  </div>
+
+  <div class="jb-admin-pane" id="jbPane-announcement">
+    <p class="jb-section-label">Announcement Banner</p>
+    <div class="jb-toggle-wrap">
+      <label class="jb-toggle">
+        <input type="checkbox" id="jbAnnouncementActive">
+        <span class="jb-toggle-slider"></span>
+      </label>
+      <span class="jb-toggle-label" id="jbToggleLabel">Banner is off</span>
+    </div>
+    <div class="jb-field">
+      <label>Announcement Text</label>
+      <input type="text" id="jbAnnouncementInput" placeholder="e.g. Now Open Every Saturday 10am–4pm · Piedmont, OK">
+    </div>
+    <p style="font-family:'Lato',sans-serif;font-size:0.72rem;color:var(--mid-grey);margin-top:8px;line-height:1.6;">Keep it short — one line works best. Toggle on to show it, off to hide it without losing the text.</p>
+    <div class="jb-admin-buttons">
+      <button class="jb-save-btn" onclick="jbSaveAnnouncement()">Save &amp; Publish</button>
+    </div>
+    <div class="jb-status" id="jbAnnouncementStatus"></div>
   </div>
 </div>
 
@@ -1986,17 +2111,19 @@
 
 <script>
   const JB = {
-    FUNDING_URL : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=0&single=true&output=csv',
-    NEEDS_URL   : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=463994235&single=true&output=csv',
-    WALL_URL    : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=79572446&single=true&output=csv',
-    SIGNUPS_URL : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=1464935464&single=true&output=csv',
-    SCRIPT_URL  : 'https://script.google.com/macros/s/AKfycbycmcGiPFA0Pfj0w1G8QVWeR_UpOmu2DNhpY8TXMQigL8-HJPHjDi7E0mdRVw4FXoMusQ/exec',
-    SECRET      : 'barnadmin',
-    PASSWORD    : 'barn2026'
+    FUNDING_URL      : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=0&single=true&output=csv',
+    NEEDS_URL        : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=463994235&single=true&output=csv',
+    WALL_URL         : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=79572446&single=true&output=csv',
+    SIGNUPS_URL      : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=1464935464&single=true&output=csv',
+    ANNOUNCEMENT_URL : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=124696312&single=true&output=csv',
+    SCRIPT_URL       : 'https://script.google.com/macros/s/AKfycbycmcGiPFA0Pfj0w1G8QVWeR_UpOmu2DNhpY8TXMQigL8-HJPHjDi7E0mdRVw4FXoMusQ/exec',
+    SECRET           : 'barnadmin',
+    PASSWORD         : 'barn2026'
   };
 
   let jbTyped='', jbFunding={}, jbNeeds=[], jbWall=[], jbSignups=[];
   let jbWallFilter='all', jbSignupFilter='all', selectedRole='';
+  let jbAnnouncement = { text: '', active: false };
 
   function parseCSV(text) {
     const rows = [];
@@ -2024,7 +2151,75 @@
   }
 
   async function jbLoadAll() {
-    await Promise.all([loadFunding(),loadNeeds(),loadWall(),loadSignups()]);
+    await Promise.all([loadFunding(),loadNeeds(),loadWall(),loadSignups(),loadAnnouncement()]);
+  }
+
+  async function loadAnnouncement() {
+    try {
+      const rows = parseCSV(await (await fetch(JB.ANNOUNCEMENT_URL+'&t='+Date.now())).text());
+      rows.forEach(r => {
+        if (r[0] === 'text')   jbAnnouncement.text   = r[1] || '';
+        if (r[0] === 'active') jbAnnouncement.active = r[1] === 'true';
+      });
+      renderAnnouncement();
+    } catch(e) { console.warn('Announcement load failed', e); }
+  }
+
+  function renderAnnouncement() {
+    const banner = document.getElementById('jbAnnouncement');
+    const textEl = document.getElementById('jbAnnouncementText');
+    const dismissed = localStorage.getItem('jbAnnouncementDismissed');
+    const dismissedText = localStorage.getItem('jbAnnouncementDismissedText');
+
+    if (jbAnnouncement.active && jbAnnouncement.text &&
+        !(dismissed === 'true' && dismissedText === jbAnnouncement.text)) {
+      textEl.textContent = jbAnnouncement.text;
+      banner.classList.add('visible');
+      document.body.classList.add('has-announcement');
+    } else {
+      banner.classList.remove('visible');
+      document.body.classList.remove('has-announcement');
+    }
+  }
+
+  function jbDismissAnnouncement() {
+    localStorage.setItem('jbAnnouncementDismissed', 'true');
+    localStorage.setItem('jbAnnouncementDismissedText', jbAnnouncement.text);
+    document.getElementById('jbAnnouncement').classList.remove('visible');
+    document.body.classList.remove('has-announcement');
+  }
+
+  async function jbSaveAnnouncement() {
+    const btn    = document.querySelector('#jbPane-announcement .jb-save-btn');
+    const status = document.getElementById('jbAnnouncementStatus');
+    const text   = document.getElementById('jbAnnouncementInput').value.trim();
+    const active = document.getElementById('jbAnnouncementActive').checked;
+
+    btn.textContent = 'Saving...'; btn.disabled = true;
+
+    try {
+      await fetch(JB.SCRIPT_URL, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sheet: 'announcement', text, active: String(active) })
+      });
+
+      jbAnnouncement = { text, active };
+      renderAnnouncement();
+      // clear dismiss if new text was saved
+      if (active && text) {
+        localStorage.removeItem('jbAnnouncementDismissed');
+        localStorage.removeItem('jbAnnouncementDismissedText');
+      }
+
+      status.textContent = 'Saved! Banner ' + (active ? 'is now live.' : 'has been hidden.');
+      status.className   = 'jb-status success';
+      setTimeout(() => { status.className = 'jb-status'; }, 2500);
+    } catch(e) {
+      status.textContent = 'Error saving. Try again.';
+      status.className   = 'jb-status error';
+    }
+    btn.textContent = 'Save & Publish'; btn.disabled = false;
   }
 
   async function loadFunding() {
@@ -2245,7 +2440,11 @@
     if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) return;
     jbTyped+=e.key.toLowerCase();
     if(jbTyped.length>JB.SECRET.length) jbTyped=jbTyped.slice(-JB.SECRET.length);
-    if(jbTyped===JB.SECRET){jbTyped='';jbPromptAdmin();}
+    if(jbTyped===JB.SECRET){
+      jbTyped='';
+      e.preventDefault();
+      setTimeout(jbPromptAdmin, 50);
+    }
   });
 
   function jbPromptAdmin() {
@@ -2266,12 +2465,14 @@
         </div>
       </div>`;
     document.body.appendChild(modal);
-    const input=document.getElementById('jbPasswordInput');
-    input.focus();
-    input.addEventListener('keydown',e=>{
-      if(e.key==='Enter') jbCheckPassword();
-      if(e.key==='Escape') jbDismissPassword();
-    });
+    setTimeout(() => {
+      const input=document.getElementById('jbPasswordInput');
+      input.focus();
+      input.addEventListener('keydown',e=>{
+        if(e.key==='Enter') jbCheckPassword();
+        if(e.key==='Escape') jbDismissPassword();
+      });
+    }, 100);
   }
 
   function jbCheckPassword() {
@@ -2299,7 +2500,8 @@
     }
     jbRenderWallAdmin();
     jbRenderSignupsAdmin();
-    ['jbFundingStatus','jbWallStatus','jbSignupStatus'].forEach(id=>{
+    jbPopulateAnnouncementPane();
+    ['jbFundingStatus','jbWallStatus','jbSignupStatus','jbAnnouncementStatus'].forEach(id=>{
       const el=document.getElementById(id);
       el.className='jb-status';el.textContent='';
     });
@@ -2319,8 +2521,21 @@
     document.querySelectorAll('.jb-admin-pane').forEach(p=>p.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById('jbPane-'+tab).classList.add('active');
-    if(tab==='signups') loadSignups().then(jbRenderSignupsAdmin);
-    if(tab==='wall')    loadWall().then(jbRenderWallAdmin);
+    if(tab==='signups')      loadSignups().then(jbRenderSignupsAdmin);
+    if(tab==='wall')         loadWall().then(jbRenderWallAdmin);
+    if(tab==='announcement') jbPopulateAnnouncementPane();
+  }
+
+  function jbPopulateAnnouncementPane() {
+    const input  = document.getElementById('jbAnnouncementInput');
+    const toggle = document.getElementById('jbAnnouncementActive');
+    const label  = document.getElementById('jbToggleLabel');
+    input.value    = jbAnnouncement.text;
+    toggle.checked = jbAnnouncement.active;
+    label.textContent = jbAnnouncement.active ? 'Banner is live' : 'Banner is off';
+    toggle.addEventListener('change', () => {
+      label.textContent = toggle.checked ? 'Banner is live' : 'Banner is off';
+    });
   }
 
   function jbAddNeedRow(item='',status='needed') {
