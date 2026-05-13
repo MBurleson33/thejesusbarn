@@ -794,6 +794,7 @@
     background: var(--near-black);
     padding: 40px 36px;
     border-radius: 2px;
+    transition: opacity 0.2s ease;
   }
 
   .aside-title {
@@ -814,8 +815,6 @@
   }
 
   .aside-item:last-of-type { border-bottom: none; }
-
-  .aside-icon { font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; }
 
   .aside-item-title {
     font-family: 'Playfair Display', serif;
@@ -862,13 +861,13 @@
   #community .section-title { color: var(--white); }
 
   .wall-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1px;
-  background: rgba(255,255,255,0.06);
-  margin-bottom: 60px;
-  min-width: 100%;
-}
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+    margin-bottom: 60px;
+    min-width: 100%;
+  }
 
   .wall-card {
     background: var(--near-black);
@@ -1248,9 +1247,7 @@
       border-top: 1px solid rgba(255,255,255,0.08);
       z-index: 99;
     }
-    .nav-links.open li {
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
+    .nav-links.open li { border-bottom: 1px solid rgba(255,255,255,0.06); }
     .nav-links.open a {
       display: block;
       padding: 16px 0;
@@ -1567,7 +1564,7 @@
     <p class="section-eyebrow light">Community Wall</p>
     <h2 class="section-title" style="color:var(--white);">What People Are Saying</h2>
     <div class="wall-grid" id="jbWallGrid">
-      <p style="font-family:'Playfair Display',serif;font-style:italic;color:rgba(255,255,255,0.25);padding:40px 0;">Loading...</p>
+      <p style="font-family:'Playfair Display',serif;font-style:italic;color:rgba(255,255,255,0.25);padding:40px 32px;white-space:nowrap;">Be the first to leave an encouraging word.</p>
     </div>
     <div class="wall-form-wrap">
       <p class="wall-form-title">Leave a Word of Encouragement</p>
@@ -1618,7 +1615,7 @@
     <p><a href="mailto:hello@thejesusbarn.com">hello@thejesusbarn.com</a></p>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2026 The Jesus Barn</span>
+    <span class="footer-copy">© 2026 The Jesus Barn LLC</span>
     <div class="footer-dot"></div>
     <span class="footer-copy">Built by the Community, for the Community</span>
   </div>
@@ -1683,11 +1680,8 @@
     try {
       const res = await fetch(JB.NEEDS_URL+'&t='+Date.now());
       const text = await res.text();
-      console.log('JB needs raw CSV:', text);
-      const rows=parseCSV(text);
-      console.log('JB needs parsed rows:', rows);
+      const rows = parseCSV(text);
       jbNeeds=rows.slice(1).filter(r=>r[0]).map(r=>({item:r[0],status:(r[1]||'needed').toLowerCase()}));
-      console.log('JB needs data:', jbNeeds);
       renderNeeds();
     } catch(e){ console.error('JB loadNeeds failed:', e); }
   }
@@ -1749,36 +1743,36 @@
     'Sow - Give Financially': {
       title: 'What Your Gift Does',
       items: [
-        { icon: '', title: 'Every seed counts', desc: 'No gift is too small. One-time or recurring — every dollar goes directly toward opening and maintaining the barn for the community.' },
-        { icon: '', title: 'One-time or recurring', desc: 'A monthly gift of any size has the biggest long-term impact. It helps us plan, budget, and keep the doors open consistently.' },
-        { icon: '', title: 'Sow in faith', desc: 'We believe God multiplies what is given cheerfully. Your generosity is a seed planted in Piedmont that will bear fruit for years to come.' }
+        { title: 'Every seed counts', desc: 'No gift is too small. One-time or recurring — every dollar goes directly toward opening and maintaining the barn for the community.' },
+        { title: 'One-time or recurring', desc: 'A monthly gift of any size has the biggest long-term impact. It helps us plan, budget, and keep the doors open consistently.' },
+        { title: 'Sow in faith', desc: 'We believe God multiplies what is given cheerfully. Your generosity is a seed planted in Piedmont that will bear fruit for years to come.' }
       ],
       scripture: { text: '"Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver."', ref: '— 2 Corinthians 9:7' }
     },
     'Serve - Volunteer My Time': {
       title: 'What Serving Looks Like',
       items: [
-        { icon: '', title: 'Coffee bar & hospitality', desc: 'Keep the coffee flowing, greet newcomers, and make everyone feel at home. This is the frontline of the ministry.' },
-        { icon: '', title: 'Prayer team', desc: 'Be available to pray with anyone who comes in hurting, searching, or just needing someone to stand with them.' },
-        { icon: '', title: 'Youth & family', desc: 'Mentor a teen, run a game, lead a Bible study. Your presence in a young person\'s life can change everything.' }
+        { title: 'Coffee bar & hospitality', desc: 'Keep the coffee flowing, greet newcomers, and make everyone feel at home. This is the frontline of the ministry.' },
+        { title: 'Prayer team', desc: 'Be available to pray with anyone who comes in hurting, searching, or just needing someone to stand with them.' },
+        { title: 'Youth & family', desc: 'Mentor a teen, run a game, lead a Bible study. Your presence in a young person\'s life can change everything.' }
       ],
       scripture: { text: '"Serve one another humbly in love."', ref: '— Galatians 5:13' }
     },
     'Gather - Collect Supplies or Funds': {
       title: 'What to Collect',
       items: [
-        { icon: '', title: 'Top supply needs', desc: 'Folding tables, chairs, coffee supplies, board games, books, paint, and building materials are all on our current list.' },
-        { icon: '', title: 'Drop-off & coordination', desc: 'Once you submit your form we\'ll connect with you to coordinate drop-off times or pick-up if needed.' },
-        { icon: '', title: 'Organize a drive', desc: 'Rally your church, small group, or workplace to collect supplies together. Every bit accelerates our opening.' }
+        { title: 'Top supply needs', desc: 'Folding tables, chairs, coffee supplies, board games, books, paint, and building materials are all on our current list.' },
+        { title: 'Drop-off & coordination', desc: 'Once you submit your form we\'ll connect with you to coordinate drop-off times or pick-up if needed.' },
+        { title: 'Organize a drive', desc: 'Rally your church, small group, or workplace to collect supplies together. Every bit accelerates our opening.' }
       ],
       scripture: { text: '"And do not forget to do good and to share with others, for with such sacrifices God is pleased."', ref: '— Hebrews 13:16' }
     },
     'Work - Offer a Skill or Trade': {
       title: 'Skills We Need',
       items: [
-        { icon: '', title: 'Construction & trades', desc: 'Carpentry, electrical, plumbing, painting — hands-on work is urgently needed to get the barn ready to open.' },
-        { icon: '', title: 'Cooking & hospitality', desc: 'Help us build out food prep and refreshment systems so we can serve the community well from day one.' },
-        { icon: '', title: 'Tech, design & media', desc: 'Photography, graphic design, web, sound systems — if you have a creative or technical skill, there\'s a place for it here.' }
+        { title: 'Construction & trades', desc: 'Carpentry, electrical, plumbing, painting — hands-on work is urgently needed to get the barn ready to open.' },
+        { title: 'Cooking & hospitality', desc: 'Help us build out food prep and refreshment systems so we can serve the community well from day one.' },
+        { title: 'Tech, design & media', desc: 'Photography, graphic design, web, sound systems — if you have a creative or technical skill, there\'s a place for it here.' }
       ],
       scripture: { text: '"Whatever you do, work at it with all your heart, as working for the Lord, not for human masters."', ref: '— Colossians 3:23' }
     }
@@ -1793,12 +1787,10 @@
     document.getElementById('fldMsg').placeholder='We\'d love to hear from you...';
     document.getElementById('roleError').classList.remove('show');
 
-    // update aside
     const content = asideContent[role];
     if (content) {
       const aside = document.getElementById('formAside');
       aside.style.opacity = '0.15';
-      aside.style.transition = 'opacity 0.2s ease';
       setTimeout(() => {
         aside.innerHTML = `
           <p class="aside-title">${content.title}</p>
@@ -1816,7 +1808,7 @@
           </div>
         `;
         aside.style.opacity = '1';
-      }, 250);
+      }, 200);
     }
   }
 
@@ -1925,18 +1917,14 @@
     document.getElementById('jbGoal').value=jbFunding.goal||'';
     document.getElementById('jbRaised').value=jbFunding.raised||'';
     document.getElementById('jbContributors').value=jbFunding.contributors||'';
-
-    // always reload needs fresh from sheet
     await loadNeeds();
     const nr=document.getElementById('jbNeedsRows');
     nr.innerHTML='';
     if(jbNeeds.length) {
       jbNeeds.forEach(n=>jbAddNeedRow(n.item,n.status));
     } else {
-      // sheet is empty — add one blank row so admin can start adding
       jbAddNeedRow('','needed');
     }
-
     jbRenderWallAdmin();
     jbRenderSignupsAdmin();
     ['jbFundingStatus','jbWallStatus','jbSignupStatus'].forEach(id=>{
