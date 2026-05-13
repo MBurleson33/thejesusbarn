@@ -1688,7 +1688,7 @@
     }
     .nav-burger { display: flex; }
     .nav-admin-link { display: block; }
-    .nav-logo img { height: 72px; }
+    .nav-logo img { height: 90px; }
     .form-aside { display: none; }
     .container { padding: 72px 24px; }
     .heart-layout, .building-layout, .form-body, .contact-layout { grid-template-columns: 1fr; gap: 48px; }
@@ -2365,14 +2365,22 @@
     const g=id=>document.getElementById(id);
     if(!g('jbStatRaised')) return;
     const {goal,raised,contributors}=jbFunding;
-    const pct=Math.min(Math.round((raised/goal)*100),100);
-    g('jbStatGoal').textContent='$'+Number(goal).toLocaleString();
-    g('jbStatRaised').textContent='$'+Number(raised).toLocaleString();
-    g('jbStatContributors').textContent=contributors;
+    if(!goal && !raised) {
+      g('jbStatGoal').textContent='—';
+      g('jbStatRaised').textContent='—';
+      g('jbStatContributors').textContent='—';
+      g('jbProgressFill').style.width='0%';
+      g('jbProgressLabel').textContent='Loading...';
+      return;
+    }
+    const pct=goal ? Math.min(Math.round((raised/goal)*100),100) : 0;
+    g('jbStatGoal').textContent='$'+Number(goal||0).toLocaleString();
+    g('jbStatRaised').textContent='$'+Number(raised||0).toLocaleString();
+    g('jbStatContributors').textContent=contributors||'0';
     g('jbProgressFill').style.width=pct+'%';
     const track = g('jbProgressFill').parentElement;
     if(track) track.setAttribute('aria-valuenow', pct);
-    g('jbProgressLabel').textContent=pct+'% funded · $'+Number(goal-raised).toLocaleString()+' remaining';
+    g('jbProgressLabel').textContent=pct+'% funded · $'+Number((goal||0)-(raised||0)).toLocaleString()+' remaining';
   }
 
   function renderNeeds() {
