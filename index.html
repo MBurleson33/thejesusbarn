@@ -1473,15 +1473,30 @@
   .jb-admin-close:hover { color: var(--near-black); }
 
   .jb-admin-tabs {
-    display: flex;
-    border-bottom: 2px solid var(--light-grey);
     margin-bottom: 28px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    gap: 0;
   }
-  .jb-admin-tabs::-webkit-scrollbar { display: none; }
+
+  .jb-admin-select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--light-grey);
+    border-radius: 2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: var(--near-black);
+    background: var(--off-white);
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23555' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+  }
+
+  .jb-admin-select:focus { border-color: var(--near-black); }
   .jb-admin-tab { font-family: 'Lato', sans-serif; font-size: 0.58rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid-grey); padding: 10px 14px; cursor: pointer; border: none; background: none; border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; transition: color 0.2s, border-color 0.2s; }
   .jb-admin-tab.active { color: var(--near-black); border-bottom-color: var(--near-black); }
   .jb-admin-tab:hover  { color: var(--dark-grey); }
@@ -1702,10 +1717,12 @@
     <button class="jb-admin-close" onclick="jbCloseAdmin()">×</button>
   </div>
   <div class="jb-admin-tabs">
-    <button class="jb-admin-tab active" onclick="jbSwitchTab('funding', this)">Funding &amp; Needs</button>
-    <button class="jb-admin-tab" onclick="jbSwitchTab('signups', this)">Signups</button>
-    <button class="jb-admin-tab" onclick="jbSwitchTab('wall', this)">Community Wall</button>
-    <button class="jb-admin-tab" onclick="jbSwitchTab('announcement', this)">Announcement</button>
+    <select class="jb-admin-select" onchange="jbSwitchTab(this.value, this)">
+      <option value="funding">Funding &amp; Needs</option>
+      <option value="signups">Signups</option>
+      <option value="wall">Community Wall</option>
+      <option value="announcement">Announcement</option>
+    </select>
   </div>
   <div class="jb-admin-pane active" id="jbPane-funding">
     <p class="jb-section-label">Funding</p>
@@ -2555,11 +2572,12 @@
 
   document.getElementById('jbOverlay').addEventListener('click',jbCloseAdmin);
 
-  function jbSwitchTab(tab,btn) {
-    document.querySelectorAll('.jb-admin-tab').forEach(t=>t.classList.remove('active'));
+  function jbSwitchTab(tab, el) {
     document.querySelectorAll('.jb-admin-pane').forEach(p=>p.classList.remove('active'));
-    btn.classList.add('active');
     document.getElementById('jbPane-'+tab).classList.add('active');
+    // sync dropdown if called from button (mobile nav)
+    const select = document.querySelector('.jb-admin-select');
+    if(select && select.value !== tab) select.value = tab;
     if(tab==='signups')      loadSignups().then(jbRenderSignupsAdmin);
     if(tab==='wall')         loadWall().then(jbRenderWallAdmin);
     if(tab==='announcement') jbPopulateAnnouncementPane();
