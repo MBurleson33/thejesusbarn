@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="The Jesus Barn — A free community space in Piedmont, Oklahoma. Built by the community, for the community, with Jesus as our guide.">
 <title>The Jesus Barn — Piedmont, Oklahoma</title>
+<link rel="icon" type="image/png" href="images/The-Jesus-Barn-Logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 <style>
 
   /* ── RESET & BASE ── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; font-size: 18px; }
 
   :root {
     --white:       #FFFFFF;
@@ -42,6 +43,7 @@
     background: rgba(10, 10, 10, 0.96);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(255,255,255,0.08);
+    overflow: visible;
   }
 
   .nav-logo {
@@ -1331,7 +1333,7 @@
 <!-- ── NAV ── -->
 <nav>
   <a class="nav-logo" href="#home">
-    <img src="images/The-Jesus-Barn-Logo.png" alt="The Jesus Barn" style="height:48px;width:auto;display:block;">
+    <img src="images/The-Jesus-Barn-Logo.png" alt="The Jesus Barn" style="height:90px;width:auto;display:block;margin-top:-18px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.4));">
   </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#story">Our Heart</a></li>
@@ -1510,14 +1512,15 @@
           <input type="tel" id="fldPhone" placeholder="(405) 000-0000">
         </div>
         <div class="input-group" id="grpMsg">
+          <p id="roleHint" style="font-family:'Playfair Display',serif;font-style:italic;font-size:0.88rem;color:var(--mid-grey);margin-bottom:8px;min-height:1.4em;">Select a role above to get started.</p>
           <label id="msgLabel">Tell Us More <span class="required">*</span></label>
-          <textarea id="fldMsg" placeholder="Select a role above and this field will update..."></textarea>
+          <textarea id="fldMsg" placeholder="We'd love to hear from you..."></textarea>
           <p class="field-error">Please tell us a little more.</p>
         </div>
         <button class="form-submit" onclick="submitForm()">Count Me In</button>
         <div class="form-status" id="formStatus"></div>
       </div>
-      <div class="form-aside">
+      <div class="form-aside" id="formAside">
         <p class="aside-title">What Your Partnership Means</p>
         <div class="aside-item">
           <span class="aside-icon">🌱</span>
@@ -1571,7 +1574,7 @@
         </div>
       </div>
       <div class="wall-field">
-        <textarea id="wallMessage" placeholder="Share what The Jesus Barn means to you..."></textarea>
+        <textarea id="wallMessage" placeholder="Share what The Jesus Barn means to you, or leave a word of encouragement for the community..."></textarea>
       </div>
       <button class="wall-submit" onclick="submitWall()">Post to the Wall</button>
       <div class="wall-submit-status" id="wallStatus"></div>
@@ -1733,13 +1736,80 @@
       </div>`).join('');
   }
 
+  const asideContent = {
+    'Sow - Give Financially': {
+      title: 'What Your Gift Does',
+      items: [
+        { icon: '🌱', title: 'Every seed counts', desc: 'No gift is too small. One-time or recurring — every dollar goes directly toward opening and maintaining the barn for the community.' },
+        { icon: '💰', title: 'One-time or recurring', desc: 'A monthly gift of any size has the biggest long-term impact. It helps us plan, budget, and keep the doors open consistently.' },
+        { icon: '🙏', title: 'Sow in faith', desc: 'We believe God multiplies what is given cheerfully. Your generosity is a seed planted in Piedmont that will bear fruit for years to come.' }
+      ],
+      scripture: { text: '"Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver."', ref: '— 2 Corinthians 9:7' }
+    },
+    'Serve - Volunteer My Time': {
+      title: 'What Serving Looks Like',
+      items: [
+        { icon: '☕', title: 'Coffee bar & hospitality', desc: 'Keep the coffee flowing, greet newcomers, and make everyone feel at home. This is the frontline of the ministry.' },
+        { icon: '🙏', title: 'Prayer team', desc: 'Be available to pray with anyone who comes in hurting, searching, or just needing someone to stand with them.' },
+        { icon: '👨‍👩‍👧', title: 'Youth & family', desc: 'Mentor a teen, run a game, lead a Bible study. Your presence in a young person\'s life can change everything.' }
+      ],
+      scripture: { text: '"Serve one another humbly in love."', ref: '— Galatians 5:13' }
+    },
+    'Gather - Collect Supplies or Funds': {
+      title: 'What to Collect',
+      items: [
+        { icon: '📦', title: 'Top supply needs', desc: 'Folding tables, chairs, coffee supplies, board games, books, paint, and building materials are all on our current list.' },
+        { icon: '🚗', title: 'Drop-off & coordination', desc: 'Once you submit your form we\'ll connect with you to coordinate drop-off times or pick-up if needed.' },
+        { icon: '👥', title: 'Organize a drive', desc: 'Rally your church, small group, or workplace to collect supplies together. Every bit accelerates our opening.' }
+      ],
+      scripture: { text: '"And do not forget to do good and to share with others, for with such sacrifices God is pleased."', ref: '— Hebrews 13:16' }
+    },
+    'Work - Offer a Skill or Trade': {
+      title: 'Skills We Need',
+      items: [
+        { icon: '🔨', title: 'Construction & trades', desc: 'Carpentry, electrical, plumbing, painting — hands-on work is urgently needed to get the barn ready to open.' },
+        { icon: '🍳', title: 'Cooking & hospitality', desc: 'Help us build out food prep and refreshment systems so we can serve the community well from day one.' },
+        { icon: '💻', title: 'Tech, design & media', desc: 'Photography, graphic design, web, sound systems — if you have a creative or technical skill, there\'s a place for it here.' }
+      ],
+      scripture: { text: '"Whatever you do, work at it with all your heart, as working for the Lord, not for human masters."', ref: '— Colossians 3:23' }
+    }
+  };
+
   function pickRole(card,role,hint) {
     document.querySelectorAll('.role-card').forEach(c=>c.classList.remove('selected'));
     card.classList.add('selected');
     selectedRole=role;
-    document.getElementById('msgLabel').innerHTML=hint.split('?')[0]+'? <span class="required">*</span>';
-    document.getElementById('fldMsg').placeholder=hint;
+    document.getElementById('roleHint').textContent=hint;
+    document.getElementById('msgLabel').innerHTML='Tell Us More <span class="required">*</span>';
+    document.getElementById('fldMsg').placeholder='We\'d love to hear from you...';
     document.getElementById('roleError').classList.remove('show');
+
+    // update aside
+    const content = asideContent[role];
+    if (content) {
+      const aside = document.getElementById('formAside');
+      aside.style.opacity = '0';
+      aside.style.transition = 'opacity 0.25s ease';
+      setTimeout(() => {
+        aside.innerHTML = `
+          <p class="aside-title">${content.title}</p>
+          ${content.items.map(item => `
+            <div class="aside-item">
+              <span class="aside-icon">${item.icon}</span>
+              <div>
+                <p class="aside-item-title">${item.title}</p>
+                <p class="aside-item-desc">${item.desc}</p>
+              </div>
+            </div>
+          `).join('')}
+          <div class="aside-scripture">
+            <p class="aside-scripture-text">${content.scripture.text}</p>
+            <p class="aside-scripture-ref">${content.scripture.ref}</p>
+          </div>
+        `;
+        aside.style.opacity = '1';
+      }, 250);
+    }
   }
 
   function submitForm() {
