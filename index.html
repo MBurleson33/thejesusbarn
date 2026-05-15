@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ── PRIMARY SEO ── -->
-<title>The Jesus Barn — One Body. One Table. All Welcome.</title>
+<title>The Jesus Barn — Free Community Space in Piedmont, Oklahoma</title>
 <meta name="description" content="The Jesus Barn is a free community gathering space in Piedmont, Oklahoma. Free coffee, Bible study, prayer, games, and more — open to everyone. Built by the community, for the community, with Jesus as our guide.">
 <meta name="keywords" content="Jesus Barn, Piedmont Oklahoma, free community space, Christian community center, Bible study Piedmont, prayer Piedmont OK, community gathering, faith community Oklahoma">
 <meta name="author" content="The Jesus Barn LLC">
@@ -1282,6 +1282,123 @@
   .wall-submit-status.success { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); display: block; }
   .wall-submit-status.error   { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.45); display: block; }
 
+  /* ── WALL CAROUSEL ── */
+  .jb-carousel-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 9995;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 60px 24px 80px;
+    backdrop-filter: blur(8px);
+  }
+
+  .jb-carousel-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.5);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+    z-index: 2;
+  }
+
+  .jb-carousel-close:hover { color: var(--white); }
+
+  .jb-carousel-track {
+    width: 100%;
+    max-width: 640px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .jb-carousel-slide {
+    display: none;
+    text-align: center;
+    padding: 40px 24px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .jb-carousel-slide.active { display: block; }
+
+  .jb-carousel-slide .wall-quote-mark {
+    font-size: 5rem;
+    color: rgba(255,255,255,0.08);
+    line-height: 0.6;
+    display: block;
+    margin-bottom: 24px;
+  }
+
+  .jb-carousel-slide .wall-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
+    color: rgba(255,255,255,0.85);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .jb-carousel-slide .wall-author {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mid-grey);
+  }
+
+  .jb-carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.5);
+    font-size: 2rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    z-index: 2;
+    line-height: 1;
+  }
+
+  .jb-carousel-arrow:hover { border-color: rgba(255,255,255,0.6); color: var(--white); }
+  .jb-carousel-prev { left: 16px; }
+  .jb-carousel-next { right: 16px; }
+
+  .jb-carousel-dots {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+  }
+
+  .jb-carousel-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+    padding: 0;
+  }
+
+  .jb-carousel-dot.active { background: var(--white); }
+
   /* ── DISCLAIMER MODAL ── */
   .jb-disclaimer-backdrop {
     position: fixed;
@@ -2290,6 +2407,9 @@
     <div class="wall-grid" id="jbWallGrid">
       <p style="font-family:'Playfair Display',serif;font-style:italic;color:rgba(255,255,255,0.25);padding:40px 32px;white-space:nowrap;">Be the first to leave an encouraging word.</p>
     </div>
+    <div style="text-align:center;margin-bottom:48px;">
+      <button id="jbWallMoreBtn" onclick="jbOpenCarousel()" style="display:none;background:transparent;border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.7);font-family:'Lato',sans-serif;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;padding:14px 32px;border-radius:2px;cursor:pointer;transition:all 0.2s;">Read More Stories</button>
+    </div>
     <div class="wall-form-wrap">
       <p class="wall-form-title">Leave a Word of Encouragement</p>
       <p class="wall-form-sub">Your note will appear on the wall once approved. Thank you for being part of this community.</p>
@@ -2310,7 +2430,14 @@
       <div class="wall-submit-status" id="wallStatus"></div>
     </div>
   </div>
-<!-- ── DISCLAIMER MODAL ── -->
+<!-- ── WALL CAROUSEL ── -->
+<div class="jb-carousel-backdrop" id="jbCarouselBackdrop" style="display:none;">
+  <button class="jb-carousel-close" onclick="jbCloseCarousel()" aria-label="Close">×</button>
+  <button class="jb-carousel-arrow jb-carousel-prev" onclick="jbCarouselPrev()" aria-label="Previous">‹</button>
+  <div class="jb-carousel-track" id="jbCarouselTrack"></div>
+  <button class="jb-carousel-arrow jb-carousel-next" onclick="jbCarouselNext()" aria-label="Next">›</button>
+  <div class="jb-carousel-dots" id="jbCarouselDots"></div>
+</div>
 <div class="jb-disclaimer-backdrop" id="jbDisclaimerBackdrop" onclick="jbCloseDisclaimer()" style="display:none;">
   <div class="jb-disclaimer-modal" onclick="event.stopPropagation()">
     <div class="jb-disclaimer-header">
@@ -2617,20 +2744,34 @@
     }).join('');
   }
 
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
   function renderWallPublic() {
-    const grid=document.getElementById('jbWallGrid');
-    if(!grid) return;
-    const approved=jbWall.filter(w=>w.status==='approved');
-    if(!approved.length){
-      grid.innerHTML='<p style="font-family:\'Playfair Display\',serif;font-style:italic;color:rgba(255,255,255,0.25);padding:40px 32px;white-space:nowrap;">Be the first to leave an encouraging word.</p>';
+    const grid = document.getElementById('jbWallGrid');
+    const moreBtn = document.getElementById('jbWallMoreBtn');
+    if (!grid) return;
+    const approved = jbWall.filter(w => w.status === 'approved');
+    if (!approved.length) {
+      grid.innerHTML = '<p style="font-family:\'Playfair Display\',serif;font-style:italic;color:rgba(255,255,255,0.25);padding:40px 32px;white-space:nowrap;">Be the first to leave an encouraging word.</p>';
+      if (moreBtn) moreBtn.style.display = 'none';
       return;
     }
-    grid.innerHTML=approved.map(w=>`
+    const shuffled = shuffle(approved);
+    const shown = shuffled.slice(0, 6);
+    grid.innerHTML = shown.map(w => `
       <div class="wall-card">
         <span class="wall-quote-mark">"</span>
         <p class="wall-text">${w.message}</p>
-        <p class="wall-author">— ${w.name}${w.location?', '+w.location:''}</p>
+        <p class="wall-author">— ${w.name}${w.location ? ', ' + w.location : ''}</p>
       </div>`).join('');
+    if (moreBtn) moreBtn.style.display = approved.length > 6 ? 'inline-block' : 'none';
   }
 
   const asideContent = {
@@ -3120,6 +3261,73 @@
       if (e.key === 'ArrowRight') setPosition(rect.left + (cur + 0.05) * rect.width);
     });
   })();
+
+  // ── WALL CAROUSEL ──
+  let jbCarouselIndex = 0;
+  let jbCarouselPosts = [];
+  let jbCarouselStartX = 0;
+
+  function jbOpenCarousel() {
+    jbCarouselPosts = shuffle(jbWall.filter(w => w.status === 'approved'));
+    jbCarouselIndex = 0;
+    const track = document.getElementById('jbCarouselTrack');
+    const dots  = document.getElementById('jbCarouselDots');
+    track.innerHTML = jbCarouselPosts.map((w, i) => `
+      <div class="jb-carousel-slide ${i === 0 ? 'active' : ''}">
+        <span class="wall-quote-mark">"</span>
+        <p class="wall-text">${w.message}</p>
+        <p class="wall-author">— ${w.name}${w.location ? ', ' + w.location : ''}</p>
+      </div>`).join('');
+    dots.innerHTML = jbCarouselPosts.map((_, i) =>
+      `<button class="jb-carousel-dot ${i === 0 ? 'active' : ''}" onclick="jbGoToSlide(${i})" aria-label="Go to slide ${i+1}"></button>`
+    ).join('');
+    const backdrop = document.getElementById('jbCarouselBackdrop');
+    backdrop.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    // touch swipe
+    track.addEventListener('touchstart', e => { jbCarouselStartX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend',   e => {
+      const diff = jbCarouselStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) diff > 0 ? jbCarouselNext() : jbCarouselPrev();
+    });
+  }
+
+  function jbCloseCarousel() {
+    document.getElementById('jbCarouselBackdrop').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function jbGoToSlide(i) {
+    const slides = document.querySelectorAll('.jb-carousel-slide');
+    const dots   = document.querySelectorAll('.jb-carousel-dot');
+    slides[jbCarouselIndex].classList.remove('active');
+    dots[jbCarouselIndex].classList.remove('active');
+    jbCarouselIndex = i;
+    slides[jbCarouselIndex].classList.add('active');
+    dots[jbCarouselIndex].classList.add('active');
+  }
+
+  function jbCarouselNext() {
+    jbGoToSlide((jbCarouselIndex + 1) % jbCarouselPosts.length);
+  }
+
+  function jbCarouselPrev() {
+    jbGoToSlide((jbCarouselIndex - 1 + jbCarouselPosts.length) % jbCarouselPosts.length);
+  }
+
+  // close carousel on backdrop click
+  document.getElementById('jbCarouselBackdrop').addEventListener('click', function(e) {
+    if (e.target === this) jbCloseCarousel();
+  });
+
+  // keyboard nav
+  document.addEventListener('keydown', e => {
+    const backdrop = document.getElementById('jbCarouselBackdrop');
+    if (backdrop.style.display === 'none') return;
+    if (e.key === 'ArrowRight') jbCarouselNext();
+    if (e.key === 'ArrowLeft')  jbCarouselPrev();
+    if (e.key === 'Escape')     jbCloseCarousel();
+  });
 
   jbLoadAll();
 </script>
