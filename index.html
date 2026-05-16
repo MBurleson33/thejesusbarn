@@ -2128,8 +2128,17 @@
   <div class="jb-admin-pane active" id="jbPane-funding">
     <p class="jb-section-label">Funding</p>
     <div class="jb-field"><label>Goal Amount ($)</label><input type="number" id="jbGoal"></div>
-    <div class="jb-field"><label>Amount Raised ($)</label><input type="number" id="jbRaised"></div>
+    <div class="jb-field"><label>Amount Raised ($) <span style="color:var(--mid-grey);font-size:0.6rem;letter-spacing:1px;">AUTO-CALCULATED</span></label><input type="number" id="jbRaised" style="background:var(--light-grey);color:var(--dark-grey);" readonly></div>
     <div class="jb-field"><label>Contributors</label><input type="number" id="jbContributors"></div>
+    <p class="jb-section-label">Add New Contribution</p>
+    <div style="display:flex;gap:8px;align-items:flex-end;margin-bottom:12px;">
+      <div class="jb-field" style="flex:1;margin-bottom:0;">
+        <label>Amount ($)</label>
+        <input type="number" id="jbNewContribution" placeholder="0.00" min="0" step="0.01">
+      </div>
+      <button onclick="jbAddContribution()" style="background:var(--near-black);color:var(--white);border:none;border-radius:2px;font-family:'Lato',sans-serif;font-size:0.65rem;letter-spacing:1.5px;text-transform:uppercase;padding:9px 16px;cursor:pointer;white-space:nowrap;margin-bottom:0;">+ Add</button>
+    </div>
+    <p style="font-family:'Lato',sans-serif;font-size:0.7rem;color:var(--mid-grey);line-height:1.6;margin-bottom:16px;">Enter a new donation amount and click Add — it will be added to the running total automatically.</p>
     <p class="jb-section-label">Needs List</p>
     <div id="jbNeedsRows"></div>
     <button class="jb-add-btn" onclick="jbAddNeedRow()">+ Add Item</button>
@@ -3124,7 +3133,25 @@
     nr.appendChild(row);
   }
 
-  async function jbSaveFunding() {
+  function jbAddContribution() {
+    const input = document.getElementById('jbNewContribution');
+    const amount = parseFloat(input.value);
+    if (!amount || amount <= 0) {
+      alert('Please enter a valid amount.');
+      return;
+    }
+    const raisedEl = document.getElementById('jbRaised');
+    const current = parseFloat(raisedEl.value) || 0;
+    const newTotal = Math.round((current + amount) * 100) / 100;
+    raisedEl.value = newTotal;
+
+    // auto increment contributors by 1
+    const contribEl = document.getElementById('jbContributors');
+    contribEl.value = (parseInt(contribEl.value) || 0) + 1;
+
+    input.value = '';
+    input.focus();
+  }
     const btn=document.querySelector('#jbPane-funding .jb-save-btn');
     const status=document.getElementById('jbFundingStatus');
     btn.textContent='Saving...'; btn.disabled=true;
