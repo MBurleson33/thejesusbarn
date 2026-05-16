@@ -3151,6 +3151,8 @@
     input.value = '';
     input.focus();
   }
+
+  async function jbSaveFunding() {
     const btn=document.querySelector('#jbPane-funding .jb-save-btn');
     const status=document.getElementById('jbFundingStatus');
     btn.textContent='Saving...'; btn.disabled=true;
