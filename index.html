@@ -592,8 +592,7 @@
   }
 
   .ba-before {
-    width: 50%;
-    border-right: 2px solid var(--white);
+    clip-path: inset(0 50% 0 0);
   }
 
   .ba-handle {
@@ -618,7 +617,6 @@
     background: var(--white);
     box-shadow: 0 0 8px rgba(0,0,0,0.3);
   }
-
   .ba-handle-circle {
     width: 40px;
     height: 40px;
@@ -3264,7 +3262,7 @@
       let pct = (x - rect.left) / rect.width;
       pct = Math.min(Math.max(pct, 0.02), 0.98);
       const pcStr = (pct * 100).toFixed(1) + '%';
-      before.style.width  = pcStr;
+      before.style.clipPath  = `inset(0 ${(100 - pct * 100).toFixed(1)}% 0 0)`;
       handle.style.left   = pcStr;
       handle.setAttribute('aria-valuenow', Math.round(pct * 100));
     }
@@ -3279,7 +3277,8 @@
     // keyboard support
     handle.addEventListener('keydown', e => {
       const rect = slider.getBoundingClientRect();
-      const cur = parseFloat(before.style.width || '50') / 100;
+      const match = before.style.clipPath.match(/inset\(0 ([\d.]+)% 0 0\)/);
+      const cur = match ? 1 - parseFloat(match[1]) / 100 : 0.5;
       if (e.key === 'ArrowLeft')  setPosition(rect.left + (cur - 0.05) * rect.width);
       if (e.key === 'ArrowRight') setPosition(rect.left + (cur + 0.05) * rect.width);
     });
