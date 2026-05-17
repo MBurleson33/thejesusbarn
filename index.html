@@ -3565,6 +3565,46 @@
     if (e.key === 'Escape')     jbCloseCarousel();
   });
 
+  function jbCopyMessage() {
+    const message = 'A place to belong is coming to Piedmont, Oklahoma! 🙏\n\nThe Jesus Barn is a free community gathering space — free coffee, Bible study, prayer, games, and more. No membership. No fee. Open to everyone.\n\nWatch the video and learn how you can be part of it:\nhttps://youtu.be/V0UqlNoTrYM\n\nthejesusbarn.org';
+    const btn = document.getElementById('jbCopyBtn');
+
+    // try modern clipboard API first
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(message).then(() => {
+        btn.textContent = '✓ Copied — Paste into Facebook';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy Message to Paste';
+          btn.classList.remove('copied');
+        }, 3000);
+      }).catch(() => jbFallbackCopy(message, btn));
+    } else {
+      jbFallbackCopy(message, btn);
+    }
+  }
+
+  function jbFallbackCopy(message, btn) {
+    const ta = document.createElement('textarea');
+    ta.value = message;
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try {
+      document.execCommand('copy');
+      btn.textContent = '✓ Copied — Paste into Facebook';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy Message to Paste';
+        btn.classList.remove('copied');
+      }, 3000);
+    } catch(e) {
+      btn.textContent = 'Could not copy — try manually';
+    }
+    document.body.removeChild(ta);
+  }
+
   jbLoadAll();
 </script>
 </body>
