@@ -552,6 +552,102 @@
 
   .heart-image-block { position: relative; }
 
+  /* ── VIDEO SECTION ── */
+  .video-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: center;
+  }
+
+  .video-body {
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.9;
+    margin-bottom: 28px;
+  }
+
+  .video-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    padding: 20px 0 20px 20px;
+    border-left: 3px solid #ff0000;
+    margin-bottom: 36px;
+  }
+
+  .video-quote span {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-style: normal;
+    font-size: 0.52rem;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.25);
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  .video-share-block {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 2px;
+    padding: 24px 28px;
+  }
+
+  .video-share-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+
+  .video-share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #1877F2;
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 13px 24px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+    margin-bottom: 12px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .video-share-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  .video-share-sub {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.62rem;
+    color: rgba(255,255,255,0.2);
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .video-right {}
+
+  .video-embed {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  }
+
   /* ── BEFORE / AFTER SLIDER ── */
   .ba-slider {
     position: relative;
@@ -2043,7 +2139,7 @@
     .needs-title { text-align: center; }
     .container { padding: 72px 24px; }
     .heart-layout { grid-template-columns: 1fr; gap: 24px; }
-    .building-layout, .form-body, .contact-layout { grid-template-columns: 1fr; gap: 48px; }
+    .building-layout, .form-body, .contact-layout, .video-layout { grid-template-columns: 1fr; gap: 48px; }
     .pullquote { margin: 16px 0 24px; }
     #story .ba-slider { margin-bottom: 24px !important; }
     .heart-image-accent { display: none; }
@@ -2256,6 +2352,44 @@
 <div id="acts" role="complementary" aria-label="Scripture call to action">
   <p>The Lord is Calling for His True Acts 2 Church to Rise Up, Come Together, &amp; Be One Body — Alive in Jesus Christ</p>
 </div>
+
+<!-- ── VIDEO ── -->
+<section id="video" style="background:var(--near-black);">
+  <div class="container">
+    <div class="video-layout">
+      <div class="video-left">
+        <p class="section-eyebrow light">Watch Our Story</p>
+        <h2 class="section-title" style="color:var(--white);">See What<br>God Is Building</h2>
+        <p class="video-body">This is more than a building — it's a vision for what Piedmont could be. Watch and see what the body of Christ can do when it comes together as one.</p>
+        <blockquote class="video-quote">"For where two or three gather in my name, there am I with them."<span>— Matthew 18:20</span></blockquote>
+        <div class="video-share-block">
+          <p class="video-share-label">Know someone who needs to hear this?</p>
+          <a
+            href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fyoutu.be%2FV0UqlNoTrYM&quote=A%20place%20to%20belong%20is%20coming%20to%20Piedmont%2C%20Oklahoma.%20The%20Jesus%20Barn%20%E2%80%94%20free%20coffee%2C%20community%2C%20and%20the%20love%20of%20Jesus.%20Open%20to%20everyone.%20thejesusbarn.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="video-share-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0;"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Share This Video on Facebook
+          </a>
+          <p class="video-share-sub">Opens Facebook with the video and a pre-filled message ready to post.</p>
+        </div>
+      </div>
+      <div class="video-right">
+        <div class="video-embed">
+          <iframe
+            src="https://www.youtube.com/embed/V0UqlNoTrYM?rel=0&modestbranding=1&controls=1&fs=1&color=white"
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            allowfullscreen
+            title="The Jesus Barn — Our Story">
+          </iframe>
+        </div>
+        <p style="font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:3px;color:var(--mid-grey);text-transform:uppercase;margin-top:14px;text-align:center;">The Jesus Barn · Piedmont, Oklahoma</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ── OUR HEART ── -->
 <section id="story" aria-labelledby="story-title">
