@@ -649,8 +649,13 @@
         <input type="email" id="giveEmail" placeholder="you@email.com" autocomplete="email">
       </div>
 
-      <!-- stripe payment element (includes Apple Pay, Google Pay) -->
-      <label class="card-label">Payment Details</label>
+      <!-- cover fees -->
+      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:20px;padding:14px 16px;background:var(--off-white);border-radius:2px;border:1px solid var(--light-grey);">
+        <input type="checkbox" id="coverFees" onchange="updateCoverFees()" style="margin-top:2px;width:16px;height:16px;flex-shrink:0;cursor:pointer;accent-color:var(--near-black);">
+        <label for="coverFees" style="font-family:'Lato',sans-serif;font-size:0.75rem;font-weight:300;color:var(--dark-grey);line-height:1.6;cursor:pointer;">
+          I'd like to cover the processing fee so <strong style="color:var(--near-black);font-weight:700;">100% of my gift</strong> goes to The Jesus Barn. <span id="feeAmount" style="color:var(--mid-grey);"></span>
+        </label>
+      </div>
       <div class="stripe-card-wrap" id="cardWrap">
         <div id="cardElement"></div>
       </div>
@@ -765,20 +770,56 @@
     updateSubmitLabel();
   });
 
-  function updateSubmitLabel() {
-    const amt = selectedAmount || parseFloat(document.getElementById('customAmount').value);
-    const btn = document.getElementById('giveSubmit');
-    if (amt && amt > 0) {
-      btn.textContent = selectedFreq === 'monthly' ? `Give $${amt}/month` : `Give $${amt}`;
+  const FEE_RATE = 0.035;
+
+  function updateCoverFees() {
+    updateSubmitLabel();
+    updateFeeDisplay();
+  }
+
+  function updateFeeDisplay() {
+    const amt = parseFloat(document.getElementById('customAmount').value);
+    const checked = document.getElementById('coverFees').checked;
+    const feeEl = document.getElementById('feeAmount');
+    if (amt && amt > 0 && checked) {
+      const fee = (amt * FEE_RATE).toFixed(2);
+      feeEl.textContent = `(adds $${fee})`;
     } else {
-      btn.textContent = 'Give Now';
+      feeEl.textContent = '';
     }
   }
+
+  function getFinalAmount() {
+    const amt = parseFloat(document.getElementById('customAmount').value);
+    const checked = document.getElementById('coverFees') && document.getElementById('coverFees').checked;
+    if (!amt) return 0;
+    return checked ? Math.round(amt * (1 + FEE_RATE) * 100) / 100 : amt;
+  }
+  function updateSubmitLabel() {
+    const amt = parseFloat(document.getElementById("customAmount").value);
+    const btn = document.getElementById("giveSubmit");
+    const final = getFinalAmount();
+    if (amt && amt > 0) {
+      btn.textContent = selectedFreq === "monthly" ? `Give $${final}/month` : `Give $${final}`;
+    } else {
+      btn.textContent = "Give Now";
+    }
+    updateFeeDisplay();
+  }
+
+
+
+
+
+
+
+
 
   async function submitGift() {
     const status    = document.getElementById('giveStatus');
     const btn       = document.getElementById('giveSubmit');
-    const amount    = parseFloat(document.getElementById('customAmount').value);
+    const amount    = getFinalAmount();
+    const baseAmount = parseFloat(document.getElementById('customAmount').value);
     const firstName = document.getElementById('giveFirstName').value.trim();
     const lastName  = document.getElementById('giveLastName').value.trim();
     const email     = document.getElementById('giveEmail').value.trim();
@@ -787,7 +828,7 @@
     status.className = 'give-status';
     status.textContent = '';
 
-    if (!amount || amount < 1) { status.textContent = 'Please select or enter a gift amount.'; status.className = 'give-status error'; return; }
+    if (!baseAmount || baseAmount < 1) { status.textContent = 'Please select or enter a gift amount.'; status.className = 'give-status error'; return; }
     if (!firstName || !lastName) { status.textContent = 'Please enter your name.'; status.className = 'give-status error'; return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { status.textContent = 'Please enter a valid email address.'; status.className = 'give-status error'; return; }
 
