@@ -657,12 +657,6 @@
         </label>
       </div>
 
-      <!-- Apple Pay / Google Pay -->
-      <div id="paymentRequestWrap" style="display:none;margin-bottom:16px;">
-        <div id="paymentRequestButton"></div>
-        <div class="alt-giving-divider" style="margin:16px 0;"><span>Or pay with card</span></div>
-      </div>
-
       <label class="card-label">Card Details</label>
       <div class="stripe-card-wrap" id="cardWrap">
         <div id="cardElement"></div>
@@ -720,85 +714,20 @@
   const STRIPE_PK = 'pk_live_51TYnsFGbx1cK90QJu8cJqUwBtcluapHtZB4XD0DDsDKn5Y1GkZlH956BBoGcNqoTnUkzIwd3BHpQW3FJJ3EnKLBq00V6Iz78HQ';
   const stripe = Stripe(STRIPE_PK);
   const elements = stripe.elements({
-    appearance: {
-      theme: 'flat',
-      variables: {
-        colorPrimary: '#1c1c1c',
-        colorBackground: '#F5F5F5',
-        colorText: '#1c1c1c',
-        colorDanger: '#cc0000',
-        fontFamily: 'Lato, sans-serif',
-        borderRadius: '2px',
-      }
-    }
+    appearance: { theme: 'flat', variables: { colorPrimary: '#1c1c1c', colorBackground: '#F5F5F5', colorText: '#1c1c1c', colorDanger: '#cc0000', fontFamily: 'Lato, sans-serif', borderRadius: '2px' } }
   });
 
   const cardElement = elements.create('card', {
     disableLink: true,
-    style: {
-      base: {
-        fontFamily: 'Lato, sans-serif',
-        fontSize: '16px',
-        color: '#1c1c1c',
-        '::placeholder': { color: '#AAAAAA' }
-      },
-      invalid: { color: '#cc0000' }
-    }
+    style: { base: { fontFamily: 'Lato, sans-serif', fontSize: '16px', color: '#1c1c1c', '::placeholder': { color: '#AAAAAA' } }, invalid: { color: '#cc0000' } }
   });
   cardElement.mount('#cardElement');
   cardElement.on('focus', () => document.getElementById('cardWrap').classList.add('focused'));
   cardElement.on('blur',  () => document.getElementById('cardWrap').classList.remove('focused'));
 
-  // Apple Pay / Google Pay
-  const paymentRequest = stripe.paymentRequest({
-    country: 'US',
-    currency: 'usd',
-    total: { label: 'The Jesus Barn', amount: 5000 },
-    requestPayerName: true,
-    requestPayerEmail: true,
-    disableWallets: ['link', 'browserSavedCards']
-  });
-
-  const prButton = elements.create('paymentRequestButton', {
-    paymentRequest,
-    style: { paymentRequestButton: { type: 'donate', theme: 'dark', height: '48px' } }
-  });
-
-  paymentRequest.canMakePayment().then(result => {
-    if (result && (result.applePay || result.googlePay)) {
-      prButton.mount('#paymentRequestButton');
-      document.getElementById('paymentRequestWrap').style.display = 'block';
-    }
-  });
-
-  paymentRequest.on('paymentmethod', async (ev) => {
-    const amount = getFinalAmount();
-    if (!amount || amount < 1) { ev.complete('fail'); return; }
-    try {
-      const res = await fetch('/api/donate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: Math.round(amount * 100), currency: 'usd', recurring: false, name: ev.payerName || '', email: ev.payerEmail || '' })
-      });
-      const data = await res.json();
-      if (data.error) { ev.complete('fail'); return; }
-      const result = await stripe.confirmCardPayment(data.clientSecret, { payment_method: ev.paymentMethod.id }, { handleActions: false });
-      if (result.error) { ev.complete('fail'); return; }
-      ev.complete('success');
-      document.getElementById('giveFormWrap').style.display = 'none';
-      document.getElementById('giveSuccessWrap').classList.add('visible');
-      document.getElementById('giveSuccessTitle').textContent = 'Thank you!';
-      document.getElementById('giveSuccessSub').textContent = `Your gift of $${amount} has been received. A receipt has been sent to ${ev.payerEmail}. You are part of something bigger than any one of us — and we are so grateful.`;
-    } catch(e) { ev.complete('fail'); }
-  });
-
-  function updatePaymentRequest() {
-    const amt = getFinalAmount();
-    if (amt > 0) paymentRequest.update({ total: { label: 'The Jesus Barn', amount: Math.round(amt * 100) } });
-  }
-
   let selectedAmount = null;
   let selectedFreq = 'once';
+  const FEE_RATE = 0.035;
 
   function setFreq(freq) {
     selectedFreq = freq;
@@ -825,33 +754,7 @@
     selectedAmount = parseFloat(this.value) || null;
     document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
     updateSubmitLabel();
-    updatePaymentRequest();
   });
-
-  const FEE_RATE = 0.035;
-
-  function updateCoverFees() {
-    updateSubmitLabel();
-    updateFeeDisplay();
-    updatePaymentRequest();
-  }
-
-  function updateFeeDisplay() {
-    const amt = parseFloat(document.getElementById('customAmount').value);
-    const checked = document.getElementById('coverFees').checked;
-    const feeEl = document.getElementById('feeAmount');
-    const totalEl = document.getElementById('totalDisplay');
-    if (amt && amt > 0 && checked) {
-      const fee = (amt * FEE_RATE).toFixed(2);
-      const total = getFinalAmount().toFixed(2);
-      feeEl.textContent = `(adds $${fee})`;
-      totalEl.textContent = `Your total: $${total} ($${amt.toFixed(2)} gift + $${fee} fee)`;
-      totalEl.style.display = 'block';
-    } else {
-      feeEl.textContent = '';
-      totalEl.style.display = 'none';
-    }
-  }
 
   function getFinalAmount() {
     const amt = parseFloat(document.getElementById('customAmount').value);
@@ -859,14 +762,28 @@
     if (!amt) return 0;
     return checked ? Math.round(amt * (1 + FEE_RATE) * 100) / 100 : amt;
   }
+
+  function updateCoverFees() { updateSubmitLabel(); updateFeeDisplay(); }
+
+  function updateFeeDisplay() {
+    const amt = parseFloat(document.getElementById('customAmount').value);
+    const checked = document.getElementById('coverFees').checked;
+    const feeEl = document.getElementById('feeAmount');
+    if (amt && amt > 0 && checked) {
+      feeEl.textContent = `(adds $${(amt * FEE_RATE).toFixed(2)})`;
+    } else {
+      feeEl.textContent = '';
+    }
+  }
+
   function updateSubmitLabel() {
-    const amt = parseFloat(document.getElementById("customAmount").value);
-    const btn = document.getElementById("giveSubmit");
+    const amt = parseFloat(document.getElementById('customAmount').value);
+    const btn = document.getElementById('giveSubmit');
     const final = getFinalAmount();
     if (amt && amt > 0) {
-      btn.textContent = selectedFreq === "monthly" ? `Give $${final}/month` : `Give $${final}`;
+      btn.textContent = selectedFreq === 'monthly' ? `Give $${final}/month` : `Give $${final}`;
     } else {
-      btn.textContent = "Give Now";
+      btn.textContent = 'Give Now';
     }
     updateFeeDisplay();
   }
