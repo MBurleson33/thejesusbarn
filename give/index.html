@@ -734,6 +734,7 @@
   });
 
   const cardElement = elements.create('card', {
+    disableLink: true,
     style: {
       base: {
         fontFamily: 'Lato, sans-serif',
@@ -748,13 +749,14 @@
   cardElement.on('focus', () => document.getElementById('cardWrap').classList.add('focused'));
   cardElement.on('blur',  () => document.getElementById('cardWrap').classList.remove('focused'));
 
-  // Apple Pay / Google Pay via Payment Request Button
+  // Apple Pay / Google Pay
   const paymentRequest = stripe.paymentRequest({
     country: 'US',
     currency: 'usd',
     total: { label: 'The Jesus Barn', amount: 5000 },
     requestPayerName: true,
     requestPayerEmail: true,
+    disableWallets: ['link', 'browserSavedCards']
   });
 
   const prButton = elements.create('paymentRequestButton', {
@@ -763,7 +765,7 @@
   });
 
   paymentRequest.canMakePayment().then(result => {
-    if (result) {
+    if (result && (result.applePay || result.googlePay)) {
       prButton.mount('#paymentRequestButton');
       document.getElementById('paymentRequestWrap').style.display = 'block';
     }
@@ -785,17 +787,14 @@
       ev.complete('success');
       document.getElementById('giveFormWrap').style.display = 'none';
       document.getElementById('giveSuccessWrap').classList.add('visible');
-      document.getElementById('giveSuccessTitle').textContent = `Thank you!`;
+      document.getElementById('giveSuccessTitle').textContent = 'Thank you!';
       document.getElementById('giveSuccessSub').textContent = `Your gift of $${amount} has been received. A receipt has been sent to ${ev.payerEmail}. You are part of something bigger than any one of us — and we are so grateful.`;
     } catch(e) { ev.complete('fail'); }
   });
 
-  // update payment request amount when amount changes
   function updatePaymentRequest() {
     const amt = getFinalAmount();
-    if (amt > 0) {
-      paymentRequest.update({ total: { label: 'The Jesus Barn', amount: Math.round(amt * 100) } });
-    }
+    if (amt > 0) paymentRequest.update({ total: { label: 'The Jesus Barn', amount: Math.round(amt * 100) } });
   }
 
   let selectedAmount = null;
@@ -833,8 +832,8 @@
 
   function updateCoverFees() {
     updateSubmitLabel();
-    updatePaymentRequest();
     updateFeeDisplay();
+    updatePaymentRequest();
   }
 
   function updateFeeDisplay() {
