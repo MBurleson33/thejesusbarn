@@ -719,7 +719,89 @@
   <p style="margin-top:8px;">Questions? <a href="mailto:hello@thejesusbarn.org">hello@thejesusbarn.org</a></p>
 </footer>
 
+<!-- SECURITY MODAL -->
+<div id="securityModal" onclick="if(event.target===this)closeSecurityModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px;">
+  <div style="background:var(--white);border-radius:2px;max-width:560px;width:100%;padding:40px;max-height:90vh;overflow-y:auto;position:relative;">
+    <button onclick="closeSecurityModal()" style="position:absolute;top:16px;right:20px;background:none;border:none;font-size:1.4rem;color:var(--mid-grey);cursor:pointer;line-height:1;">×</button>
+
+    <p style="font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--mid-grey);margin-bottom:16px;">Security & Trust</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--near-black);margin-bottom:24px;line-height:1.3;">How Your Information<br>is Protected</h2>
+
+    <div style="display:flex;flex-direction:column;gap:20px;margin-bottom:32px;">
+
+      <div style="display:flex;gap:16px;align-items:flex-start;">
+        <div style="width:32px;height:32px;background:var(--off-white);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div>
+          <p style="font-family:'Lato',sans-serif;font-weight:700;font-size:0.82rem;color:var(--near-black);margin-bottom:4px;">PCI Level 1 Certified Payment Processing</p>
+          <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:0.78rem;color:var(--dark-grey);line-height:1.7;">We use Stripe — the same payment infrastructure trusted by Amazon, Apple, Google, and millions of businesses worldwide. Stripe is PCI Level 1 certified, the highest level of payment security certification that exists.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:16px;align-items:flex-start;">
+        <div style="width:32px;height:32px;background:var(--off-white);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <p style="font-family:'Lato',sans-serif;font-weight:700;font-size:0.82rem;color:var(--near-black);margin-bottom:4px;">Your Card Number is Never Stored</p>
+          <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:0.78rem;color:var(--dark-grey);line-height:1.7;">When you enter your card details, that information goes directly from your browser to Stripe's encrypted servers. The Jesus Barn never sees, handles, or stores your card number at any point.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:16px;align-items:flex-start;">
+        <div style="width:32px;height:32px;background:var(--off-white);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <p style="font-family:'Lato',sans-serif;font-weight:700;font-size:0.82rem;color:var(--near-black);margin-bottom:4px;">SSL Encrypted Connection</p>
+          <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:0.78rem;color:var(--dark-grey);line-height:1.7;">All data transmitted between your browser and this website is encrypted using SSL/TLS — the same technology used by banks and financial institutions worldwide.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:16px;align-items:flex-start;">
+        <div style="width:32px;height:32px;background:var(--off-white);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <p style="font-family:'Lato',sans-serif;font-weight:700;font-size:0.82rem;color:var(--near-black);margin-bottom:4px;">Instant Email Receipt</p>
+          <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:0.78rem;color:var(--dark-grey);line-height:1.7;">You will receive an email receipt immediately after your gift is processed. Keep it for your records.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:16px;align-items:flex-start;">
+        <div style="width:32px;height:32px;background:var(--off-white);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <p style="font-family:'Lato',sans-serif;font-weight:700;font-size:0.82rem;color:var(--near-black);margin-bottom:4px;">100% Refund Guarantee</p>
+          <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:0.78rem;color:var(--dark-grey);line-height:1.7;">If The Jesus Barn does not receive city approval and cannot move forward, every donation will be returned at 100% of what was given. Careful documentation is kept of all contributions.</p>
+        </div>
+      </div>
+
+      <div style="background:var(--off-white);border-radius:2px;padding:16px 20px;border-left:3px solid var(--light-grey);">
+        <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:0.72rem;color:var(--dark-grey);line-height:1.8;">No online system connected to the internet can be guaranteed 100% hack-proof — that's true of every bank, every payment processor, and every website in the world. What we can tell you is that we've used industry-leading security practices to protect your information, and your card data never touches our servers.</p>
+      </div>
+
+    </div>
+
+    <button onclick="closeSecurityModal()" style="width:100%;background:var(--near-black);color:var(--white);border:none;border-radius:2px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;padding:14px;cursor:pointer;">Got It — I'm Ready to Give</button>
+  </div>
+</div>
+
 <script>
+  function openSecurityModal() {
+    const m = document.getElementById('securityModal');
+    m.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSecurityModal() {
+    const m = document.getElementById('securityModal');
+    m.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
   const STRIPE_PK = 'pk_live_51TYnsFGbx1cK90QJu8cJqUwBtcluapHtZB4XD0DDsDKn5Y1GkZlH956BBoGcNqoTnUkzIwd3BHpQW3FJJ3EnKLBq00V6Iz78HQ';
   const stripe = Stripe(STRIPE_PK);
   const elements = stripe.elements({
