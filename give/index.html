@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Give — The Jesus Barn</title>
+<meta name="description" content="Support The Jesus Barn — help us purchase the property and open the doors to Piedmont, Oklahoma. Every gift brings us one step closer.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.thejesusbarn.org/give">
+<link rel="icon" type="image/png" href="images/The-Jesus-Barn-Logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 18px; scroll-behavior: smooth; }
+
+  :root {
+    --white:      #FFFFFF;
+    --off-white:  #F5F5F5;
+    --light-grey: #E8E8E8;
+    --mid-grey:   #AAAAAA;
+    --dark-grey:  #555555;
+    --near-black: #1C1C1C;
+    --black:      #0A0A0A;
+    --red:        #ff0000;
+  }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 48px;
+    background: rgba(10,10,10,0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .nav-logo {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-logo img {
+    height: 48px;
+    width: auto;
+  }
+
+  .nav-back {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+
+  .nav-back:hover { color: var(--white); }
+
+  /* ── HERO ── */
+  .give-hero {
+    padding: 160px 48px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .give-hero-left {}
+
+  .give-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .give-eyebrow::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  .give-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+
+  .give-title .red-underline {
+    position: relative;
+    display: inline;
+  }
+
+  .give-title .red-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 8px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M2 6 Q100 1 198 6' stroke='%23ff0000' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center bottom;
+    background-size: 100% 100%;
+  }
+
+  .give-body {
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.9;
+    margin-bottom: 36px;
+  }
+
+  .give-scripture {
+    padding: 20px 0 20px 20px;
+    border-left: 3px solid var(--red);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+
+  .give-scripture span {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-style: normal;
+    font-size: 0.5rem;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.2);
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  .give-guarantees {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .give-guarantee {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6;
+  }
+
+  .give-guarantee-icon {
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ── FORM ── */
+  .give-form-wrap {
+    background: var(--white);
+    border-radius: 2px;
+    padding: 40px;
+    position: sticky;
+    top: 100px;
+  }
+
+  .form-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  /* frequency toggle */
+  .freq-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--light-grey);
+    border: 1px solid var(--light-grey);
+    border-radius: 2px;
+    margin-bottom: 28px;
+  }
+
+  .freq-btn {
+    background: var(--white);
+    border: none;
+    padding: 12px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--mid-grey);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .freq-btn.active {
+    background: var(--near-black);
+    color: var(--white);
+  }
+
+  /* amount buttons */
+  .amount-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .amount-btn {
+    background: var(--off-white);
+    border: 1px solid var(--light-grey);
+    border-radius: 2px;
+    padding: 12px 8px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--near-black);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .amount-btn:hover { background: var(--light-grey); }
+  .amount-btn.active { background: var(--near-black); color: var(--white); border-color: var(--near-black); }
+
+  .custom-amount-wrap {
+    position: relative;
+    margin-bottom: 24px;
+  }
+
+  .custom-amount-wrap span {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    color: var(--mid-grey);
+  }
+
+  .custom-amount-input {
+    width: 100%;
+    padding: 12px 14px 12px 28px;
+    background: var(--off-white);
+    border: 1px solid var(--light-grey);
+    border-radius: 2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    color: var(--near-black);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .custom-amount-input:focus { border-color: var(--near-black); background: var(--white); }
+  .custom-amount-input::placeholder { color: var(--mid-grey); }
+
+  /* name/email fields */
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .field-group {
+    margin-bottom: 12px;
+  }
+
+  .field-group label {
+    display: block;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dark-grey);
+    margin-bottom: 5px;
+  }
+
+  .field-group input {
+    width: 100%;
+    padding: 11px 14px;
+    background: var(--off-white);
+    border: 1px solid var(--light-grey);
+    border-radius: 2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.88rem;
+    color: var(--near-black);
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+
+  .field-group input:focus { border-color: var(--near-black); background: var(--white); }
+  .field-group input::placeholder { color: var(--mid-grey); }
+
+  /* stripe card element */
+  .card-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dark-grey);
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  .stripe-card-wrap {
+    padding: 12px 14px;
+    background: var(--off-white);
+    border: 1px solid var(--light-grey);
+    border-radius: 2px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+  }
+
+  .stripe-card-wrap.focused { border-color: var(--near-black); background: var(--white); }
+
+  /* submit */
+  .give-submit {
+    width: 100%;
+    background: var(--near-black);
+    color: var(--white);
+    border: none;
+    border-radius: 2px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-bottom: 14px;
+  }
+
+  .give-submit:hover { background: #333; transform: translateY(-1px); }
+  .give-submit:disabled { opacity: 0.5; cursor: default; transform: none; }
+
+  .give-secure {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    color: var(--mid-grey);
+    letter-spacing: 1px;
+  }
+
+  .give-secure svg { opacity: 0.5; }
+
+  /* status messages */
+  .give-status {
+    padding: 14px 16px;
+    border-radius: 2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    margin-top: 14px;
+    display: none;
+  }
+
+  .give-status.success {
+    background: #f0faf4;
+    color: #1a7a3a;
+    border: 1px solid #a8d5b5;
+    display: block;
+  }
+
+  .give-status.error {
+    background: var(--off-white);
+    color: #888;
+    border: 1px solid var(--light-grey);
+    display: block;
+  }
+
+  /* alternative giving */
+  .alt-giving {
+    margin-top: 28px;
+    padding-top: 24px;
+  }
+
+  .alt-giving-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 3px;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+
+  .alt-giving-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .alt-giving-divider::before,
+  .alt-giving-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--light-grey);
+  }
+
+  .alt-giving-divider span {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .alt-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .alt-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 16px;
+    border-radius: 2px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.15s, opacity 0.2s;
+    border: 1px solid var(--light-grey);
+    color: var(--near-black);
+    background: var(--off-white);
+  }
+
+  .alt-btn:hover { transform: translateY(-1px); opacity: 0.85; }
+  .give-success-wrap {
+    text-align: center;
+    padding: 48px 24px;
+    display: none;
+  }
+
+  .give-success-wrap.visible { display: block; }
+
+  .give-success-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--near-black);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    color: var(--white);
+  }
+
+  .give-success-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+
+  .give-success-sub {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--dark-grey);
+    line-height: 1.8;
+    margin-bottom: 28px;
+  }
+
+  .give-success-back {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--near-black);
+    text-decoration: none;
+    border-bottom: 1px solid var(--near-black);
+    padding-bottom: 2px;
+  }
+
+  /* ── FOOTER ── */
+  .give-footer {
+    background: #141414;
+    padding: 32px 48px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: 80px;
+  }
+
+  .give-footer p {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 1px;
+    line-height: 1.8;
+  }
+
+  .give-footer a { color: rgba(255,255,255,0.2); text-decoration: none; }
+  .give-footer a:hover { color: rgba(255,255,255,0.5); }
+
+  :focus-visible { outline: 2px solid rgba(255,255,255,0.6); outline-offset: 2px; }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .give-hero { grid-template-columns: 1fr; gap: 48px; padding: 120px 24px 60px; }
+    .give-form-wrap { position: static; padding: 28px 24px; }
+    .field-row { grid-template-columns: 1fr; }
+    .give-footer { padding: 24px; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">
+    <img src="images/The-Jesus-Barn-Logo.png" alt="The Jesus Barn">
+  </a>
+  <a class="nav-back" href="/">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to Site
+  </a>
+</nav>
+
+<!-- MAIN -->
+<main>
+<div class="give-hero">
+
+  <!-- LEFT — copy -->
+  <div class="give-hero-left">
+    <p class="give-eyebrow">Support the Vision</p>
+    <h1 class="give-title">Help Us <span class="red-underline">Open</span><br>the Doors</h1>
+    <p class="give-body">The Jesus Barn is community-funded and community-built. We are raising funds to purchase the property and building that will become a free gathering space for everyone in Piedmont, Oklahoma — free coffee, Bible study, prayer, games, and more. No membership. No fee. Just love.</p>
+    <p class="give-body">Every gift — no matter the size — is a seed planted in faith toward something that will serve this town for generations. Thank you for standing with us.</p>
+    <blockquote class="give-scripture">
+      "Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver."
+      <span>— 2 Corinthians 9:7</span>
+    </blockquote>
+    <div class="give-guarantees">
+      <div class="give-guarantee">
+        <div class="give-guarantee-icon">✓</div>
+        <p>Secured by Stripe — your card information is encrypted and never stored on our servers.</p>
+      </div>
+      <div class="give-guarantee">
+        <div class="give-guarantee-icon">✓</div>
+        <p>If city approval is not granted, every donation will be returned at 100% of what was given.</p>
+      </div>
+      <div class="give-guarantee">
+        <div class="give-guarantee-icon">✓</div>
+        <p>You will receive an email receipt for your records immediately after giving.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT — form -->
+  <div>
+    <div class="give-form-wrap" id="giveFormWrap">
+      <p class="form-eyebrow">Make a Gift</p>
+
+      <!-- frequency -->
+      <div class="freq-toggle">
+        <button class="freq-btn active" id="freqOnce" onclick="setFreq('once')">One-Time</button>
+        <button class="freq-btn" id="freqMonthly" onclick="setFreq('monthly')">Monthly</button>
+      </div>
+
+      <!-- amounts -->
+      <div class="amount-grid">
+        <button class="amount-btn" onclick="setAmount(25)">$25</button>
+        <button class="amount-btn" onclick="setAmount(50)">$50</button>
+        <button class="amount-btn" onclick="setAmount(100)">$100</button>
+        <button class="amount-btn" onclick="setAmount(250)">$250</button>
+        <button class="amount-btn" onclick="setAmount(500)">$500</button>
+        <button class="amount-btn" onclick="setAmount('custom')">Custom</button>
+      </div>
+
+      <div class="custom-amount-wrap">
+        <span>$</span>
+        <input type="number" class="custom-amount-input" id="customAmount" placeholder="Enter amount" min="1" step="1">
+      </div>
+
+      <!-- name / email -->
+      <div class="field-row">
+        <div class="field-group">
+          <label>First Name</label>
+          <input type="text" id="giveFirstName" placeholder="First" autocomplete="given-name">
+        </div>
+        <div class="field-group">
+          <label>Last Name</label>
+          <input type="text" id="giveLastName" placeholder="Last" autocomplete="family-name">
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Email <span style="color:var(--mid-grey);font-size:0.55rem;">FOR RECEIPT</span></label>
+        <input type="email" id="giveEmail" placeholder="you@email.com" autocomplete="email">
+      </div>
+
+      <!-- stripe payment element (includes Apple Pay, Google Pay) -->
+      <label class="card-label">Payment Details</label>
+      <div class="stripe-card-wrap" id="cardWrap">
+        <div id="cardElement"></div>
+      </div>
+
+      <button class="give-submit" id="giveSubmit" onclick="submitGift()">
+        Give Now
+      </button>
+
+      <div class="give-secure">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Secured by Stripe · SSL Encrypted · Apple Pay Supported
+      </div>
+
+      <div class="give-status" id="giveStatus"></div>
+
+      <!-- alternative giving -->
+      <div class="alt-giving">
+        <div class="alt-giving-divider"><span>Or give via</span></div>
+        <div class="alt-btns">
+          <a href="https://venmo.com/u/jesusbarn" target="_blank" rel="noopener noreferrer" class="alt-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M19.5 2C20.9 4.1 21.5 6.2 21.5 8.9c0 6.6-5.6 15.2-10.2 21.1H4.1L1 3.9l7.2-.7 1.7 13.6c1.6-2.6 3.5-6.7 3.5-9.5 0-1.5-.3-2.6-.7-3.4L19.5 2z"/></svg>
+            Venmo @jesusbarn
+          </a>
+          <a href="https://cash.app/$jesusbarn" target="_blank" rel="noopener noreferrer" class="alt-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M20.9 0H3.1C1.4 0 0 1.4 0 3.1v17.8C0 22.6 1.4 24 3.1 24h17.8c1.7 0 3.1-1.4 3.1-3.1V3.1C24 1.4 22.6 0 20.9 0zm-4.6 14.6c-.3 1.6-1.6 2.7-3.2 2.9l.2 1c.1.3-.2.6-.5.6h-1.4c-.3 0-.5-.2-.5-.5l-.2-1.1c-.8-.1-1.6-.4-2.1-.8-.3-.2-.3-.6-.1-.9l.7-.9c.2-.3.6-.3.9-.1.4.3.9.5 1.5.5.6 0 1-.3 1-.7 0-.4-.3-.6-1.2-.9-1.5-.4-2.7-1.1-2.7-2.6 0-1.5 1.1-2.6 2.7-2.9l-.2-1c-.1-.3.2-.6.5-.6h1.4c.3 0 .5.2.5.5l.2 1c.6.1 1.2.3 1.7.6.3.2.4.6.2.9l-.7.9c-.2.3-.6.3-.9.1-.3-.2-.7-.3-1.1-.3-.6 0-.9.2-.9.6 0 .4.4.6 1.3.9 1.6.5 2.6 1.2 2.4 2.8z"/></svg>
+            Cash App $jesusbarn
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- success state -->
+    <div class="give-success-wrap" id="giveSuccessWrap">
+      <div class="give-success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="28" height="28"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2 class="give-success-title" id="giveSuccessTitle">Thank You!</h2>
+      <p class="give-success-sub" id="giveSuccessSub">Your gift has been received. A receipt has been sent to your email. You are part of something bigger than any one of us — and we are so grateful.</p>
+      <a class="give-success-back" href="/">Return to The Jesus Barn</a>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<!-- FOOTER -->
+<footer class="give-footer">
+  <p>© 2026 The Jesus Barn LLC · Piedmont, Oklahoma</p>
+  <p>All donations fully refundable if city approval is not granted · <a href="/privacy-policy.html">Privacy Policy</a></p>
+  <p style="margin-top:8px;">Questions? <a href="mailto:hello@thejesusbarn.org">hello@thejesusbarn.org</a></p>
+</footer>
+
+<script>
+  const STRIPE_PK = 'pk_live_51TYnsFGbx1cK90QJu8cJqUwBtcluapHtZB4XD0DDsDKn5Y1GkZlH956BBoGcNqoTnUkzIwd3BHpQW3FJJ3EnKLBq00V6Iz78HQ';
+  const stripe = Stripe(STRIPE_PK);
+
+  let elements, paymentElement;
+  let selectedAmount = null;
+  let selectedFreq = 'once';
+  let clientSecret = null;
+
+  function setFreq(freq) {
+    selectedFreq = freq;
+    document.getElementById('freqOnce').classList.toggle('active', freq === 'once');
+    document.getElementById('freqMonthly').classList.toggle('active', freq === 'monthly');
+    updateSubmitLabel();
+    resetPaymentElement();
+  }
+
+  function setAmount(val) {
+    document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    if (val === 'custom') {
+      selectedAmount = null;
+      document.getElementById('customAmount').value = '';
+      document.getElementById('customAmount').focus();
+    } else {
+      selectedAmount = val;
+      document.getElementById('customAmount').value = val;
+    }
+    updateSubmitLabel();
+    resetPaymentElement();
+  }
+
+  document.getElementById('customAmount').addEventListener('input', function() {
+    selectedAmount = parseFloat(this.value) || null;
+    document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+    updateSubmitLabel();
+  });
+
+  document.getElementById('customAmount').addEventListener('blur', function() {
+    resetPaymentElement();
+  });
+
+  function updateSubmitLabel() {
+    const amt = selectedAmount || parseFloat(document.getElementById('customAmount').value);
+    const btn = document.getElementById('giveSubmit');
+    if (amt && amt > 0) {
+      btn.textContent = selectedFreq === 'monthly' ? `Give $${amt}/month` : `Give $${amt}`;
+    } else {
+      btn.textContent = 'Give Now';
+    }
+  }
+
+  function resetPaymentElement() {
+    if (paymentElement) {
+      paymentElement.destroy();
+      paymentElement = null;
+    }
+    document.getElementById('cardElement').innerHTML = '';
+    clientSecret = null;
+  }
+
+  async function initPaymentElement() {
+    const amount = parseFloat(document.getElementById('customAmount').value);
+    if (!amount || amount < 1) return;
+
+    try {
+      const res = await fetch('/api/donate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: Math.round(amount * 100),
+          currency: 'usd',
+          recurring: selectedFreq === 'monthly',
+          name: `${document.getElementById('giveFirstName').value} ${document.getElementById('giveLastName').value}`.trim(),
+          email: document.getElementById('giveEmail').value.trim()
+        })
+      });
+
+      const data = await res.json();
+      if (data.error) return;
+
+      clientSecret = data.clientSecret;
+
+      elements = stripe.elements({
+        clientSecret,
+        appearance: {
+          theme: 'flat',
+          variables: {
+            colorPrimary: '#1c1c1c',
+            colorBackground: '#F5F5F5',
+            colorText: '#1c1c1c',
+            colorDanger: '#888',
+            fontFamily: 'Lato, sans-serif',
+            borderRadius: '2px',
+            spacingUnit: '4px',
+          }
+        }
+      });
+
+      paymentElement = elements.create('payment', {
+        layout: 'tabs',
+        wallets: { applePay: 'auto', googlePay: 'auto' }
+      });
+      paymentElement.mount('#cardElement');
+
+    } catch(e) {
+      console.error('Payment element init failed:', e);
+    }
+  }
+
+  // init payment element when amount field loses focus
+  document.getElementById('customAmount').addEventListener('blur', initPaymentElement);
+  document.getElementById('giveEmail').addEventListener('blur', function() {
+    if (!paymentElement) initPaymentElement();
+  });
+
+  async function submitGift() {
+    const status    = document.getElementById('giveStatus');
+    const btn       = document.getElementById('giveSubmit');
+    const amount    = parseFloat(document.getElementById('customAmount').value);
+    const firstName = document.getElementById('giveFirstName').value.trim();
+    const lastName  = document.getElementById('giveLastName').value.trim();
+    const email     = document.getElementById('giveEmail').value.trim();
+    const name      = `${firstName} ${lastName}`.trim();
+
+    status.className = 'give-status';
+    status.textContent = '';
+
+    if (!amount || amount < 1) { status.textContent = 'Please select or enter a gift amount.'; status.className = 'give-status error'; return; }
+    if (!firstName || !lastName) { status.textContent = 'Please enter your name.'; status.className = 'give-status error'; return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { status.textContent = 'Please enter a valid email address.'; status.className = 'give-status error'; return; }
+
+    // init payment element if not done yet
+    if (!paymentElement) {
+      btn.textContent = 'Setting up...';
+      btn.disabled = true;
+      await initPaymentElement();
+      btn.textContent = updateSubmitLabel() || 'Give Now';
+      btn.disabled = false;
+      status.textContent = 'Payment form ready — please review and click Give again.';
+      status.className = 'give-status error';
+      return;
+    }
+
+    btn.textContent = 'Processing...';
+    btn.disabled = true;
+
+    try {
+      const result = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: `${window.location.origin}/give?success=true`,
+          receipt_email: email,
+          payment_method_data: { billing_details: { name, email } }
+        },
+        redirect: 'if_required'
+      });
+
+      if (result.error) throw new Error(result.error.message);
+
+      // success
+      document.getElementById('giveFormWrap').style.display = 'none';
+      const successWrap = document.getElementById('giveSuccessWrap');
+      successWrap.classList.add('visible');
+      document.getElementById('giveSuccessTitle').textContent = `Thank you, ${firstName}!`;
+      document.getElementById('giveSuccessSub').textContent = selectedFreq === 'monthly'
+        ? `Your monthly gift of $${amount} has been set up. A receipt has been sent to ${email}. You are part of something bigger than any one of us — and we are so grateful.`
+        : `Your gift of $${amount} has been received. A receipt has been sent to ${email}. You are part of something bigger than any one of us — and we are so grateful.`;
+
+    } catch(err) {
+      status.textContent = err.message || 'Something went wrong. Please try again.';
+      status.className = 'give-status error';
+      btn.textContent = selectedFreq === 'monthly' ? `Give $${amount}/month` : `Give $${amount}`;
+      btn.disabled = false;
+    }
+  }
+
+  // handle redirect return from Apple Pay
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('success') === 'true') {
+    document.getElementById('giveFormWrap').style.display = 'none';
+    document.getElementById('giveSuccessWrap').classList.add('visible');
+  }
+</script>
+
+</body>
+</html>
