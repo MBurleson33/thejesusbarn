@@ -435,6 +435,7 @@
   }
 
   .btn-primary:hover { background: var(--light-grey); transform: translateY(-1px); }
+  .btn-primary:active { background: var(--light-grey); color: var(--dark-grey); transform: none; }
 
   .btn-outline {
     background: transparent;
@@ -2334,13 +2335,13 @@
     <img src="images/The-Jesus-Barn-Logo.png" alt="The Jesus Barn logo">
   </a>
   <ul class="nav-links" id="navLinks" role="list">
-    <li role="listitem"><a href="#story">Our Heart</a></li>
-    <li role="listitem"><a href="#free">What's Here</a></li>
-    <li role="listitem"><a href="#give">Build With Us</a></li>
-    <li role="listitem"><a href="#partner">Get Involved</a></li>
-    <li role="listitem"><a href="#community">Community Wall</a></li>
-    <li role="listitem"><a href="#contact">Contact</a></li>
-    <li role="listitem"><a href="/give" class="nav-cta">Give Now</a></li>
+    <li role="listitem"><a href="#story" onclick="toggleNav()">Our Heart</a></li>
+    <li role="listitem"><a href="#free" onclick="toggleNav()">What's Here</a></li>
+    <li role="listitem"><a href="#give" onclick="toggleNav()">Build With Us</a></li>
+    <li role="listitem"><a href="#partner" onclick="toggleNav()">Get Involved</a></li>
+    <li role="listitem"><a href="#community" onclick="toggleNav()">Community Wall</a></li>
+    <li role="listitem"><a href="#contact" onclick="toggleNav()">Contact</a></li>
+    <li role="listitem"><a href="/give" class="nav-cta" onclick="toggleNav()">Give Now</a></li>
     <li role="listitem"><a onclick="jbPromptAdmin(); toggleNav();" class="nav-admin-link" aria-label="Admin login">Admin Login</a></li>
   </ul>
   <button class="nav-burger" id="navBurger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
@@ -3112,10 +3113,11 @@
     }).finally(()=>{btn.textContent='Post to the Wall';btn.disabled=false;});
   }
 
-  function toggleNav() {
+  function toggleNav(forceClose) {
     const links = document.getElementById('navLinks');
     const burger = document.getElementById('navBurger');
-    const isOpen = links.classList.toggle('open');
+    const isOpen = forceClose ? false : links.classList.toggle('open');
+    if (forceClose) links.classList.remove('open');
     burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   }
 
