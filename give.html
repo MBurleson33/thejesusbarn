@@ -417,7 +417,72 @@
     display: block;
   }
 
-  /* ── SUCCESS STATE ── */
+  /* alternative giving */
+  .alt-giving {
+    margin-top: 28px;
+    padding-top: 24px;
+  }
+
+  .alt-giving-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 3px;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+
+  .alt-giving-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .alt-giving-divider::before,
+  .alt-giving-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--light-grey);
+  }
+
+  .alt-giving-divider span {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .alt-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .alt-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 16px;
+    border-radius: 2px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.15s, opacity 0.2s;
+    border: 1px solid var(--light-grey);
+    color: var(--near-black);
+    background: var(--off-white);
+  }
+
+  .alt-btn:hover { transform: translateY(-1px); opacity: 0.85; }
   .give-success-wrap {
     text-align: center;
     padding: 48px 24px;
@@ -584,8 +649,8 @@
         <input type="email" id="giveEmail" placeholder="you@email.com" autocomplete="email">
       </div>
 
-      <!-- stripe card -->
-      <label class="card-label">Card Details</label>
+      <!-- stripe payment element (includes Apple Pay, Google Pay) -->
+      <label class="card-label">Payment Details</label>
       <div class="stripe-card-wrap" id="cardWrap">
         <div id="cardElement"></div>
       </div>
@@ -596,10 +661,25 @@
 
       <div class="give-secure">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Secured by Stripe · SSL Encrypted
+        Secured by Stripe · SSL Encrypted · Apple Pay Supported
       </div>
 
       <div class="give-status" id="giveStatus"></div>
+
+      <!-- alternative giving -->
+      <div class="alt-giving">
+        <div class="alt-giving-divider"><span>Or give via</span></div>
+        <div class="alt-btns">
+          <a href="https://venmo.com/u/jesusbarn" target="_blank" rel="noopener noreferrer" class="alt-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M19.5 2C20.9 4.1 21.5 6.2 21.5 8.9c0 6.6-5.6 15.2-10.2 21.1H4.1L1 3.9l7.2-.7 1.7 13.6c1.6-2.6 3.5-6.7 3.5-9.5 0-1.5-.3-2.6-.7-3.4L19.5 2z"/></svg>
+            Venmo @jesusbarn
+          </a>
+          <a href="https://cash.app/$jesusbarn" target="_blank" rel="noopener noreferrer" class="alt-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M20.9 0H3.1C1.4 0 0 1.4 0 3.1v17.8C0 22.6 1.4 24 3.1 24h17.8c1.7 0 3.1-1.4 3.1-3.1V3.1C24 1.4 22.6 0 20.9 0zm-4.6 14.6c-.3 1.6-1.6 2.7-3.2 2.9l.2 1c.1.3-.2.6-.5.6h-1.4c-.3 0-.5-.2-.5-.5l-.2-1.1c-.8-.1-1.6-.4-2.1-.8-.3-.2-.3-.6-.1-.9l.7-.9c.2-.3.6-.3.9-.1.4.3.9.5 1.5.5.6 0 1-.3 1-.7 0-.4-.3-.6-1.2-.9-1.5-.4-2.7-1.1-2.7-2.6 0-1.5 1.1-2.6 2.7-2.9l-.2-1c-.1-.3.2-.6.5-.6h1.4c.3 0 .5.2.5.5l.2 1c.6.1 1.2.3 1.7.6.3.2.4.6.2.9l-.7.9c-.2.3-.6.3-.9.1-.3-.2-.7-.3-1.1-.3-.6 0-.9.2-.9.6 0 .4.4.6 1.3.9 1.6.5 2.6 1.2 2.4 2.8z"/></svg>
+            Cash App $jesusbarn
+          </a>
+        </div>
+      </div>
     </div>
 
     <!-- success state -->
@@ -626,21 +706,18 @@
 <script>
   const STRIPE_PK = 'pk_live_51TYnsFGbx1cK90QJu8cJqUwBtcluapHtZB4XD0DDsDKn5Y1GkZlH956BBoGcNqoTnUkzIwd3BHpQW3FJJ3EnKLBq00V6Iz78HQ';
   const stripe = Stripe(STRIPE_PK);
-  const elements = stripe.elements({ appearance: { theme: 'flat', variables: { colorPrimary: '#1c1c1c', fontFamily: 'Lato, sans-serif', borderRadius: '2px', colorBackground: '#F5F5F5' } } });
-  const cardElement = elements.create('card', { style: { base: { fontFamily: 'Lato, sans-serif', fontSize: '16px', color: '#1c1c1c', '::placeholder': { color: '#AAAAAA' } } } });
-  cardElement.mount('#cardElement');
 
-  cardElement.on('focus', () => document.getElementById('cardWrap').classList.add('focused'));
-  cardElement.on('blur',  () => document.getElementById('cardWrap').classList.remove('focused'));
-
+  let elements, paymentElement;
   let selectedAmount = null;
   let selectedFreq = 'once';
+  let clientSecret = null;
 
   function setFreq(freq) {
     selectedFreq = freq;
     document.getElementById('freqOnce').classList.toggle('active', freq === 'once');
     document.getElementById('freqMonthly').classList.toggle('active', freq === 'monthly');
     updateSubmitLabel();
+    resetPaymentElement();
   }
 
   function setAmount(val) {
@@ -655,6 +732,7 @@
       document.getElementById('customAmount').value = val;
     }
     updateSubmitLabel();
+    resetPaymentElement();
   }
 
   document.getElementById('customAmount').addEventListener('input', function() {
@@ -663,47 +741,32 @@
     updateSubmitLabel();
   });
 
+  document.getElementById('customAmount').addEventListener('blur', function() {
+    resetPaymentElement();
+  });
+
   function updateSubmitLabel() {
     const amt = selectedAmount || parseFloat(document.getElementById('customAmount').value);
     const btn = document.getElementById('giveSubmit');
     if (amt && amt > 0) {
-      const label = selectedFreq === 'monthly' ? `Give $${amt}/month` : `Give $${amt}`;
-      btn.textContent = label;
+      btn.textContent = selectedFreq === 'monthly' ? `Give $${amt}/month` : `Give $${amt}`;
     } else {
       btn.textContent = 'Give Now';
     }
   }
 
-  async function submitGift() {
-    const status  = document.getElementById('giveStatus');
-    const btn     = document.getElementById('giveSubmit');
-    const amount  = parseFloat(document.getElementById('customAmount').value);
-    const firstName = document.getElementById('giveFirstName').value.trim();
-    const lastName  = document.getElementById('giveLastName').value.trim();
-    const email     = document.getElementById('giveEmail').value.trim();
-    const name      = `${firstName} ${lastName}`.trim();
-
-    status.className = 'give-status';
-    status.textContent = '';
-
-    if (!amount || amount < 1) {
-      status.textContent = 'Please select or enter a gift amount.';
-      status.className = 'give-status error';
-      return;
+  function resetPaymentElement() {
+    if (paymentElement) {
+      paymentElement.destroy();
+      paymentElement = null;
     }
-    if (!firstName || !lastName) {
-      status.textContent = 'Please enter your name.';
-      status.className = 'give-status error';
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      status.textContent = 'Please enter a valid email address.';
-      status.className = 'give-status error';
-      return;
-    }
+    document.getElementById('cardElement').innerHTML = '';
+    clientSecret = null;
+  }
 
-    btn.textContent = 'Processing...';
-    btn.disabled = true;
+  async function initPaymentElement() {
+    const amount = parseFloat(document.getElementById('customAmount').value);
+    if (!amount || amount < 1) return;
 
     try {
       const res = await fetch('/api/donate', {
@@ -713,36 +776,92 @@
           amount: Math.round(amount * 100),
           currency: 'usd',
           recurring: selectedFreq === 'monthly',
-          name,
-          email
+          name: `${document.getElementById('giveFirstName').value} ${document.getElementById('giveLastName').value}`.trim(),
+          email: document.getElementById('giveEmail').value.trim()
         })
       });
 
       const data = await res.json();
-      if (data.error) throw new Error(data.error);
+      if (data.error) return;
 
-      let result;
+      clientSecret = data.clientSecret;
 
-      if (data.type === 'setup') {
-        result = await stripe.confirmCardSetup(data.clientSecret, {
-          payment_method: {
-            card: cardElement,
-            billing_details: { name, email }
+      elements = stripe.elements({
+        clientSecret,
+        appearance: {
+          theme: 'flat',
+          variables: {
+            colorPrimary: '#1c1c1c',
+            colorBackground: '#F5F5F5',
+            colorText: '#1c1c1c',
+            colorDanger: '#888',
+            fontFamily: 'Lato, sans-serif',
+            borderRadius: '2px',
+            spacingUnit: '4px',
           }
-        });
-      } else {
-        result = await stripe.confirmCardPayment(data.clientSecret, {
-          payment_method: {
-            card: cardElement,
-            billing_details: { name, email }
-          },
-          receipt_email: email
-        });
-      }
+        }
+      });
 
-      if (result.error) {
-        throw new Error(result.error.message);
-      }
+      paymentElement = elements.create('payment', {
+        layout: 'tabs',
+        wallets: { applePay: 'auto', googlePay: 'auto' }
+      });
+      paymentElement.mount('#cardElement');
+
+    } catch(e) {
+      console.error('Payment element init failed:', e);
+    }
+  }
+
+  // init payment element when amount field loses focus
+  document.getElementById('customAmount').addEventListener('blur', initPaymentElement);
+  document.getElementById('giveEmail').addEventListener('blur', function() {
+    if (!paymentElement) initPaymentElement();
+  });
+
+  async function submitGift() {
+    const status    = document.getElementById('giveStatus');
+    const btn       = document.getElementById('giveSubmit');
+    const amount    = parseFloat(document.getElementById('customAmount').value);
+    const firstName = document.getElementById('giveFirstName').value.trim();
+    const lastName  = document.getElementById('giveLastName').value.trim();
+    const email     = document.getElementById('giveEmail').value.trim();
+    const name      = `${firstName} ${lastName}`.trim();
+
+    status.className = 'give-status';
+    status.textContent = '';
+
+    if (!amount || amount < 1) { status.textContent = 'Please select or enter a gift amount.'; status.className = 'give-status error'; return; }
+    if (!firstName || !lastName) { status.textContent = 'Please enter your name.'; status.className = 'give-status error'; return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { status.textContent = 'Please enter a valid email address.'; status.className = 'give-status error'; return; }
+
+    // init payment element if not done yet
+    if (!paymentElement) {
+      btn.textContent = 'Setting up...';
+      btn.disabled = true;
+      await initPaymentElement();
+      btn.textContent = updateSubmitLabel() || 'Give Now';
+      btn.disabled = false;
+      status.textContent = 'Payment form ready — please review and click Give again.';
+      status.className = 'give-status error';
+      return;
+    }
+
+    btn.textContent = 'Processing...';
+    btn.disabled = true;
+
+    try {
+      const result = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: `${window.location.origin}/give?success=true`,
+          receipt_email: email,
+          payment_method_data: { billing_details: { name, email } }
+        },
+        redirect: 'if_required'
+      });
+
+      if (result.error) throw new Error(result.error.message);
 
       // success
       document.getElementById('giveFormWrap').style.display = 'none';
@@ -756,9 +875,16 @@
     } catch(err) {
       status.textContent = err.message || 'Something went wrong. Please try again.';
       status.className = 'give-status error';
-      btn.textContent = updateSubmitLabel() || 'Give Now';
+      btn.textContent = selectedFreq === 'monthly' ? `Give $${amount}/month` : `Give $${amount}`;
       btn.disabled = false;
     }
+  }
+
+  // handle redirect return from Apple Pay
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('success') === 'true') {
+    document.getElementById('giveFormWrap').style.display = 'none';
+    document.getElementById('giveSuccessWrap').classList.add('visible');
   }
 </script>
 
