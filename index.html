@@ -3599,7 +3599,22 @@
     document.body.removeChild(ta);
   }
 
+  // back to top
+  const btt = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      btt.style.display = 'flex';
+    } else {
+      btt.style.display = 'none';
+    }
+  });
+
   jbLoadAll();
 </script>
+<!-- BACK TO TOP -->
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" style="position:fixed;bottom:32px;right:32px;width:44px;height:44px;background:var(--near-black);color:var(--white);border:1px solid rgba(255,255,255,0.15);border-radius:50%;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:500;transition:opacity 0.2s,transform 0.2s;box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
 </body>
 </html>
