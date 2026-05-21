@@ -719,8 +719,13 @@
   <p style="margin-top:8px;">Questions? <a href="mailto:hello@thejesusbarn.org">hello@thejesusbarn.org</a></p>
 </footer>
 
+<!-- BACK TO TOP -->
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" style="position:fixed;bottom:32px;right:32px;width:44px;height:44px;background:var(--near-black);color:var(--white);border:1px solid rgba(255,255,255,0.15);border-radius:50%;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:500;transition:opacity 0.2s;box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
 <!-- SECURITY MODAL -->
-<div id="securityModal" onclick="if(event.target===this)closeSecurityModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px;">
+<div id="securityModal" onclick="if(event.target===this)closeSecurityModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;backdrop-filter:blur(4px);padding:24px;">
   <div style="background:var(--white);border-radius:2px;max-width:560px;width:100%;padding:40px;max-height:90vh;overflow-y:auto;position:relative;">
     <button onclick="closeSecurityModal()" style="position:absolute;top:16px;right:20px;background:none;border:none;font-size:1.4rem;color:var(--mid-grey);cursor:pointer;line-height:1;">×</button>
 
@@ -790,9 +795,18 @@
 </div>
 
 <script>
+  // back to top
+  const btt = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    btt.style.display = window.scrollY > 400 ? 'flex' : 'none';
+  });
+
   function openSecurityModal() {
     const m = document.getElementById('securityModal');
     m.style.display = 'flex';
+    m.style.alignItems = 'center';
+    m.style.justifyContent = 'center';
+    m.style.overflowY = 'auto';
     document.body.style.overflow = 'hidden';
   }
 
