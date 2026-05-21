@@ -559,6 +559,29 @@
   .give-footer a { color: rgba(255,255,255,0.2); text-decoration: none; }
   .give-footer a:hover { color: rgba(255,255,255,0.5); }
 
+  #backToTop {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 44px;
+    height: 44px;
+    background: var(--near-black);
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 500;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.2s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+
+  #backToTop.visible { display: flex; opacity: 1; }
+  #backToTop:hover { transform: translateY(-2px); }
+
   :focus-visible { outline: 2px solid rgba(255,255,255,0.6); outline-offset: 2px; }
 
   @media (max-width: 900px) {
@@ -720,7 +743,7 @@
 </footer>
 
 <!-- BACK TO TOP -->
-<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" style="position:fixed;bottom:32px;right:32px;width:44px;height:44px;background:var(--near-black);color:var(--white);border:1px solid rgba(255,255,255,0.15);border-radius:50%;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:500;transition:opacity 0.2s;box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 
@@ -798,7 +821,11 @@
   // back to top
   const btt = document.getElementById('backToTop');
   window.addEventListener('scroll', () => {
-    btt.style.display = window.scrollY > 400 ? 'flex' : 'none';
+    if (window.scrollY > 400) {
+      btt.classList.add('visible');
+    } else {
+      btt.classList.remove('visible');
+    }
   });
 
   function openSecurityModal() {
