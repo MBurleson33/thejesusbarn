@@ -1675,6 +1675,17 @@
 
   .jb-disclaimer-btn:hover { background: var(--accent); }
 
+  .needs-wall-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    .needs-wall-layout { grid-template-columns: 1fr; }
+  }
+
   #needs-wall .section-eyebrow { color: var(--dark-grey); }
   #needs-wall .section-eyebrow::after { background: var(--light-grey); }
   #needs-wall .section-title { color: var(--near-black); }
@@ -2752,37 +2763,54 @@
     <h2 class="section-title" id="needs-wall-title" style="color:var(--near-black);">Someone Needs Help</h2>
     <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:1rem;color:var(--dark-grey);line-height:1.9;max-width:600px;margin-bottom:48px;">Know someone in our community who needs support? Submit their name and situation below. All submissions are anonymous and reviewed before being posted. The Jesus Barn community will pray over every need shared here.</p>
 
-    <!-- needs feed -->
-    <div id="jbNeedsWallFeed" style="margin-bottom:0;"></div>
+    <div class="needs-wall-layout">
+      <!-- LEFT — form -->
+      <div style="background:var(--white);border-radius:2px;padding:32px;">
+        <p style="font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--dark-grey);margin-bottom:20px;">Submit a Need</p>
+        <p style="font-family:'Lato',sans-serif;font-size:0.78rem;font-weight:300;color:var(--dark-grey);line-height:1.7;margin-bottom:24px;">You don't need to share who you are. Just tell us about someone who needs prayer or support — we'll take care of the rest.</p>
 
-    <!-- submit form -->
-    <div style="background:var(--white);border-radius:2px;padding:36px;max-width:560px;">
-      <p style="font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--dark-grey);margin-bottom:20px;">Submit a Need</p>
-      <p style="font-family:'Lato',sans-serif;font-size:0.78rem;font-weight:300;color:var(--dark-grey);line-height:1.7;margin-bottom:24px;">You don't need to share who you are. Just tell us about someone who needs prayer or support — we'll take care of the rest.</p>
+        <div class="jb-field" style="margin-bottom:16px;">
+          <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:block;margin-bottom:5px;">Their Name or Description <span style="color:var(--mid-grey);font-size:0.55rem;">(for admin only — not shown publicly)</span></label>
+          <input type="text" id="nwName" maxlength="100" placeholder="e.g. A young mom in Piedmont" style="width:100%;padding:11px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:2px;font-family:'Lato',sans-serif;font-size:0.88rem;color:var(--near-black);outline:none;">
+        </div>
 
-      <div class="jb-field" style="margin-bottom:16px;">
-        <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:block;margin-bottom:5px;">Their Name or Description <span style="color:var(--mid-grey);font-size:0.55rem;">(for admin only — not shown publicly)</span></label>
-        <input type="text" id="nwName" placeholder="e.g. A young mom in Piedmont" style="width:100%;padding:11px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:2px;font-family:'Lato',sans-serif;font-size:0.88rem;color:var(--near-black);outline:none;">
+        <div class="jb-field" style="margin-bottom:16px;">
+          <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:flex;justify-content:space-between;margin-bottom:5px;">Their Situation <span id="nwSituationCount" style="color:var(--mid-grey);font-weight:300;">0 / 500</span></label>
+          <textarea id="nwSituation" rows="4" maxlength="500" placeholder="What do they need? What are they going through?" oninput="nwCount('nwSituation','nwSituationCount',500)" style="width:100%;padding:11px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:2px;font-family:'Lato',sans-serif;font-size:0.88rem;color:var(--near-black);outline:none;resize:vertical;"></textarea>
+        </div>
+
+        <div class="jb-field" style="margin-bottom:24px;">
+          <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:flex;justify-content:space-between;margin-bottom:5px;">A Prayer for Them <span id="nwPrayerCount" style="color:var(--mid-grey);font-weight:300;">0 / 300</span></label>
+          <textarea id="nwPrayer" rows="3" maxlength="300" placeholder="Write a short prayer or word of encouragement..." oninput="nwCount('nwPrayer','nwPrayerCount',300)" style="width:100%;padding:11px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:2px;font-family:'Lato',sans-serif;font-size:0.88rem;color:var(--near-black);outline:none;resize:vertical;"></textarea>
+        </div>
+
+        <input type="text" id="nwHoneypot" style="display:none;" tabindex="-1" autocomplete="off">
+
+        <button onclick="submitNeedsWall()" style="background:var(--near-black);color:var(--white);border:none;border-radius:2px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;padding:14px 32px;cursor:pointer;transition:background 0.2s;width:100%;">Submit This Need</button>
+        <div id="nwStatus" style="margin-top:12px;font-family:'Lato',sans-serif;font-size:0.78rem;line-height:1.6;display:none;padding:12px 16px;border-radius:2px;"></div>
       </div>
 
-      <div class="jb-field" style="margin-bottom:16px;">
-        <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:block;margin-bottom:5px;">Their Situation</label>
-        <textarea id="nwSituation" rows="3" placeholder="What do they need? What are they going through?" style="width:100%;padding:11px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:2px;font-family:'Lato',sans-serif;font-size:0.88rem;color:var(--near-black);outline:none;resize:vertical;"></textarea>
+      <!-- RIGHT — needs feed -->
+      <div>
+        <div id="jbNeedsWallFeed" style="display:none;flex-direction:column;gap:16px;margin-bottom:16px;"></div>
+        <div id="jbNeedsWallPager" style="display:none;text-align:center;">
+          <button onclick="nwNextPage()" style="background:transparent;border:1px solid rgba(0,0,0,0.15);color:var(--dark-grey);font-family:'Lato',sans-serif;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;padding:12px 28px;border-radius:2px;cursor:pointer;transition:all 0.2s;">See More Needs</button>
+        </div>
       </div>
-
-      <div class="jb-field" style="margin-bottom:24px;">
-        <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:block;margin-bottom:5px;">A Prayer for Them</label>
-        <textarea id="nwPrayer" rows="3" placeholder="Write a short prayer or word of encouragement..." style="width:100%;padding:11px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:2px;font-family:'Lato',sans-serif;font-size:0.88rem;color:var(--near-black);outline:none;resize:vertical;"></textarea>
-      </div>
-
-      <!-- honeypot -->
-      <input type="text" id="nwHoneypot" style="display:none;" tabindex="-1" autocomplete="off">
-
-      <button onclick="submitNeedsWall()" style="background:var(--near-black);color:var(--white);border:none;border-radius:2px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;padding:14px 32px;cursor:pointer;transition:background 0.2s;width:100%;">Submit This Need</button>
-      <div id="nwStatus" style="margin-top:12px;font-family:'Lato',sans-serif;font-size:0.78rem;line-height:1.6;display:none;padding:12px 16px;border-radius:2px;"></div>
     </div>
   </div>
 </section>
+
+<!-- NEEDS WALL READ MORE MODAL -->
+<div id="nwModal" onclick="if(event.target===this)nwCloseModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9990;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px;">
+  <div style="background:var(--white);border-radius:2px;max-width:520px;width:100%;padding:40px;position:relative;max-height:90vh;overflow-y:auto;">
+    <button onclick="nwCloseModal()" style="position:absolute;top:16px;right:20px;background:none;border:none;font-size:1.4rem;color:var(--mid-grey);cursor:pointer;">×</button>
+    <p style="font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--mid-grey);margin-bottom:20px;">A Need in Our Community</p>
+    <p id="nwModalSituation" style="font-family:'Lato',sans-serif;font-size:0.9rem;font-weight:300;color:var(--dark-grey);line-height:1.9;margin-bottom:24px;"></p>
+    <p id="nwModalPrayer" style="font-family:'Playfair Display',serif;font-style:italic;font-size:0.95rem;color:var(--mid-grey);line-height:1.75;padding:20px;background:var(--off-white);border-left:3px solid #ff0000;border-radius:0 2px 2px 0;"></p>
+    <button onclick="nwCloseModal()" style="margin-top:28px;width:100%;background:var(--near-black);color:var(--white);border:none;border-radius:2px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;padding:14px;cursor:pointer;">Close</button>
+  </div>
+</div>
 
 <section id="contact" aria-labelledby="contact-title">
   <div class="container">
@@ -3846,30 +3874,75 @@
   }
 
   // ── NEEDS WALL ──
+
+  // ── NEEDS WALL ──
+  let nwAllPosts = [];
+  let nwPage = 0;
+  const NW_PER_PAGE = 3;
+  const NW_SIT_LIMIT = 150;
+  const NW_PRAY_LIMIT = 100;
+
+  function nwCount(fieldId, countId, max) {
+    const len = document.getElementById(fieldId).value.length;
+    const el = document.getElementById(countId);
+    el.textContent = len + ' / ' + max;
+    el.style.color = len > max * 0.9 ? '#ff0000' : 'var(--mid-grey)';
+  }
+
+  function nwTruncate(text, limit) {
+    if (text.length <= limit) return { short: text, truncated: false };
+    return { short: text.slice(0, limit).trimEnd() + '…', truncated: true };
+  }
+
+  function nwOpenModal(situation, prayer) {
+    const m = document.getElementById('nwModal');
+    document.getElementById('nwModalSituation').textContent = situation;
+    document.getElementById('nwModalPrayer').textContent = '"' + prayer + '"';
+    m.style.display = 'flex';
+    m.style.alignItems = 'center';
+    m.style.justifyContent = 'center';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function nwCloseModal() {
+    document.getElementById('nwModal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function nwRenderPage() {
+    const feed  = document.getElementById('jbNeedsWallFeed');
+    const pager = document.getElementById('jbNeedsWallPager');
+    const end   = (nwPage + 1) * NW_PER_PAGE;
+    const visible = nwAllPosts.slice(0, end);
+    feed.style.display = 'flex';
+    feed.style.flexDirection = 'column';
+    feed.style.gap = '16px';
+    feed.style.marginBottom = '16px';
+    feed.innerHTML = visible.map((e, i) => {
+      const sit  = nwTruncate(e.situation, NW_SIT_LIMIT);
+      const pray = nwTruncate(e.prayer, NW_PRAY_LIMIT);
+      return `
+        <div style="background:var(--white);border-radius:2px;padding:22px;border-left:3px solid #ff0000;">
+          <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:0.78rem;color:var(--dark-grey);line-height:1.7;margin:0 0 8px;">${sit.short}${sit.truncated ? ` <a onclick="nwOpenModal(nwAllPosts[${i}].situation,nwAllPosts[${i}].prayer)" style="color:var(--near-black);font-size:0.72rem;letter-spacing:1px;cursor:pointer;text-decoration:underline;text-underline-offset:2px;">Read more →</a>` : ''}</p>
+          <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:0.75rem;color:var(--mid-grey);line-height:1.7;padding-top:10px;border-top:1px solid var(--light-grey);margin:0;">"${pray.short}"</p>
+        </div>`;
+    }).join('');
+    if (pager) pager.style.display = end < nwAllPosts.length ? 'block' : 'none';
+  }
+
+  function nwNextPage() { nwPage++; nwRenderPage(); }
+
   async function loadNeedsWall() {
     const feed = document.getElementById('jbNeedsWallFeed');
     if (!feed) return;
     try {
-      const res = await fetch(SCRIPT_URL + '?action=needs-wall');
+      const res  = await fetch(SCRIPT_URL + '?action=needs-wall');
       const data = await res.json();
-      const approved = (data.entries || []).filter(e => e.status === 'approved');
-      if (!approved.length) {
-        feed.style.display = 'none';
-        return;
-      }
-      feed.style.display = 'grid';
-      feed.style.gridTemplateColumns = 'repeat(auto-fill,minmax(280px,1fr))';
-      feed.style.gap = '20px';
-      feed.style.marginBottom = '48px';
-      feed.innerHTML = approved.map(e => `
-        <div style="background:var(--white);border-radius:2px;padding:24px;border-left:3px solid #ff0000;">
-          <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:0.78rem;color:var(--dark-grey);line-height:1.7;margin-bottom:12px;">${e.situation}</p>
-          <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:0.78rem;color:var(--mid-grey);line-height:1.7;padding-top:12px;border-top:1px solid var(--light-grey);">"${e.prayer}"</p>
-        </div>`).join('');
-    } catch(e) {
-      feed.style.display = 'none';
-      console.error('Needs wall load error:', e);
-    }
+      nwAllPosts = (data.entries || []).filter(e => e.status === 'approved');
+      if (!nwAllPosts.length) { feed.style.display = 'none'; return; }
+      nwPage = 0;
+      nwRenderPage();
+    } catch(e) { feed.style.display = 'none'; console.error('Needs wall load error:', e); }
   }
 
   async function submitNeedsWall() {
@@ -3878,7 +3951,6 @@
     const situation = document.getElementById('nwSituation').value.trim();
     const prayer    = document.getElementById('nwPrayer').value.trim();
     const status    = document.getElementById('nwStatus');
-
     if (!name || !situation || !prayer) {
       status.textContent = 'Please fill in all three fields.';
       status.style.background = 'var(--light-grey)';
@@ -3886,26 +3958,21 @@
       status.style.display = 'block';
       return;
     }
-
     status.textContent = 'Submitting...';
     status.style.display = 'block';
-
     try {
-      const res = await fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify({ action: 'needs-wall', name, situation, prayer })
-      });
+      const res  = await fetch(SCRIPT_URL, { method:'POST', body: JSON.stringify({ action:'needs-wall', name, situation, prayer }) });
       const data = await res.json();
       if (data.ok) {
-        status.textContent = 'Thank you — your submission has been received. We will review it and add it to the wall shortly.';
+        status.textContent = 'Thank you — your submission has been received. We will review it shortly.';
         status.style.background = 'var(--off-white)';
         status.style.color = 'var(--dark-grey)';
         document.getElementById('nwName').value = '';
         document.getElementById('nwSituation').value = '';
         document.getElementById('nwPrayer').value = '';
-      } else {
-        throw new Error('Submission failed');
-      }
+        document.getElementById('nwSituationCount').textContent = '0 / 500';
+        document.getElementById('nwPrayerCount').textContent = '0 / 300';
+      } else { throw new Error('failed'); }
     } catch(e) {
       status.textContent = 'Something went wrong. Please try again or email hello@thejesusbarn.org.';
       status.style.color = '#888';
