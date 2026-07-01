@@ -2788,7 +2788,7 @@
 <!-- ── COMMUNITY NEEDS ── -->
 <section id="needs-wall" style="background:var(--off-white);padding:80px 48px;" aria-labelledby="needs-wall-title">
   <div class="container">
-    <div class="needs-wall-layout">
+    <div id="needsWallLayout" class="needs-wall-layout">
       <!-- LEFT -->
       <div>
         <p class="section-eyebrow" style="color:var(--dark-grey);">Community Care</p>
@@ -2797,7 +2797,7 @@
         <a href="/needs" style="display:inline-flex;align-items:center;gap:8px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--near-black);text-decoration:none;border-bottom:1px solid var(--near-black);padding-bottom:2px;transition:opacity 0.2s;">See All Needs & Nominate Someone →</a>
       </div>
       <!-- RIGHT — live needs feed -->
-      <div>
+      <div id="needsWallRight">
         <div id="jbNeedsWallFeed" style="display:none;flex-direction:column;gap:16px;margin-bottom:16px;"></div>
         <div id="jbNeedsWallPager" style="display:none;">
           <a href="/needs" style="font-family:'Lato',sans-serif;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);text-decoration:underline;text-underline-offset:3px;cursor:pointer;">See all needs →</a>
@@ -3947,12 +3947,21 @@
 
   async function loadNeedsWall() {
     const feed = document.getElementById('jbNeedsWallFeed');
+    const layout = document.getElementById('needsWallLayout');
+    const right = document.getElementById('needsWallRight');
     if (!feed) return;
     try {
       const res  = await fetch(JB.SCRIPT_URL + '?action=needs-wall');
       const data = await res.json();
       nwAllPosts = (data.entries || []).filter(e => e.status === 'approved' || e.status === 'met');
-      if (!nwAllPosts.length) { feed.style.display = 'none'; return; }
+      if (!nwAllPosts.length) {
+        feed.style.display = 'none';
+        if (right) right.style.display = 'none';
+        if (layout) layout.style.gridTemplateColumns = '1fr';
+        return;
+      }
+      if (right) right.style.display = 'block';
+      if (layout) layout.style.gridTemplateColumns = '';
       nwPage = 0;
       nwRenderPage();
     } catch(e) { feed.style.display = 'none'; console.error('Needs wall load error:', e); }
