@@ -2785,7 +2785,7 @@
         </div>
 
         <div class="jb-field" style="margin-bottom:16px;">
-          <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:block;margin-bottom:5px;">Your Phone Number <span style="color:var(--mid-grey);font-size:0.55rem;">(optional)</span></label>
+          <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:block;margin-bottom:5px;">Your Phone Number</label>
           <input type="tel" id="nwPhone" maxlength="20" placeholder="(405) 000-0000" style="width:100%;padding:11px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:2px;font-family:'Lato',sans-serif;font-size:0.88rem;color:var(--near-black);outline:none;">
         </div>
 
@@ -3979,8 +3979,8 @@
     const situation = document.getElementById('nwSituation').value.trim();
     const prayer    = document.getElementById('nwPrayer').value.trim();
     const status    = document.getElementById('nwStatus');
-    if (!name || !situation || !prayer) {
-      status.textContent = 'Please fill in all three fields.';
+    if (!submitter || !phone || !name || !situation || !prayer) {
+      status.textContent = 'Please fill in all fields including your name and phone number.';
       status.style.background = 'var(--light-grey)';
       status.style.color = 'var(--dark-grey)';
       status.style.display = 'block';
