@@ -3949,7 +3949,7 @@
     const feed = document.getElementById('jbNeedsWallFeed');
     if (!feed) return;
     try {
-      const res  = await fetch(SCRIPT_URL + '?action=needs-wall');
+      const res  = await fetch(JB.SCRIPT_URL + '?action=needs-wall');
       const data = await res.json();
       nwAllPosts = (data.entries || []).filter(e => e.status === 'approved' || e.status === 'met');
       if (!nwAllPosts.length) { feed.style.display = 'none'; return; }
