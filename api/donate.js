@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { amount, currency = 'usd', recurring, name, email } = req.body;
+  const { amount, currency = 'usd', recurring, name, email, designation = 'barn' } = req.body;
 
   if (!amount || amount < 100) {
     return res.status(400).json({ error: 'Invalid amount' });
@@ -46,7 +46,7 @@ export default async function handler(req, res) {
         amount,
         currency,
         receipt_email: email,
-        metadata: { name, email, type: 'one-time' },
+        metadata: { name, email, type: 'one-time', designation },
         automatic_payment_methods: { enabled: true },
         description: 'The Jesus Barn — One-Time Gift',
       });
