@@ -4008,7 +4008,9 @@
   jbLoadAll();
 </script>
 <!-- FLOATING COMMUNITY CARE BUTTON -->
-<a href="#needs-wall" onclick="event.preventDefault();document.getElementById('needs-wall').scrollIntoView({behavior:'smooth'})" style="position:fixed;right:0;top:30%;transform:translateY(-50%) rotate(90deg);transform-origin:right center;background:var(--near-black);color:var(--white);font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:3px;text-transform:uppercase;padding:10px 20px;text-decoration:none;z-index:400;border-radius:2px 2px 0 0;box-shadow:-2px 0 12px rgba(0,0,0,0.2);transition:background 0.2s;white-space:nowrap;" onmouseover="this.style.background='#ff0000'" onmouseout="this.style.background='var(--near-black)'">Community Care</a>
+<div style="position:fixed;right:0;top:30%;z-index:400;transform:translateY(-50%);">
+  <a href="#needs-wall" onclick="event.preventDefault();document.getElementById('needs-wall').scrollIntoView({behavior:'smooth'})" style="display:block;writing-mode:vertical-rl;text-orientation:mixed;background:var(--near-black);color:var(--white);font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:3px;text-transform:uppercase;padding:16px 10px;text-decoration:none;border-radius:2px 0 0 2px;box-shadow:-2px 0 12px rgba(0,0,0,0.3);transition:background 0.2s;white-space:nowrap;" onmouseover="this.style.background='#ff0000'" onmouseout="this.style.background='var(--near-black)'">Community Care</a>
+</div>
 
 <!-- BACK TO TOP -->
 <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
