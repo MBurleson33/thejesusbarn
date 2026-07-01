@@ -2767,14 +2767,35 @@
   </div>
 </div>
 <!-- ── NEEDS WALL ── -->
+
+<!-- NEEDS WALL READ MORE MODAL -->
+<div id="nwModal" onclick="if(event.target===this)nwCloseModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9990;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px;">
+  <div style="background:var(--white);border-radius:2px;max-width:520px;width:100%;padding:40px;position:relative;max-height:90vh;overflow-y:auto;">
+    <button onclick="nwCloseModal()" style="position:absolute;top:16px;right:20px;background:none;border:none;font-size:1.4rem;color:var(--mid-grey);cursor:pointer;">×</button>
+    <p style="font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--mid-grey);margin-bottom:20px;">A Need in Our Community</p>
+    <p id="nwModalSituation" style="font-family:'Lato',sans-serif;font-size:0.9rem;font-weight:300;color:var(--dark-grey);line-height:1.9;margin-bottom:24px;"></p>
+    <p id="nwModalPrayer" style="font-family:'Playfair Display',serif;font-style:italic;font-size:0.95rem;color:var(--mid-grey);line-height:1.75;padding:20px;background:var(--off-white);border-left:3px solid #ff0000;border-radius:0 2px 2px 0;"></p>
+    <button onclick="nwCloseModal()" style="margin-top:28px;width:100%;background:var(--near-black);color:var(--white);border:none;border-radius:2px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;padding:14px;cursor:pointer;">Close</button>
+  </div>
+</div>
+
+<!-- ── NEEDS WALL ── -->
 <section id="needs-wall" style="background:var(--off-white);padding:80px 48px;" aria-labelledby="needs-wall-title">
   <div class="container">
-    <p class="section-eyebrow" style="color:var(--dark-grey);">Community Care</p>
-    <h2 class="section-title" id="needs-wall-title" style="color:var(--near-black);">Someone Needs Help</h2>
-    <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:1rem;color:var(--dark-grey);line-height:1.9;max-width:600px;margin-bottom:48px;">Know someone in our community who needs support? Submit their name and situation below. All submissions are anonymous and reviewed before being posted. The Jesus Barn community will pray over every need shared here.</p>
-
     <div class="needs-wall-layout">
-      <!-- LEFT — form -->
+
+      <!-- LEFT — title, intro, feed -->
+      <div>
+        <p class="section-eyebrow" style="color:var(--dark-grey);">Community Care</p>
+        <h2 class="section-title" id="needs-wall-title" style="color:var(--near-black);">Someone Needs Help</h2>
+        <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:1rem;color:var(--dark-grey);line-height:1.9;margin-bottom:32px;">Know someone in our community who needs support? Submit the form and our team will review it. All needs are posted anonymously. The Jesus Barn community will pray over every need shared here.</p>
+        <div id="jbNeedsWallFeed" style="display:none;flex-direction:column;gap:16px;margin-bottom:20px;"></div>
+        <div id="jbNeedsWallPager" style="display:none;">
+          <button onclick="nwNextPage()" style="background:transparent;border:1px solid rgba(0,0,0,0.15);color:var(--dark-grey);font-family:'Lato',sans-serif;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;padding:12px 28px;border-radius:2px;cursor:pointer;transition:all 0.2s;">See More Needs</button>
+        </div>
+      </div>
+
+      <!-- RIGHT — form -->
       <div style="background:var(--white);border-radius:2px;padding:32px;">
         <p style="font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--dark-grey);margin-bottom:20px;">Submit a Need</p>
         <p style="font-family:'Lato',sans-serif;font-size:0.78rem;font-weight:300;color:var(--dark-grey);line-height:1.7;margin-bottom:24px;">Know someone who needs support? Fill out the form below — your contact info is for our team only and will never be shared publicly.</p>
@@ -2810,13 +2831,6 @@
         <div id="nwStatus" style="margin-top:12px;font-family:'Lato',sans-serif;font-size:0.78rem;line-height:1.6;display:none;padding:12px 16px;border-radius:2px;"></div>
       </div>
 
-      <!-- RIGHT — needs feed -->
-      <div>
-        <div id="jbNeedsWallFeed" style="display:none;flex-direction:column;gap:16px;margin-bottom:16px;"></div>
-        <div id="jbNeedsWallPager" style="display:none;text-align:center;">
-          <button onclick="nwNextPage()" style="background:transparent;border:1px solid rgba(0,0,0,0.15);color:var(--dark-grey);font-family:'Lato',sans-serif;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;padding:12px 28px;border-radius:2px;cursor:pointer;transition:all 0.2s;">See More Needs</button>
-        </div>
-      </div>
     </div>
   </div>
 </section>
