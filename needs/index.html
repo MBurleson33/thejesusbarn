@@ -746,8 +746,10 @@
     btn.disabled = true;
 
     try {
-      const res  = await fetch(SCRIPT_URL, {
+      await fetch(SCRIPT_URL, {
         method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({
           action: 'needs-wall',
           submitter: yourFirst + ' ' + yourLast,
@@ -763,19 +765,17 @@
           prayer
         })
       });
-      const data = await res.json();
-      if (data.ok || data.success) {
-        status.textContent = 'Thank you — your nomination has been received. Our team will review it and reach out to you shortly.';
-        status.className = 'form-status success';
-        ['nwYourFirst','nwYourLast','nwYourPhone','nwYourEmail','nwTheirFirst','nwTheirLast','nwTheirPhone','nwTheirEmail','nwDesc','nwSituation','nwPrayer'].forEach(id => {
-          document.getElementById(id).value = '';
-        });
-        ['nwDescCount','nwSitCount','nwPrayCount'].forEach((id, i) => {
-          document.getElementById(id).textContent = '0 / ' + [120,500,300][i];
-        });
-        btn.textContent = 'Submit This Nomination';
-        btn.disabled = false;
-      } else { throw new Error('failed'); }
+      // no-cors means we can't read the response — assume success if no error thrown
+      status.textContent = 'Thank you — your nomination has been received. Our team will review it and reach out to you shortly.';
+      status.className = 'form-status success';
+      ['nwYourFirst','nwYourLast','nwYourPhone','nwYourEmail','nwTheirFirst','nwTheirLast','nwTheirPhone','nwTheirEmail','nwDesc','nwSituation','nwPrayer'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      ['nwDescCount','nwSitCount','nwPrayCount'].forEach((id, i) => {
+        document.getElementById(id).textContent = '0 / ' + [120,500,300][i];
+      });
+      btn.textContent = 'Submit This Nomination';
+      btn.disabled = false;
     } catch(e) {
       status.textContent = 'Something went wrong. Please try again or email hello@thejesusbarn.org.';
       status.className = 'form-status error';
