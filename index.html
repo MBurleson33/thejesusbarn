@@ -1675,6 +1675,10 @@
 
   .jb-disclaimer-btn:hover { background: var(--accent); }
 
+  #needs-wall .section-eyebrow { color: var(--dark-grey); }
+  #needs-wall .section-eyebrow::after { background: var(--light-grey); }
+  #needs-wall .section-title { color: var(--near-black); }
+
   #contact { background: var(--off-white); }
   #contact .section-title { color: var(--near-black); }
   #contact .section-eyebrow { color: var(--dark-grey); }
@@ -2740,8 +2744,8 @@
 <!-- ── NEEDS WALL ── -->
 <section id="needs-wall" style="background:var(--off-white);padding:80px 48px;" aria-labelledby="needs-wall-title">
   <div class="container">
-    <p class="section-eyebrow">Community Care</p>
-    <h2 class="section-title" id="needs-wall-title">Someone Needs Help</h2>
+    <p class="section-eyebrow" style="color:var(--dark-grey);">Community Care</p>
+    <h2 class="section-title" id="needs-wall-title" style="color:var(--near-black);">Someone Needs Help</h2>
     <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:1rem;color:var(--dark-grey);line-height:1.9;max-width:600px;margin-bottom:48px;">Know someone in our community who needs support? Submit their name and situation below. All submissions are anonymous and reviewed before being posted. The Jesus Barn community will pray over every need shared here.</p>
 
     <!-- needs feed -->
@@ -2749,7 +2753,7 @@
 
     <!-- submit form -->
     <div style="background:var(--white);border-radius:2px;padding:36px;max-width:560px;">
-      <p style="font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--mid-grey);margin-bottom:20px;">Submit a Need</p>
+      <p style="font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--dark-grey);margin-bottom:20px;">Submit a Need</p>
       <p style="font-family:'Lato',sans-serif;font-size:0.78rem;font-weight:300;color:var(--dark-grey);line-height:1.7;margin-bottom:24px;">You don't need to share who you are. Just tell us about someone who needs prayer or support — we'll take care of the rest.</p>
 
       <div class="jb-field" style="margin-bottom:16px;">
