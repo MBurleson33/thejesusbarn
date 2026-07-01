@@ -2270,6 +2270,7 @@
   </div>
   <div class="jb-admin-tabs">
     <button class="jb-admin-tab active" onclick="jbSwitchTab('funding', this)">Funding &amp; Needs</button>
+    <button class="jb-admin-tab" onclick="jbSwitchTab('giving', this)">Giving</button>
     <button class="jb-admin-tab" onclick="jbSwitchTab('signups', this)">Signups</button>
     <button class="jb-admin-tab" onclick="jbSwitchTab('wall', this)">Community Wall</button>
     <button class="jb-admin-tab" onclick="jbSwitchTab('needswall', this)">Needs Wall</button>
@@ -2298,6 +2299,31 @@
     <p style="font-family:'Lato',sans-serif;font-size:0.7rem;color:var(--mid-grey);margin-top:8px;line-height:1.6;">⚠️ Only save when the needs list is fully loaded above. Saving with an empty list will clear your needs.</p>
     <div class="jb-status" id="jbFundingStatus"></div>
   </div>
+  <div class="jb-admin-pane" id="jbPane-giving">
+    <p class="jb-section-label">Designated Giving</p>
+    <p style="font-family:'Lato',sans-serif;font-size:0.75rem;font-weight:300;color:var(--dark-grey);line-height:1.7;margin-bottom:20px;">Donations made through the Give page, split by designation. Data pulled from Stripe.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
+      <div style="background:var(--off-white);border-radius:2px;padding:20px;border-left:3px solid var(--near-black);">
+        <p style="font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--mid-grey);margin-bottom:8px;">The Jesus Barn</p>
+        <p id="givingBarnTotal" style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--near-black);">—</p>
+        <p id="givingBarnCount" style="font-family:'Lato',sans-serif;font-size:0.68rem;color:var(--mid-grey);margin-top:4px;">— donations</p>
+      </div>
+      <div style="background:var(--off-white);border-radius:2px;padding:20px;border-left:3px solid #ff0000;">
+        <p style="font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--mid-grey);margin-bottom:8px;">Someone in Need</p>
+        <p id="givingNeedTotal" style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--near-black);">—</p>
+        <p id="givingNeedCount" style="font-family:'Lato',sans-serif;font-size:0.68rem;color:var(--mid-grey);margin-top:4px;">— donations</p>
+      </div>
+    </div>
+    <p class="jb-section-label">Recent Donations</p>
+    <div class="jb-filter-wrap">
+      <button class="jb-filter-btn active" onclick="jbFilterGiving('all',this)">All</button>
+      <button class="jb-filter-btn" onclick="jbFilterGiving('barn',this)">The Jesus Barn</button>
+      <button class="jb-filter-btn" onclick="jbFilterGiving('need',this)">Someone in Need</button>
+    </div>
+    <div id="jbGivingItems"></div>
+    <div class="jb-status" id="jbGivingStatus"></div>
+  </div>
+
   <div class="jb-admin-pane" id="jbPane-signups">
     <div class="jb-filter-wrap" id="jbSignupFilters">
       <button class="jb-filter-btn active" onclick="jbFilterSignups('all',this)">All</button>
@@ -3320,6 +3346,7 @@
     document.querySelectorAll('.jb-admin-pane').forEach(p=>p.classList.remove('active'));
     if(el && el.classList && el.classList.contains('jb-admin-tab')) el.classList.add('active');
     document.getElementById('jbPane-'+tab).classList.add('active');
+    if(tab==='giving')       loadGivingAdmin();
     if(tab==='signups')      loadSignups().then(jbRenderSignupsAdmin);
     if(tab==='wall')         loadWall().then(jbRenderWallAdmin);
     if(tab==='needswall')    loadNeedsWallAdmin();
@@ -3476,6 +3503,55 @@
       status.textContent='Deleted.'; status.className='jb-status success';
     } catch(e){status.textContent='Error deleting.'; status.className='jb-status error';}
     setTimeout(()=>{status.className='jb-status';},2500);
+  }
+
+  // ── GIVING ADMIN ──
+  let jbGivingData = [];
+  let jbGivingFilter = 'all';
+
+  async function loadGivingAdmin() {
+    const status = document.getElementById('jbGivingStatus');
+    const items = document.getElementById('jbGivingItems');
+    items.innerHTML = '<p class="jb-empty-state">Loading donations...</p>';
+    try {
+      const res = await fetch('/api/giving');
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      jbGivingData = data.donations || [];
+      document.getElementById('givingBarnTotal').textContent = '$' + (data.barnTotal || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });
+      document.getElementById('givingBarnCount').textContent = (data.barnCount || 0) + ' donation' + (data.barnCount !== 1 ? 's' : '');
+      document.getElementById('givingNeedTotal').textContent = '$' + (data.needTotal || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });
+      document.getElementById('givingNeedCount').textContent = (data.needCount || 0) + ' donation' + (data.needCount !== 1 ? 's' : '');
+      jbRenderGivingAdmin();
+    } catch(e) {
+      items.innerHTML = '<p class="jb-empty-state">Could not load donations. Check Stripe API key.</p>';
+    }
+  }
+
+  function jbFilterGiving(filter, btn) {
+    jbGivingFilter = filter;
+    document.querySelectorAll('#jbPane-giving .jb-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    jbRenderGivingAdmin();
+  }
+
+  function jbRenderGivingAdmin() {
+    const c = document.getElementById('jbGivingItems');
+    const filtered = jbGivingFilter === 'all' ? jbGivingData
+      : jbGivingData.filter(d => jbGivingFilter === 'need' ? d.designation === 'need' : d.designation !== 'need');
+    if (!filtered.length) { c.innerHTML = '<p class="jb-empty-state">No donations found.</p>'; return; }
+    c.innerHTML = filtered.map(d => `
+      <div class="jb-wall-item">
+        <div class="jb-wall-item-name">
+          ${d.name}
+          <span class="jb-wall-badge ${d.designation === 'need' ? 'pending' : 'approved'}" style="margin-left:6px;">
+            ${d.designation === 'need' ? 'Someone in Need' : 'Jesus Barn'}
+          </span>
+          ${d.recurring ? '<span class="jb-wall-badge" style="background:#e8e8e8;color:#555;margin-left:4px;">Monthly</span>' : ''}
+        </div>
+        <p class="jb-wall-item-msg" style="font-size:1.1rem;font-weight:700;color:var(--near-black);">$${d.amount.toFixed(2)}</p>
+        <p class="jb-wall-item-msg">${d.email} · ${d.date}</p>
+      </div>`).join('');
   }
 
   // ── NEEDS WALL ADMIN ──
