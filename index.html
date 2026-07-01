@@ -1302,21 +1302,21 @@
   #community .section-title { color: var(--white); }
 
   .wall-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1px;
-    background: rgba(255,255,255,0.06);
-    margin-bottom: 60px;
-    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
   }
 
   .wall-card {
-    background: var(--near-black);
-    padding: 32px 28px;
+    background: rgba(255,255,255,0.05);
+    padding: 24px 28px;
+    border-radius: 2px;
+    border-left: 3px solid rgba(255,255,255,0.12);
     transition: background 0.2s;
   }
 
-  .wall-card:hover { background: #252525; }
+  .wall-card:hover { background: rgba(255,255,255,0.08); }
 
   .wall-quote-mark {
     font-family: 'Playfair Display', serif;
@@ -2707,30 +2707,40 @@
   <div class="container">
     <p class="section-eyebrow light">The Jesus Barn Community</p>
     <h2 class="section-title" id="community-title" style="color:var(--white);">What People Are Saying</h2>
-    <div class="wall-grid" id="jbWallGrid">
-      <p style="font-family:'Playfair Display',serif;font-style:italic;color:rgba(255,255,255,0.25);padding:40px 32px;white-space:nowrap;">Be the first to leave an encouraging word.</p>
-    </div>
-    <div style="text-align:center;margin-bottom:48px;">
-      <button id="jbWallMoreBtn" onclick="jbOpenCarousel()" style="display:none;background:transparent;border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.7);font-family:'Lato',sans-serif;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;padding:14px 32px;border-radius:2px;cursor:pointer;transition:all 0.2s;">Read More Stories</button>
-    </div>
-    <div class="wall-form-wrap">
-      <p class="wall-form-title">Leave a Word of Encouragement</p>
-      <p class="wall-form-sub">Your note will appear on the wall once approved. Thank you for being part of this community.</p>
-      <div class="wall-row">
-        <div class="wall-field">
-          <label>Your Name</label>
-          <input type="text" id="wallName" placeholder="First name or anonymous">
+
+    <div class="needs-wall-layout" style="margin-bottom:0;">
+
+      <!-- LEFT — form -->
+      <div class="wall-form-wrap">
+        <p class="wall-form-title">Leave a Word of Encouragement</p>
+        <p class="wall-form-sub">Your note will appear on the wall once approved. Thank you for being part of this community.</p>
+        <div class="wall-row">
+          <div class="wall-field">
+            <label>Your Name</label>
+            <input type="text" id="wallName" placeholder="First name or anonymous">
+          </div>
+          <div class="wall-field">
+            <label>From</label>
+            <input type="text" id="wallLocation" placeholder="Piedmont, OK">
+          </div>
         </div>
         <div class="wall-field">
-          <label>From</label>
-          <input type="text" id="wallLocation" placeholder="Piedmont, OK">
+          <textarea id="wallMessage" placeholder="Share what The Jesus Barn means to you, or leave a word of encouragement for the community..."></textarea>
+        </div>
+        <button class="wall-submit" onclick="submitWall()">Post to the Wall</button>
+        <div class="wall-submit-status" id="wallStatus"></div>
+      </div>
+
+      <!-- RIGHT — posts stacked -->
+      <div>
+        <div id="jbWallGrid" style="display:flex;flex-direction:column;gap:16px;margin-bottom:20px;">
+          <p style="font-family:'Playfair Display',serif;font-style:italic;color:rgba(255,255,255,0.25);">Be the first to leave an encouraging word.</p>
+        </div>
+        <div style="text-align:center;">
+          <button id="jbWallMoreBtn" onclick="jbOpenCarousel()" style="display:none;background:transparent;border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.7);font-family:'Lato',sans-serif;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;padding:14px 32px;border-radius:2px;cursor:pointer;transition:all 0.2s;">Read More Stories</button>
         </div>
       </div>
-      <div class="wall-field">
-        <textarea id="wallMessage" placeholder="Share what The Jesus Barn means to you, or leave a word of encouragement for the community..."></textarea>
-      </div>
-      <button class="wall-submit" onclick="submitWall()">Post to the Wall</button>
-      <div class="wall-submit-status" id="wallStatus"></div>
+
     </div>
   </div>
 <!-- ── WALL CAROUSEL ── -->
@@ -3112,19 +3122,24 @@
     if (!grid) return;
     const approved = jbWall.filter(w => w.status === 'approved');
     if (!approved.length) {
-      grid.innerHTML = '<p style="font-family:\'Playfair Display\',serif;font-style:italic;color:rgba(255,255,255,0.25);padding:40px 32px;white-space:nowrap;">Be the first to leave an encouraging word.</p>';
+      grid.innerHTML = '<p style="font-family:\'Playfair Display\',serif;font-style:italic;color:rgba(255,255,255,0.25);">Be the first to leave an encouraging word.</p>';
       if (moreBtn) moreBtn.style.display = 'none';
       return;
     }
     const shuffled = shuffle(approved);
     const shown = shuffled.slice(0, 6);
-    grid.innerHTML = shown.map(w => `
-      <div class="wall-card">
-        <span class="wall-quote-mark">"</span>
-        <p class="wall-text">${w.message}</p>
-        <p class="wall-author">— ${w.name}${w.location ? ', ' + w.location : ''}</p>
-      </div>`).join('');
-    if (moreBtn) moreBtn.style.display = approved.length > 6 ? 'inline-block' : 'none';
+    grid.innerHTML = shown.map(w => {
+      const msgLimit = 160;
+      const truncated = w.message.length > msgLimit;
+      const shortMsg = truncated ? w.message.slice(0, msgLimit).trimEnd() + '…' : w.message;
+      return `
+        <div class="wall-card" style="margin-bottom:0;">
+          <span class="wall-quote-mark">"</span>
+          <p class="wall-text">${shortMsg}</p>
+          <p class="wall-author">— ${w.name}${w.location ? ', ' + w.location : ''}</p>
+        </div>`;
+    }).join('');
+    if (moreBtn) moreBtn.style.display = approved.length > 0 ? 'inline-block' : 'none';
   }
 
   const asideContent = {
