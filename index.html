@@ -3932,12 +3932,12 @@
     feed.style.gap = '16px';
     feed.style.marginBottom = '16px';
     feed.innerHTML = visible.map((e, i) => {
-      const sit  = nwTruncate(e.situation, NW_SIT_LIMIT);
-      const pray = nwTruncate(e.prayer, NW_PRAY_LIMIT);
+      const sit  = nwTruncate(e.description || e.situation || '', NW_SIT_LIMIT);
+      const pray = nwTruncate(e.prayer || '', NW_PRAY_LIMIT);
       return `
         <div style="background:var(--white);border-radius:2px;padding:22px;border-left:3px solid #ff0000;">
-          <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:0.78rem;color:var(--dark-grey);line-height:1.7;margin:0 0 8px;">${sit.short}${sit.truncated ? ` <a onclick="nwOpenModal(nwAllPosts[${i}].situation,nwAllPosts[${i}].prayer)" style="color:var(--near-black);font-size:0.72rem;letter-spacing:1px;cursor:pointer;text-decoration:underline;text-underline-offset:2px;">Read more →</a>` : ''}</p>
-          <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:0.75rem;color:var(--mid-grey);line-height:1.7;padding-top:10px;border-top:1px solid var(--light-grey);margin:0;">"${pray.short}"</p>
+          <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:0.78rem;color:var(--dark-grey);line-height:1.7;margin:0 0 8px;">${sit.short}</p>
+          ${pray.short ? `<p style="font-family:'Playfair Display',serif;font-style:italic;font-size:0.75rem;color:var(--mid-grey);line-height:1.7;padding-top:10px;border-top:1px solid var(--light-grey);margin:0;">"${pray.short}"</p>` : ''}
         </div>`;
     }).join('');
     if (pager) pager.style.display = end < nwAllPosts.length ? 'block' : 'none';
@@ -3951,7 +3951,7 @@
     try {
       const res  = await fetch(SCRIPT_URL + '?action=needs-wall');
       const data = await res.json();
-      nwAllPosts = (data.entries || []).filter(e => e.status === 'approved');
+      nwAllPosts = (data.entries || []).filter(e => e.status === 'approved' || e.status === 'met');
       if (!nwAllPosts.length) { feed.style.display = 'none'; return; }
       nwPage = 0;
       nwRenderPage();
