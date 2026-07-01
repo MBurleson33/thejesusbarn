@@ -2785,58 +2785,24 @@
   </div>
 </div>
 
-<!-- ── NEEDS WALL ── -->
+<!-- ── COMMUNITY NEEDS ── -->
 <section id="needs-wall" style="background:var(--off-white);padding:80px 48px;" aria-labelledby="needs-wall-title">
   <div class="container">
     <div class="needs-wall-layout">
-
-      <!-- LEFT — title, intro, feed -->
+      <!-- LEFT -->
       <div>
         <p class="section-eyebrow" style="color:var(--dark-grey);">Community Care</p>
-        <h2 class="section-title" id="needs-wall-title" style="color:var(--near-black);">Someone Needs Help</h2>
-        <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:1rem;color:var(--dark-grey);line-height:1.9;margin-bottom:32px;">Know someone in our community who needs support? Submit the form and our team will review it. All needs are posted anonymously. The Jesus Barn community will pray over every need shared here.</p>
-        <div id="jbNeedsWallFeed" style="display:none;flex-direction:column;gap:16px;margin-bottom:20px;"></div>
+        <h2 class="section-title" id="needs-wall-title" style="color:var(--near-black);">We See Our Neighbors</h2>
+        <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:1rem;color:var(--dark-grey);line-height:1.9;margin-bottom:32px;">Sometimes all it takes is one person to say "I see you" — and a community to show up. Know someone who needs support? Nominate them and let The Jesus Barn community rally around them.</p>
+        <a href="/needs" style="display:inline-flex;align-items:center;gap:8px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--near-black);text-decoration:none;border-bottom:1px solid var(--near-black);padding-bottom:2px;transition:opacity 0.2s;">See All Needs & Nominate Someone →</a>
+      </div>
+      <!-- RIGHT — live needs feed -->
+      <div>
+        <div id="jbNeedsWallFeed" style="display:none;flex-direction:column;gap:16px;margin-bottom:16px;"></div>
         <div id="jbNeedsWallPager" style="display:none;">
-          <button onclick="nwNextPage()" style="background:transparent;border:1px solid rgba(0,0,0,0.15);color:var(--dark-grey);font-family:'Lato',sans-serif;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;padding:12px 28px;border-radius:2px;cursor:pointer;transition:all 0.2s;">See More Needs</button>
+          <a href="/needs" style="font-family:'Lato',sans-serif;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);text-decoration:underline;text-underline-offset:3px;cursor:pointer;">See all needs →</a>
         </div>
       </div>
-
-      <!-- RIGHT — form -->
-      <div style="background:var(--white);border-radius:2px;padding:32px;">
-        <p style="font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--dark-grey);margin-bottom:20px;">Submit a Need</p>
-        <p style="font-family:'Lato',sans-serif;font-size:0.78rem;font-weight:300;color:var(--dark-grey);line-height:1.7;margin-bottom:24px;">Know someone who needs support? Fill out the form below — your contact info is for our team only and will never be shared publicly.</p>
-
-        <div class="jb-field" style="margin-bottom:16px;">
-          <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:block;margin-bottom:5px;">Your Name</label>
-          <input type="text" id="nwSubmitter" maxlength="100" placeholder="Your name" style="width:100%;padding:11px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:2px;font-family:'Lato',sans-serif;font-size:0.88rem;color:var(--near-black);outline:none;">
-        </div>
-
-        <div class="jb-field" style="margin-bottom:16px;">
-          <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:block;margin-bottom:5px;">Your Phone Number</label>
-          <input type="tel" id="nwPhone" maxlength="20" placeholder="(405) 000-0000" style="width:100%;padding:11px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:2px;font-family:'Lato',sans-serif;font-size:0.88rem;color:var(--near-black);outline:none;">
-        </div>
-
-        <div class="jb-field" style="margin-bottom:16px;">
-          <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:block;margin-bottom:5px;">Description of the Need <span style="color:var(--mid-grey);font-size:0.55rem;">(please do not include the person's name)</span></label>
-          <input type="text" id="nwName" maxlength="100" placeholder="e.g. A young family in Piedmont struggling financially" style="width:100%;padding:11px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:2px;font-family:'Lato',sans-serif;font-size:0.88rem;color:var(--near-black);outline:none;">
-        </div>
-
-        <div class="jb-field" style="margin-bottom:16px;">
-          <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:flex;justify-content:space-between;margin-bottom:5px;">Their Situation <span id="nwSituationCount" style="color:var(--mid-grey);font-weight:300;">0 / 500</span></label>
-          <textarea id="nwSituation" rows="4" maxlength="500" placeholder="What do they need? What are they going through?" oninput="nwCount('nwSituation','nwSituationCount',500)" style="width:100%;padding:11px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:2px;font-family:'Lato',sans-serif;font-size:0.88rem;color:var(--near-black);outline:none;resize:vertical;"></textarea>
-        </div>
-
-        <div class="jb-field" style="margin-bottom:24px;">
-          <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:flex;justify-content:space-between;margin-bottom:5px;">A Prayer for Them <span id="nwPrayerCount" style="color:var(--mid-grey);font-weight:300;">0 / 300</span></label>
-          <textarea id="nwPrayer" rows="3" maxlength="300" placeholder="Write a short prayer or word of encouragement..." oninput="nwCount('nwPrayer','nwPrayerCount',300)" style="width:100%;padding:11px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:2px;font-family:'Lato',sans-serif;font-size:0.88rem;color:var(--near-black);outline:none;resize:vertical;"></textarea>
-        </div>
-
-        <input type="text" id="nwHoneypot" style="display:none;" tabindex="-1" autocomplete="off">
-
-        <button onclick="submitNeedsWall()" style="background:var(--near-black);color:var(--white);border:none;border-radius:2px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;padding:14px 32px;cursor:pointer;transition:background 0.2s;width:100%;">Submit This Need</button>
-        <div id="nwStatus" style="margin-top:12px;font-family:'Lato',sans-serif;font-size:0.78rem;line-height:1.6;display:none;padding:12px 16px;border-radius:2px;"></div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -3664,8 +3630,10 @@
     if (!filtered.length) { c.innerHTML = '<p class="jb-empty-state">No submissions yet.</p>'; return; }
     c.innerHTML = filtered.map((e, i) => `
       <div class="jb-wall-item">
-        <div class="jb-wall-item-name">${e.name}<span class="jb-wall-badge ${e.status}">${e.status}</span></div>
-        ${e.submitter ? `<p class="jb-wall-item-msg" style="font-size:0.7rem;color:var(--mid-grey);margin-bottom:2px;">Submitted by: ${e.submitter}${e.phone ? ' · ' + e.phone : ''}</p>` : ''}
+        <div class="jb-wall-item-name">${e.firstName || e.name || '—'} ${e.lastName ? e.lastName : ''}<span class="jb-wall-badge ${e.status}">${e.status}</span></div>
+        ${e.submitter ? `<p class="jb-wall-item-msg" style="font-size:0.7rem;color:var(--mid-grey);margin-bottom:2px;">Submitted by: ${e.submitter}${e.submitterPhone ? ' · ' + e.submitterPhone : ''}${e.submitterEmail ? ' · ' + e.submitterEmail : ''}</p>` : ''}
+        ${e.theirPhone ? `<p class="jb-wall-item-msg" style="font-size:0.7rem;color:var(--mid-grey);margin-bottom:6px;">Their contact: ${e.theirPhone}${e.theirEmail ? ' · ' + e.theirEmail : ''}</p>` : ''}
+        <p class="jb-wall-item-msg"><strong>Description:</strong> ${e.description || e.name || '—'}</p>
         <p class="jb-wall-item-msg"><strong>Situation:</strong> ${e.situation}</p>
         <p class="jb-wall-item-msg" style="margin-top:6px;font-style:italic;">"${e.prayer}"</p>
         <div class="jb-wall-item-actions">
