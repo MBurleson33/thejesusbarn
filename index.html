@@ -2272,6 +2272,7 @@
     <button class="jb-admin-tab active" onclick="jbSwitchTab('funding', this)">Funding &amp; Needs</button>
     <button class="jb-admin-tab" onclick="jbSwitchTab('signups', this)">Signups</button>
     <button class="jb-admin-tab" onclick="jbSwitchTab('wall', this)">Community Wall</button>
+    <button class="jb-admin-tab" onclick="jbSwitchTab('needswall', this)">Needs Wall</button>
     <button class="jb-admin-tab" onclick="jbSwitchTab('announcement', this)">Announcement</button>
   </div>
   <div class="jb-admin-pane active" id="jbPane-funding">
@@ -2316,6 +2317,17 @@
     </div>
     <div id="jbWallItems"></div>
     <div class="jb-status" id="jbWallStatus"></div>
+  </div>
+
+  <div class="jb-admin-pane" id="jbPane-needswall">
+    <p class="jb-section-label">Needs Wall Submissions</p>
+    <div class="jb-filter-wrap">
+      <button class="jb-filter-btn active" onclick="jbFilterNeedsWall('all',this)">All</button>
+      <button class="jb-filter-btn" onclick="jbFilterNeedsWall('pending',this)">Pending</button>
+      <button class="jb-filter-btn" onclick="jbFilterNeedsWall('approved',this)">Approved</button>
+    </div>
+    <div id="jbNeedsWallItems"></div>
+    <div class="jb-status" id="jbNeedsWallStatus"></div>
   </div>
 
   <div class="jb-admin-pane" id="jbPane-announcement">
@@ -2696,6 +2708,45 @@
     <button class="jb-disclaimer-btn" onclick="jbCloseDisclaimer()">I Understand — Let's Go</button>
   </div>
 </div>
+<!-- ── NEEDS WALL ── -->
+<section id="needs-wall" style="background:var(--off-white);padding:80px 48px;" aria-labelledby="needs-wall-title">
+  <div class="container">
+    <p class="section-eyebrow">Community Care</p>
+    <h2 class="section-title" id="needs-wall-title">Someone Needs Help</h2>
+    <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:1rem;color:var(--dark-grey);line-height:1.9;max-width:600px;margin-bottom:48px;">Know someone in our community who needs support? Submit their name and situation below. All submissions are anonymous and reviewed before being posted. The Jesus Barn community will pray over every need shared here.</p>
+
+    <!-- needs feed -->
+    <div id="jbNeedsWallFeed" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:48px;"></div>
+
+    <!-- submit form -->
+    <div style="background:var(--white);border-radius:2px;padding:36px;max-width:560px;">
+      <p style="font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--mid-grey);margin-bottom:20px;">Submit a Need</p>
+      <p style="font-family:'Lato',sans-serif;font-size:0.78rem;font-weight:300;color:var(--dark-grey);line-height:1.7;margin-bottom:24px;">You don't need to share who you are. Just tell us about someone who needs prayer or support — we'll take care of the rest.</p>
+
+      <div class="jb-field" style="margin-bottom:16px;">
+        <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:block;margin-bottom:5px;">Their Name or Description <span style="color:var(--mid-grey);font-size:0.55rem;">(e.g. "A family in Piedmont" is fine)</span></label>
+        <input type="text" id="nwName" placeholder="e.g. A young mom in Piedmont" style="width:100%;padding:11px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:2px;font-family:'Lato',sans-serif;font-size:0.88rem;color:var(--near-black);outline:none;">
+      </div>
+
+      <div class="jb-field" style="margin-bottom:16px;">
+        <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:block;margin-bottom:5px;">Their Situation</label>
+        <textarea id="nwSituation" rows="3" placeholder="What do they need? What are they going through?" style="width:100%;padding:11px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:2px;font-family:'Lato',sans-serif;font-size:0.88rem;color:var(--near-black);outline:none;resize:vertical;"></textarea>
+      </div>
+
+      <div class="jb-field" style="margin-bottom:24px;">
+        <label style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);display:block;margin-bottom:5px;">A Prayer for Them</label>
+        <textarea id="nwPrayer" rows="3" placeholder="Write a short prayer or word of encouragement..." style="width:100%;padding:11px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:2px;font-family:'Lato',sans-serif;font-size:0.88rem;color:var(--near-black);outline:none;resize:vertical;"></textarea>
+      </div>
+
+      <!-- honeypot -->
+      <input type="text" id="nwHoneypot" style="display:none;" tabindex="-1" autocomplete="off">
+
+      <button onclick="submitNeedsWall()" style="background:var(--near-black);color:var(--white);border:none;border-radius:2px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;padding:14px 32px;cursor:pointer;transition:background 0.2s;width:100%;">Submit This Need</button>
+      <div id="nwStatus" style="margin-top:12px;font-family:'Lato',sans-serif;font-size:0.78rem;line-height:1.6;display:none;padding:12px 16px;border-radius:2px;"></div>
+    </div>
+  </div>
+</section>
+
 <section id="contact" aria-labelledby="contact-title">
   <div class="container">
     <div class="contact-layout">
@@ -2830,7 +2881,7 @@
   }
 
   async function jbLoadAll() {
-    await Promise.all([loadFunding(),loadNeeds(),loadWall(),loadSignups(),loadAnnouncement()]);
+    await Promise.all([loadFunding(),loadNeeds(),loadWall(),loadSignups(),loadAnnouncement(),loadNeedsWall()]);
   }
 
   async function loadAnnouncement() {
@@ -3271,6 +3322,7 @@
     document.getElementById('jbPane-'+tab).classList.add('active');
     if(tab==='signups')      loadSignups().then(jbRenderSignupsAdmin);
     if(tab==='wall')         loadWall().then(jbRenderWallAdmin);
+    if(tab==='needswall')    loadNeedsWallAdmin();
     if(tab==='announcement') jbPopulateAnnouncementPane();
   }
 
@@ -3424,6 +3476,73 @@
       status.textContent='Deleted.'; status.className='jb-status success';
     } catch(e){status.textContent='Error deleting.'; status.className='jb-status error';}
     setTimeout(()=>{status.className='jb-status';},2500);
+  }
+
+  // ── NEEDS WALL ADMIN ──
+  let jbNeedsWall = [];
+  let jbNeedsWallFilter = 'all';
+
+  async function loadNeedsWallAdmin() {
+    try {
+      const res = await fetch(JB.SCRIPT_URL + '?action=needs-wall-all&t=' + Date.now());
+      const data = await res.json();
+      jbNeedsWall = data.entries || [];
+      jbRenderNeedsWallAdmin();
+    } catch(e) { console.warn('Needs wall admin load failed', e); }
+  }
+
+  function jbFilterNeedsWall(filter, btn) {
+    jbNeedsWallFilter = filter;
+    document.querySelectorAll('#jbPane-needswall .jb-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    jbRenderNeedsWallAdmin();
+  }
+
+  function jbRenderNeedsWallAdmin() {
+    const c = document.getElementById('jbNeedsWallItems');
+    const filtered = jbNeedsWallFilter === 'all' ? jbNeedsWall : jbNeedsWall.filter(e => e.status === jbNeedsWallFilter);
+    if (!filtered.length) { c.innerHTML = '<p class="jb-empty-state">No submissions yet.</p>'; return; }
+    c.innerHTML = filtered.map((e, i) => `
+      <div class="jb-wall-item">
+        <div class="jb-wall-item-name">${e.name}<span class="jb-wall-badge ${e.status}">${e.status}</span></div>
+        <p class="jb-wall-item-msg"><strong>Situation:</strong> ${e.situation}</p>
+        <p class="jb-wall-item-msg" style="margin-top:6px;font-style:italic;">"${e.prayer}"</p>
+        <div class="jb-wall-item-actions">
+          <button class="jb-approve-btn ${e.status === 'approved' ? 'approved' : ''}" onclick="jbApproveNeedsWall(${i})" ${e.status === 'approved' ? 'disabled' : ''}>
+            ${e.status === 'approved' ? 'Approved ✓' : 'Approve'}
+          </button>
+          <button class="jb-delete-btn" onclick="jbDeleteNeedsWall(${i})">Delete</button>
+        </div>
+      </div>`).join('');
+  }
+
+  async function jbApproveNeedsWall(i) {
+    const entry = jbNeedsWall[i];
+    const status = document.getElementById('jbNeedsWallStatus');
+    entry.status = 'approved';
+    jbRenderNeedsWallAdmin();
+    loadNeedsWall();
+    try {
+      await fetch(JB.SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'needs-wall-update', name: entry.name, status: 'approved' }) });
+      status.textContent = 'Approved and published!'; status.className = 'jb-status success';
+    } catch(e) { status.textContent = 'Approved locally.'; status.className = 'jb-status error'; }
+    setTimeout(() => { status.className = 'jb-status'; }, 2500);
+  }
+
+  async function jbDeleteNeedsWall(i) {
+    const entry = jbNeedsWall[i];
+    if (!confirm('Delete this submission? This cannot be undone.')) return;
+    const status = document.getElementById('jbNeedsWallStatus');
+    try {
+      await fetch(JB.SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'needs-wall-delete', name: entry.name }) });
+      jbNeedsWall.splice(i, 1);
+      jbRenderNeedsWallAdmin();
+      loadNeedsWall();
+      status.textContent = 'Deleted.'; status.className = 'jb-status success';
+    } catch(e) { status.textContent = 'Error deleting.'; status.className = 'jb-status error'; }
+    setTimeout(() => { status.className = 'jb-status'; }, 2500);
   }
 
   function submitContact() {
@@ -3636,6 +3755,67 @@
       btt.classList.remove('visible');
     }
   });
+
+  // ── NEEDS WALL ──
+  async function loadNeedsWall() {
+    const feed = document.getElementById('jbNeedsWallFeed');
+    if (!feed) return;
+    try {
+      const res = await fetch(SCRIPT_URL + '?action=needs-wall');
+      const data = await res.json();
+      const approved = (data.entries || []).filter(e => e.status === 'approved');
+      if (!approved.length) {
+        feed.innerHTML = '<p style="font-family:\'Playfair Display\',serif;font-style:italic;color:var(--mid-grey);padding:20px 0;">Be the first to lift someone up.</p>';
+        return;
+      }
+      feed.innerHTML = approved.map(e => `
+        <div style="background:var(--white);border-radius:2px;padding:24px;border-left:3px solid var(--light-grey);">
+          <p style="font-family:'Playfair Display',serif;font-weight:700;font-size:0.95rem;color:var(--near-black);margin-bottom:8px;">${e.name}</p>
+          <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:0.78rem;color:var(--dark-grey);line-height:1.7;margin-bottom:12px;">${e.situation}</p>
+          <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:0.78rem;color:var(--mid-grey);line-height:1.7;padding-top:12px;border-top:1px solid var(--light-grey);">"${e.prayer}"</p>
+        </div>`).join('');
+    } catch(e) { console.error('Needs wall load error:', e); }
+  }
+
+  async function submitNeedsWall() {
+    if (document.getElementById('nwHoneypot').value) return;
+    const name      = document.getElementById('nwName').value.trim();
+    const situation = document.getElementById('nwSituation').value.trim();
+    const prayer    = document.getElementById('nwPrayer').value.trim();
+    const status    = document.getElementById('nwStatus');
+
+    if (!name || !situation || !prayer) {
+      status.textContent = 'Please fill in all three fields.';
+      status.style.background = 'var(--light-grey)';
+      status.style.color = 'var(--dark-grey)';
+      status.style.display = 'block';
+      return;
+    }
+
+    status.textContent = 'Submitting...';
+    status.style.display = 'block';
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'needs-wall', name, situation, prayer })
+      });
+      const data = await res.json();
+      if (data.ok) {
+        status.textContent = 'Thank you — your submission has been received. We will review it and add it to the wall shortly.';
+        status.style.background = 'var(--off-white)';
+        status.style.color = 'var(--dark-grey)';
+        document.getElementById('nwName').value = '';
+        document.getElementById('nwSituation').value = '';
+        document.getElementById('nwPrayer').value = '';
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch(e) {
+      status.textContent = 'Something went wrong. Please try again or email hello@thejesusbarn.org.';
+      status.style.color = '#888';
+    }
+  }
 
   jbLoadAll();
 </script>
