@@ -230,12 +230,20 @@
 
   .needs-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 20px;
     margin-bottom: 32px;
+    width: 100%;
   }
 
-  .need-card {
+  .needs-grid:has(.need-card:only-child) .need-card {
+    grid-column: 1 / -1;
+    max-width: 100%;
+  }
+
+  .needs-grid:has(.need-card:only-child) {
+    grid-template-columns: 1fr;
+  }
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
     border-left: 3px solid var(--red);
@@ -581,7 +589,7 @@
 <section class="needs-wall-section">
   <p class="section-eyebrow">Current Needs</p>
   <h2 class="section-title">People Who Need Support</h2>
-  <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.9;max-width:640px;margin-bottom:36px;">If you see a need you can help with, click <em style="color:rgba(255,255,255,0.6);">"I can help with this"</em> — it will open an email to our team. Just include your name, phone number, and how you'd like to help. We'll take it from there and coordinate privately.</p>
+  <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.9;margin-bottom:36px;">If you see a need you can help with, click <em style="color:rgba(255,255,255,0.6);">"I can help with this"</em> — it will open an email to our team. Just include your name, phone number, and how you'd like to help. We'll take it from there and coordinate privately.</p>
   <div id="needsGrid" class="needs-grid"></div>
   <div id="needsPager" class="needs-pager" style="display:none;">
     <button onclick="needsNextPage()">See More Needs</button>
@@ -725,7 +733,7 @@
 
 <!-- FOOTER -->
 <footer class="needs-footer">
-  <p>© 2026 The Jesus Barn LLC · Piedmont, Oklahoma</p>
+  <p>© 2026 The Jesus Barn · Piedmont, Oklahoma</p>
   <p>Questions? <a href="mailto:hello@thejesusbarn.org">hello@thejesusbarn.org</a> · <a href="/">thejesusbarn.org</a></p>
 </footer>
 
