@@ -642,17 +642,7 @@
   <!-- RIGHT — form -->
   <div>
     <div class="give-form-wrap" id="giveFormWrap">
-      <p class="form-eyebrow">Make a Gift</p>
-
-      <!-- designation -->
-      <div style="margin-bottom:24px;">
-        <p style="font-family:'Lato',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark-grey);margin-bottom:10px;">Designate My Gift To</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--light-grey);border:1px solid var(--light-grey);border-radius:2px;">
-          <button id="desigBarn" onclick="setDesignation('barn')" class="freq-btn active" style="border-radius:2px 0 0 2px;">The Jesus Barn</button>
-          <button id="desigNeed" onclick="setDesignation('need')" class="freq-btn" style="border-radius:0 2px 2px 0;">Someone in Need</button>
-        </div>
-        <p id="desigNote" style="font-family:'Lato',sans-serif;font-size:0.68rem;font-weight:300;color:var(--mid-grey);line-height:1.6;margin-top:8px;">Your gift will go directly toward purchasing the property and opening the doors.</p>
-      </div>
+      <p class="form-eyebrow">Make a Gift to The Jesus Barn</p>
 
       <!-- frequency -->
       <div class="freq-toggle">
@@ -756,6 +746,11 @@
 <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
+
+<!-- FLOATING COMMUNITY CARE BUTTON -->
+<div style="position:fixed;right:0;top:30%;z-index:400;transform:translateY(-50%);">
+  <a href="/needs" style="display:block;writing-mode:vertical-rl;text-orientation:mixed;background:var(--near-black);color:var(--white);font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:3px;text-transform:uppercase;padding:16px 10px;text-decoration:none;border-radius:2px 0 0 2px;box-shadow:-2px 0 12px rgba(0,0,0,0.3);transition:background 0.2s;white-space:nowrap;" onmouseover="this.style.background='#ff0000'" onmouseout="this.style.background='var(--near-black)'">Community REAP Fund</a>
+</div>
 
 <!-- SECURITY MODAL -->
 <div id="securityModal" onclick="if(event.target===this)closeSecurityModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;backdrop-filter:blur(4px);padding:24px;">
@@ -866,17 +861,6 @@
   cardElement.on('focus', () => document.getElementById('cardWrap').classList.add('focused'));
   cardElement.on('blur',  () => document.getElementById('cardWrap').classList.remove('focused'));
 
-  let selectedDesignation = 'barn';
-
-  function setDesignation(val) {
-    selectedDesignation = val;
-    document.getElementById('desigBarn').classList.toggle('active', val === 'barn');
-    document.getElementById('desigNeed').classList.toggle('active', val === 'need');
-    document.getElementById('desigNote').textContent = val === 'barn'
-      ? 'Your gift will go directly toward purchasing the property and opening the doors.'
-      : 'Your gift will be set aside for a community member with an immediate need.';
-  }
-  let selectedFreq = 'once';
   const FEE_RATE = 0.035;
 
   function setFreq(freq) {
@@ -975,8 +959,7 @@
           amount: Math.round(amount * 100),
           currency: 'usd',
           recurring: selectedFreq === 'monthly',
-          name, email,
-          designation: selectedDesignation
+          name, email
         })
       });
 
