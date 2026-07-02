@@ -168,7 +168,7 @@
     z-index: 200;
     background: #E8C96A;
     border-bottom: 1px solid rgba(0,0,0,0.08);
-    padding: 10px 48px;
+    padding: 8px 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -178,6 +178,11 @@
   }
 
   .jb-announcement.visible { transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .jb-announcement { padding: 6px 40px 6px 16px; }
+    .jb-announcement-text { font-size: 0.62rem; letter-spacing: 0.5px; }
+  }
 
   .jb-announcement-text {
     font-family: 'Lato', sans-serif;
@@ -1969,17 +1974,15 @@
   }
 
   .footer-dot {
-    width: 8px;
-    height: 8px;
+    display: inline-block;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    padding: 10px;
-    margin: -10px;
-    box-sizing: content-box;
-    transition: background 0.2s;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    vertical-align: middle;
+    margin-left: 4px;
   }
-
-  .footer-dot:hover { background: rgba(255,255,255,0.3); }
 
   /* ── ADMIN PANEL ── */
   .jb-admin-overlay {
@@ -2907,8 +2910,7 @@
     <p><a href="mailto:hello@thejesusbarn.org">hello@thejesusbarn.org</a></p>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2026 The Jesus Barn LLC</span>
-    <div class="footer-dot" onclick="jbPromptAdmin()" title="" style="cursor:pointer;"></div>
+    <span class="footer-copy">© 2026 The Jesus Barn LLC<span class="footer-dot" onclick="jbPromptAdmin()"></span></span>
     <span class="footer-copy">Built by the Community, for the Community</span>
   </div>
 </footer>
