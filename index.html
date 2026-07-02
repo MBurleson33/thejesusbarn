@@ -2957,7 +2957,7 @@
       const rows = parseCSV(await (await fetch(JB.ANNOUNCEMENT_URL+'&t='+Date.now())).text());
       rows.forEach(r => {
         if (r[0] === 'text')        jbAnnouncement.text        = r[1] || '';
-        if (r[0] === 'active')      jbAnnouncement.active      = r[1] === 'true';
+        if (r[0] === 'active')      jbAnnouncement.active      = r[1].toLowerCase() === 'true';
         if (r[0] === 'linkLabel')   jbAnnouncement.linkLabel   = r[1] || '';
         if (r[0] === 'linkTarget')  jbAnnouncement.linkTarget  = r[1] || '';
       });
