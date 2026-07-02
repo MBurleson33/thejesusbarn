@@ -18,7 +18,7 @@ This repository contains the full website for The Jesus Barn LLC.
 - **Homepage** — Hero, before/after barn slider, video section, community wall, get involved form, REAP Fund section, contact
 - **Give Page** (`/give`) — Stripe payment integration with one-time and monthly giving, Apple Pay support, cover-the-fee checkbox
 - **REAP Fund Page** (`/needs`) — Community needs nomination form, public needs wall, The REAP Fund giving section
-- **Admin Panel** — Password-protected panel (type `jbadmin` anywhere) with tabs for Funding, Giving, Needs Wall, Signups, Community Wall, and Announcement
+- **Admin Panel** — Password-protected panel with tabs for Funding, Giving, Needs Wall, Signups, Community Wall, and Announcement
 - **Community Wall** — Approved posts with fullscreen carousel
 - **Announcement Banner** — Dismissable top banner driven by Google Sheets
 
