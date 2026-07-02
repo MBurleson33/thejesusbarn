@@ -3397,7 +3397,7 @@
     if(tab==='signups')      loadSignups().then(jbRenderSignupsAdmin);
     if(tab==='wall')         loadWall().then(jbRenderWallAdmin);
     if(tab==='needswall')    loadNeedsWallAdmin();
-    if(tab==='announcement') jbPopulateAnnouncementPane();
+    if(tab==='announcement') loadAnnouncement().then(jbPopulateAnnouncementPane);
   }
 
   function jbPopulateAnnouncementPane() {
