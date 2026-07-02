@@ -1969,11 +1969,17 @@
   }
 
   .footer-dot {
-    width: 3px;
-    height: 3px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: rgba(255,255,255,0.15);
+    padding: 10px;
+    margin: -10px;
+    box-sizing: content-box;
+    transition: background 0.2s;
   }
+
+  .footer-dot:hover { background: rgba(255,255,255,0.3); }
 
   /* ── ADMIN PANEL ── */
   .jb-admin-overlay {
@@ -2902,7 +2908,7 @@
   </div>
   <div class="footer-bottom">
     <span class="footer-copy">© 2026 The Jesus Barn LLC</span>
-    <div class="footer-dot"></div>
+    <div class="footer-dot" onclick="jbPromptAdmin()" title="" style="cursor:pointer;"></div>
     <span class="footer-copy">Built by the Community, for the Community</span>
   </div>
 </footer>
