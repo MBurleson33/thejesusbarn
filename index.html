@@ -3932,6 +3932,7 @@
       const pray = nwTruncate(e.prayer || '', NW_PRAY_LIMIT);
       return `
         <div style="background:var(--white);border-radius:2px;padding:22px;border-left:3px solid #ff0000;">
+          ${e.firstName ? `<p style="font-family:'Playfair Display',serif;font-weight:700;font-size:0.88rem;color:var(--near-black);margin-bottom:8px;">${e.firstName}</p>` : ''}
           <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:0.78rem;color:var(--dark-grey);line-height:1.7;margin:0 0 8px;">${sit.short}</p>
           ${pray.short ? `<p style="font-family:'Playfair Display',serif;font-style:italic;font-size:0.75rem;color:var(--mid-grey);line-height:1.7;padding-top:10px;border-top:1px solid var(--light-grey);margin:0;">"${pray.short}"</p>` : ''}
         </div>`;
