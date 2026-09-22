@@ -1,1271 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>The Jesus Barn — One Body. One Table. All Welcome.</title>
-<meta name="description" content="A free Christian community gathering space coming to Piedmont, Oklahoma. Free coffee, Bible study, prayer, games, and more. No membership. No fee. Just love.">
-<meta property="og:title" content="The Jesus Barn — One Body. One Table. All Welcome.">
-<meta property="og:description" content="A free place to gather, belong, and grow — built by the community, for the community, with Jesus as our guide.">
-<meta property="og:image" content="https://www.thejesusbarn.org/images/og-image.jpg">
-<meta property="og:url" content="https://www.thejesusbarn.org">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Jesus Barn — One Body. One Table. All Welcome.">
-<meta name="twitter:description" content="A free place to gather, belong, and grow — built by the community, for the community, with Jesus as our guide.">
-<meta name="twitter:image" content="https://www.thejesusbarn.org/images/og-image.jpg">
-<link rel="canonical" href="https://www.thejesusbarn.org">
-<link rel="icon" type="image/png" href="/images/The-Jesus-Barn-Logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWNL2CG0DE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-NWNL2CG0DE');
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CommunityCenter",
-  "name": "The Jesus Barn",
-  "description": "A free Christian community gathering space in Piedmont, Oklahoma.",
-  "url": "https://www.thejesusbarn.org",
-  "address": { "@type": "PostalAddress", "addressLocality": "Piedmont", "addressRegion": "OK" },
-  "sameAs": ["https://www.facebook.com/groups/27263925436532413","https://www.youtube.com/channel/UCBxbHdnu2TBXkr1hMBAVUNQ/"]
-}
-</script>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { font-size: 18px; scroll-behavior: smooth; }
+// ── THE JESUS BARN · SHARED SITE COMPONENTS ──
+// Update nav and footer here — changes apply to every page automatically.
 
-  :root {
-    --white:      #FFFFFF;
-    --off-white:  #F5F5F5;
-    --light-grey: #E8E8E8;
-    --mid-grey:   #AAAAAA;
-    --dark-grey:  #555555;
-    --near-black: #1C1C1C;
-    --black:      #0A0A0A;
-    --red:        #ff0000;
+(function() {
+
+  // ── CONFIG ──
+  const CURRENT_PATH = window.location.pathname;
+
+  function isActive(href) {
+    if (href === '/') return CURRENT_PATH === '/';
+    return CURRENT_PATH.startsWith(href);
   }
 
-  body { font-family: 'Lato', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+  // ── NAV LINKS ──
+  // href: internal anchor (#section) or page (/page)
+  // For internal anchors, if not on homepage, link to /#section instead
+  const NAV_LINKS = [
+    { label: 'Our Story',      href: '#video',  anchor: true },
+    { label: "What's Here",    href: '#free',   anchor: true },
+    { label: 'BLESSing Fund',  href: '/needs',  anchor: false },
+  ];
+  const NAV_CTA = { label: 'Give Now', href: '/give' };
 
-  /* ── SHARED NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: flex-end; align-items: center;
-    padding: 0 48px; height: 100px;
-    background: rgba(10,10,10,0.96); backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    transition: top 0.3s;
-  }
-  body.has-announcement nav { top: 37px; }
+  // ── FOOTER LINKS ──
+  const FOOTER_LINKS = [
+    { label: 'Our Story',      href: '#video',          anchor: true },
+    { label: "What's Here",    href: '#free',           anchor: true },
+    { label: 'BLESSing Fund',  href: '/needs',          anchor: false },
+    { label: 'Give Now',       href: '/give',           anchor: false },
+    { label: 'Contact',        href: '#contact',        anchor: true },
+    { label: 'Privacy Policy', href: '/privacy-policy.html', anchor: false },
+  ];
 
-  .nav-logo {
-    text-decoration: none; position: fixed; left: 32px; top: 0;
-    z-index: 101; display: flex; align-items: center;
-  }
-  .nav-logo img { height: 140px; width: auto; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5)); display: block; }
-
-  .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
-  .nav-links a {
-    font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 2.5px;
-    text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--white); }
-  .nav-cta {
-    background: var(--white); color: var(--near-black) !important;
-    padding: 10px 22px; border-radius: 2px; letter-spacing: 2px;
-    transition: background 0.2s, color 0.2s !important;
-  }
-  .nav-cta:hover { background: var(--off-white) !important; }
-  .nav-admin-link { opacity: 0; cursor: default; font-size: 0.01rem !important; }
-
-  /* mobile nav */
-  .nav-burger {
-    display: none; flex-direction: column; gap: 5px; background: none;
-    border: none; cursor: pointer; padding: 8px; z-index: 102;
-  }
-  .nav-burger span { display: block; width: 24px; height: 2px; background: var(--white); transition: all 0.3s; }
-
-  /* ── ANNOUNCEMENT ── */
-  .jb-announcement {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-    background: #E8C96A; border-bottom: 1px solid rgba(0,0,0,0.08);
-    padding: 8px 48px; display: flex; align-items: center; justify-content: center; gap: 12px;
-    transform: translateY(-100%); transition: transform 0.3s ease;
-  }
-  .jb-announcement.visible { transform: translateY(0); }
-  .jb-announcement-text {
-    font-family: 'Lato', sans-serif; font-size: 0.72rem; font-weight: 400;
-    letter-spacing: 1.5px; color: #1A1410; text-align: center;
-  }
-  .jb-announcement-close {
-    position: absolute; right: 16px; background: none; border: none;
-    font-size: 1.2rem; color: #1A1410; cursor: pointer; opacity: 0.5; line-height: 1;
-  }
-  .jb-announcement-close:hover { opacity: 1; }
-  body.has-announcement .nav-logo { top: 37px; }
-
-  /* ── CONTAINER ── */
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
-
-  /* ── HERO ── */
-  #hero {
-    min-height: 100svh;
-    display: flex; align-items: center; justify-content: center;
-    position: relative; background: radial-gradient(ellipse at 30% 50%, #1a1a1a 0%, var(--black) 70%);
-    padding: 140px 48px 120px; text-align: center;
-  }
-  .hero-inner { max-width: 800px; margin: 0 auto; }
-  .hero-eyebrow {
-    font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 4px;
-    text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 24px;
-    display: flex; align-items: center; justify-content: center; gap: 12px;
-  }
-  .hero-eyebrow::before, .hero-eyebrow::after {
-    content: ''; width: 40px; height: 1px; background: rgba(255,255,255,0.15);
-  }
-  .hero-title {
-    font-family: 'Playfair Display', serif; font-weight: 900;
-    font-size: clamp(2.8rem, 7vw, 5rem); line-height: 1.05;
-    color: var(--white); margin-bottom: 8px; letter-spacing: -0.02em;
-  }
-  .hero-title .underline { position: relative; display: inline; }
-  .hero-title .underline::after {
-    content: '';
-    position: absolute; left: 0; bottom: -4px; width: 100%; height: 8px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M2 6 Q100 1 198 6' stroke='%23ff0000' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center;
-    background-size: 100% 100%;
-  }
-  .hero-rule { width: 40px; height: 1px; background: rgba(255,255,255,0.2); margin: 28px auto; }
-  .hero-sub {
-    font-family: 'Playfair Display', serif; font-style: italic;
-    font-size: clamp(0.9rem, 2vw, 1.1rem); color: rgba(255,255,255,0.5);
-    line-height: 1.7; max-width: 560px; margin: 0 auto 40px;
-  }
-  .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-  .btn-primary {
-    font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.72rem;
-    letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none;
-    background: var(--white); color: var(--near-black); padding: 16px 32px;
-    border-radius: 2px; transition: background 0.2s, transform 0.2s; display: inline-block;
-    border: 2px solid var(--white);
-  }
-  .btn-primary:hover { background: var(--off-white); transform: translateY(-1px); }
-  .btn-outline {
-    font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.72rem;
-    letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none;
-    background: transparent; color: var(--white); padding: 16px 32px;
-    border-radius: 2px; border: 2px solid rgba(255,255,255,0.3);
-    transition: border-color 0.2s, transform 0.2s; display: inline-block;
-  }
-  .btn-outline:hover { border-color: var(--white); transform: translateY(-1px); }
-  .hero-scroll {
-    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
-    text-decoration: none; opacity: 0.3; transition: opacity 0.2s;
-    z-index: 1;
-  }
-  .hero-scroll:hover { opacity: 0.6; }
-  .scroll-line { width: 1px; height: 40px; background: var(--white); animation: scrollPulse 2s ease-in-out infinite; }
-  .scroll-text { font-family: 'Cinzel', serif; font-size: 0.45rem; letter-spacing: 3px; text-transform: uppercase; color: var(--white); }
-  @keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
-
-  /* ── ACTS BANNER ── */
-  #acts {
-    background: var(--red); padding: 18px 48px; text-align: center;
-  }
-  #acts p {
-    font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 3px;
-    text-transform: uppercase; color: var(--white); line-height: 1.7;
-  }
-
-  /* ── VIDEO ── */
-  #video { background: var(--near-black); padding: 100px 0; }
-  .video-layout {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center;
-  }
-  .section-eyebrow {
-    font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 3px;
-    text-transform: uppercase; color: var(--mid-grey); margin-bottom: 16px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .section-eyebrow.light { color: rgba(255,255,255,0.3); }
-  .section-eyebrow::after { content: ''; flex: 0 0 32px; height: 1px; background: currentColor; opacity: 0.4; }
-  .section-title {
-    font-family: 'Playfair Display', serif; font-weight: 900;
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem); line-height: 1.1; margin-bottom: 20px;
-    color: var(--white);
-  }
-  .video-body {
-    font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.95rem;
-    color: rgba(255,255,255,0.5); line-height: 1.9; margin-bottom: 28px;
-  }
-  .video-quote {
-    font-family: 'Playfair Display', serif; font-style: italic;
-    font-size: 1rem; color: rgba(255,255,255,0.6); line-height: 1.75;
-    padding-left: 20px; border-left: 3px solid var(--red);
-  }
-  .video-quote span {
-    display: block; font-family: 'Cinzel', serif; font-style: normal;
-    font-size: 0.48rem; letter-spacing: 3px; text-transform: uppercase;
-    color: rgba(255,255,255,0.25); margin-top: 10px;
-  }
-  .video-embed {
-    position: relative; padding-bottom: 56.25%; background: var(--black);
-    border-radius: 2px; overflow: hidden;
-  }
-  .video-embed iframe {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
-  }
-  .video-caption {
-    font-family: 'Cinzel', serif; font-size: 0.48rem; letter-spacing: 3px;
-    color: rgba(255,255,255,0.2); text-transform: uppercase; text-align: center; margin-top: 14px;
-  }
-
-  /* ── OUR HEART ── */
-  #story { background: var(--white); padding: 100px 0; }
-  #story .section-eyebrow { color: var(--mid-grey); }
-  #story .section-title { color: var(--near-black); }
-  .ba-slider {
-    position: relative; overflow: hidden; border-radius: 2px;
-    user-select: none; cursor: ew-resize; margin-bottom: 48px;
-    aspect-ratio: 16/9;
-  }
-  .ba-after, .ba-before { position: absolute; inset: 0; }
-  .ba-after img, .ba-before img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .ba-before { clip-path: inset(0 50% 0 0); }
-  .ba-handle {
-    position: absolute; top: 0; bottom: 0; left: 50%;
-    transform: translateX(-50%); width: 2px; background: rgba(255,255,255,0.8);
-    display: flex; flex-direction: column; align-items: center;
-    justify-content: center; gap: 0;
-  }
-  .ba-handle-line { flex: 1; width: 2px; background: rgba(255,255,255,0.6); }
-  .ba-handle-circle {
-    width: 40px; height: 40px; border-radius: 50%;
-    background: var(--white); display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.3); flex-shrink: 0; color: var(--near-black);
-  }
-  .ba-label {
-    position: absolute; bottom: 16px; font-family: 'Cinzel', serif;
-    font-size: 0.48rem; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--white); background: rgba(0,0,0,0.5); padding: 5px 12px; border-radius: 2px;
-  }
-  .ba-label-before { left: 16px; }
-  .ba-label-after { right: 16px; }
-  .heart-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-  .heart-body { font-family: 'Lato', sans-serif; font-weight: 300; color: var(--dark-grey); line-height: 1.9; font-size: 0.95rem; }
-  .heart-body p + p { margin-top: 16px; }
-  .pullquote {
-    padding: 20px 0 20px 24px; border-left: 3px solid var(--near-black);
-    font-family: 'Playfair Display', serif; font-style: italic;
-    font-size: clamp(1rem, 2vw, 1.2rem); color: var(--near-black); line-height: 1.6;
-  }
-  .pullquote span {
-    display: block; font-family: 'Cinzel', serif; font-style: normal;
-    font-size: 0.48rem; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--mid-grey); margin-top: 12px;
-  }
-
-  /* ── WHAT YOU'LL FIND ── */
-  #free { background: var(--near-black); padding: 100px 0; }
-  .find-sub {
-    font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.95rem;
-    color: rgba(255,255,255,0.45); line-height: 1.9; max-width: 600px; margin-bottom: 56px;
-  }
-  .find-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.06); }
-  .find-card { background: var(--near-black); padding: 40px 28px; transition: background 0.2s; }
-  .find-card:hover { background: #252525; }
-  .find-card-title {
-    font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem;
-    color: var(--white); margin-bottom: 12px; line-height: 1.3;
-  }
-  .find-card-desc {
-    font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.78rem;
-    color: rgba(255,255,255,0.4); line-height: 1.8;
-  }
-  .find-footer {
-    font-family: 'Playfair Display', serif; font-style: italic;
-    font-size: 0.95rem; color: rgba(255,255,255,0.3);
-    text-align: center; margin-top: 48px; line-height: 1.7;
-  }
-
-  /* ── CONTACT ── */
-  #contact { background: var(--off-white); padding: 100px 0; }
-  #contact .section-eyebrow { color: var(--dark-grey); }
-  #contact .section-eyebrow::after { background: rgba(0,0,0,0.15); }
-  #contact .section-title { color: var(--near-black); }
-  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
-  .contact-body {
-    font-family: 'Lato', sans-serif; font-weight: 300; color: var(--dark-grey);
-    line-height: 1.9; font-size: 0.95rem; margin-bottom: 36px;
-  }
-  .contact-details { display: flex; flex-direction: column; gap: 20px; }
-  .contact-detail-item { display: flex; flex-direction: column; gap: 4px; }
-  .contact-detail-label {
-    font-family: 'Cinzel', serif; font-size: 0.48rem; letter-spacing: 3px;
-    text-transform: uppercase; color: var(--mid-grey);
-  }
-  .contact-detail-value {
-    font-family: 'Lato', sans-serif; font-size: 0.88rem; color: var(--near-black);
-    text-decoration: none; transition: color 0.2s;
-  }
-  a.contact-detail-value:hover { color: var(--red); }
-  .contact-social { display: flex; gap: 12px; margin-top: 4px; }
-  .contact-social-link {
-    width: 36px; height: 36px; border-radius: 50%; background: var(--near-black);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--white); transition: background 0.2s; text-decoration: none;
-  }
-  .contact-social-link:hover { background: var(--red); }
-  .contact-form-wrap { background: var(--white); border-radius: 2px; padding: 36px; }
-  .contact-input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-  .contact-input-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-  .contact-input-group label {
-    font-family: 'Lato', sans-serif; font-size: 0.58rem; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--dark-grey);
-  }
-  .required { color: var(--red); }
-  .contact-input-group input,
-  .contact-input-group textarea {
-    padding: 11px 14px; background: var(--off-white); border: 1px solid var(--light-grey);
-    border-radius: 2px; font-family: 'Lato', sans-serif; font-size: 0.88rem;
-    color: var(--near-black); outline: none; transition: border-color 0.2s; width: 100%;
-    -webkit-appearance: none;
-  }
-  .contact-input-group input:focus,
-  .contact-input-group textarea:focus { border-color: var(--near-black); background: var(--white); }
-  .contact-input-group textarea { resize: vertical; min-height: 120px; }
-  .contact-input-group input::placeholder,
-  .contact-input-group textarea::placeholder { color: var(--mid-grey); }
-  .contact-field-error {
-    font-family: 'Lato', sans-serif; font-size: 0.65rem; color: var(--red);
-    display: none; margin-top: 2px;
-  }
-  .contact-input-group.error input,
-  .contact-input-group.error textarea { border-color: var(--red); }
-  .contact-input-group.error .contact-field-error { display: block; }
-  .contact-submit {
-    width: 100%; background: var(--near-black); color: var(--white); border: none;
-    border-radius: 2px; font-family: 'Lato', sans-serif; font-weight: 700;
-    font-size: 0.72rem; letter-spacing: 2.5px; text-transform: uppercase;
-    padding: 16px; cursor: pointer; transition: background 0.2s; margin-top: 8px;
-  }
-  .contact-submit:hover { background: #333; }
-  .contact-status {
-    margin-top: 12px; font-family: 'Lato', sans-serif; font-size: 0.78rem;
-    line-height: 1.6; padding: 12px 16px; border-radius: 2px; display: none;
-  }
-  .contact-status.success { background: #f0faf4; color: #1a7a3a; border: 1px solid #a8d5b5; display: block; }
-  .contact-status.error { background: var(--off-white); color: #888; border: 1px solid var(--light-grey); display: block; }
-
-  /* ── FOOTER ── */
-  footer { background: #141414; padding: 56px 48px 32px; border-top: 1px solid rgba(255,255,255,0.06); }
-  .footer-inner { max-width: 1100px; margin: 0 auto; }
-  .footer-top { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: start; margin-bottom: 48px; }
-  .footer-brand {
-    font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900;
-    color: rgba(255,255,255,0.15); letter-spacing: -0.02em; line-height: 1.1;
-  }
-  .footer-nav { display: flex; flex-wrap: wrap; gap: 8px 24px; list-style: none; }
-  .footer-nav a {
-    font-family: 'Cinzel', serif; font-size: 0.48rem; letter-spacing: 2px;
-    text-transform: uppercase; color: rgba(255,255,255,0.25); text-decoration: none;
-    transition: color 0.2s;
-  }
-  .footer-nav a:hover { color: rgba(255,255,255,0.7); }
-  .footer-social { display: flex; gap: 12px; margin-top: 24px; }
-  .social-link {
-    width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.12);
-    display: flex; align-items: center; justify-content: center;
-    color: rgba(255,255,255,0.3); transition: all 0.2s; text-decoration: none;
-  }
-  .social-link:hover { border-color: rgba(255,255,255,0.4); color: var(--white); }
-  .footer-bottom {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); flex-wrap: wrap; gap: 8px;
-  }
-  .footer-copy {
-    font-family: 'Lato', sans-serif; font-size: 0.62rem; font-weight: 300;
-    color: rgba(255,255,255,0.2); letter-spacing: 1px;
-  }
-  .footer-dot {
-    display: inline-block; width: 4px; height: 4px; border-radius: 50%;
-    background: rgba(255,255,255,0.15); cursor: pointer; vertical-align: middle; margin-left: 4px;
-  }
-
-  /* ── FLOATING BUTTON ── */
-  .float-side {
-    position: fixed; right: 0; top: 20%; z-index: 400;
-  }
-  .float-side a {
-    display: block; background: var(--near-black); color: var(--white);
-    font-family: 'Cinzel', serif; font-size: 0.45rem; letter-spacing: 2px;
-    text-transform: uppercase; text-decoration: none; white-space: nowrap;
-    padding: 14px 10px; border-radius: 2px 0 0 2px;
-    box-shadow: -2px 0 8px rgba(0,0,0,0.4); transition: background 0.2s;
-    writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl;
-  }
-  .float-side a:hover { background: var(--red); }
-
-  /* ── BACK TO TOP ── */
-  #backToTop {
-    position: fixed; bottom: 24px; left: 20px; z-index: 300;
-    width: 40px; height: 40px; border-radius: 50%; background: var(--near-black);
-    border: 1px solid rgba(255,255,255,0.15); color: var(--white); cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transform: translateY(8px); transition: opacity 0.3s, transform 0.3s;
-    pointer-events: none;
-  }
-  #backToTop.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-
-  /* ── ADMIN ── */
-  .jb-admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9998; backdrop-filter: blur(4px); }
-  .jb-admin-overlay.open { display: block; }
-  .jb-admin-panel {
-    position: fixed; top: 0; right: 0; bottom: 0; width: 100%; background: var(--white);
-    z-index: 9999; overflow-y: auto; padding: 36px 48px;
-    box-shadow: -8px 0 40px rgba(0,0,0,0.3);
-    transform: translateX(100%); transition: transform 0.35s ease;
-  }
-  .jb-admin-panel.open { transform: translateX(0); }
-  .jb-admin-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
-  .jb-admin-logo { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--dark-grey); }
-  .jb-admin-close { background: none; border: none; font-size: 1.4rem; color: var(--mid-grey); cursor: pointer; line-height: 1; padding: 0; }
-  .jb-admin-tabs { display: flex; border-bottom: 2px solid var(--light-grey); margin-bottom: 28px; overflow-x: auto; scrollbar-width: none; flex-wrap: wrap; }
-  .jb-admin-tabs::-webkit-scrollbar { display: none; }
-  .jb-admin-tab { font-family: 'Lato', sans-serif; font-size: 0.58rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid-grey); padding: 10px 18px; cursor: pointer; border: none; background: none; border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; transition: color 0.2s, border-color 0.2s; }
-  .jb-admin-tab.active { color: var(--near-black); border-bottom-color: var(--near-black); }
-  .jb-admin-pane { max-width: 900px; display: none; }
-  .jb-admin-pane.active { display: block; }
-  .jb-section-label { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 3px; text-transform: uppercase; color: var(--dark-grey); margin-bottom: 16px; margin-top: 28px; }
-  .jb-section-label:first-child { margin-top: 0; }
-  .jb-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-  .jb-field label { display: block; font-family: 'Lato', sans-serif; font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: var(--dark-grey); margin-bottom: 5px; }
-  .jb-field input, .jb-field textarea, .jb-field select { width: 100%; padding: 10px 14px; background: var(--off-white); border: 1px solid var(--light-grey); border-radius: 2px; font-family: 'Lato', sans-serif; font-size: 0.88rem; color: var(--near-black); outline: none; }
-  .jb-field textarea { resize: vertical; min-height: 80px; }
-  .jb-btn { font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; padding: 12px 24px; border-radius: 2px; border: none; cursor: pointer; transition: background 0.2s; }
-  .jb-btn-primary { background: var(--near-black); color: var(--white); }
-  .jb-btn-primary:hover { background: #333; }
-  .jb-btn-danger { background: #fee; color: #c00; border: 1px solid #fcc; }
-  .jb-btn-danger:hover { background: #fcc; }
-  .jb-status { font-family: 'Lato', sans-serif; font-size: 0.72rem; padding: 10px 14px; border-radius: 2px; margin-top: 12px; min-height: 36px; }
-  .jb-status.success { background: #f0faf4; color: #1a7a3a; border: 1px solid #a8d5b5; }
-  .jb-status.error { background: #fef2f2; color: #c00; border: 1px solid #fcc; }
-  .jb-wall-item { background: var(--off-white); border-radius: 2px; padding: 16px 20px; margin-bottom: 12px; border-left: 3px solid var(--light-grey); }
-  .jb-wall-item-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.9rem; color: var(--near-black); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .jb-wall-item-msg { font-family: 'Lato', sans-serif; font-size: 0.78rem; font-weight: 300; color: var(--dark-grey); line-height: 1.6; margin-bottom: 4px; }
-  .jb-wall-badge { font-family: 'Cinzel', serif; font-size: 0.45rem; letter-spacing: 2px; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; }
-  .jb-wall-badge.pending { background: #fff8e1; color: #b8860b; }
-  .jb-wall-badge.approved { background: #f0faf4; color: #1a7a3a; }
-  .jb-wall-badge.met { background: #e8f5e9; color: #2e7d32; }
-  .jb-wall-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-  .jb-filter-wrap { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-  .jb-filter-btn { font-family: 'Lato', sans-serif; font-size: 0.6rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 14px; border-radius: 2px; border: 1px solid var(--light-grey); background: var(--white); color: var(--dark-grey); cursor: pointer; transition: all 0.2s; }
-  .jb-filter-btn.active { background: var(--near-black); color: var(--white); border-color: var(--near-black); }
-  .jb-empty-state { font-family: 'Playfair Display', serif; font-style: italic; color: var(--mid-grey); padding: 24px 0; }
-
-  /* ── LOGIN MODAL ── */
-  .jb-login-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9997; backdrop-filter: blur(6px); align-items: center; justify-content: center; }
-  .jb-login-backdrop.open { display: flex; }
-  .jb-login-modal { background: var(--white); border-radius: 2px; padding: 40px; width: 100%; max-width: 400px; margin: 24px; }
-  .jb-login-title { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--dark-grey); margin-bottom: 24px; }
-  .jb-login-input { width: 100%; padding: 12px 14px; background: var(--off-white); border: 1px solid var(--light-grey); border-radius: 2px; font-family: 'Lato', sans-serif; font-size: 1rem; color: var(--near-black); outline: none; margin-bottom: 16px; }
-  .jb-login-error { font-family: 'Lato', sans-serif; font-size: 0.72rem; color: var(--red); margin-bottom: 12px; display: none; }
-
-  /* ── MOBILE ── */
-  @media (max-width: 900px) {
-    nav { padding: 0 20px; height: 80px; }
-    .nav-logo { left: 16px; }
-    .nav-logo img { height: 80px; }
-    .nav-links { display: none; }
-    .nav-links.open {
-      display: flex; flex-direction: column; gap: 0; position: fixed;
-      top: 80px; left: 0; right: 0; background: rgba(10,10,10,0.98);
-      padding: 24px 0; border-top: 1px solid rgba(255,255,255,0.08);
-      z-index: 99;
+  // ── SOCIAL LINKS ──
+  const SOCIAL = [
+    {
+      label: 'Facebook',
+      href: 'https://www.facebook.com/groups/27263925436532413',
+      svg: `<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`
+    },
+    {
+      label: 'YouTube',
+      href: 'https://www.youtube.com/channel/UCBxbHdnu2TBXkr1hMBAVUNQ/',
+      svg: `<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#141414"/></svg>`
     }
-    .nav-links.open li { border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .nav-links.open a { display: block; padding: 16px 24px; font-size: 0.62rem; color: rgba(255,255,255,0.6); }
-    .nav-links.open .nav-cta { margin: 16px 24px; display: block; text-align: center; background: var(--white); color: var(--near-black) !important; }
-    .nav-burger { display: flex; }
-    body.has-announcement nav { top: 50px; }
-    body.has-announcement .nav-links.open { top: 130px; }
+  ];
 
-    /* announcement */
-    .jb-announcement { padding: 6px 40px 6px 16px; }
-    .jb-announcement-text { font-size: 0.6rem; letter-spacing: 0.5px; }
-
-    /* hero */
-    #hero { padding: 100px 24px 100px; min-height: 100svh; }
-    .hero-title { font-size: clamp(2rem, 9vw, 2.8rem); }
-    .hero-sub { font-size: 0.9rem; }
-    .hero-buttons { flex-direction: column; align-items: center; gap: 12px; }
-    .btn-primary, .btn-outline { width: 100%; max-width: 280px; text-align: center; padding: 14px 24px; }
-    .hero-scroll { display: none; } /* hide on mobile — buttons take priority */
-
-    /* sections */
-    .container { padding: 0 20px; }
-    #acts { padding: 14px 20px; }
-    #acts p { font-size: 0.55rem; letter-spacing: 1.5px; }
-    #video, #story, #free, #contact { padding: 56px 0; }
-
-    /* video */
-    .video-layout { grid-template-columns: 1fr; gap: 32px; }
-    .video-quote { font-size: 0.88rem; }
-
-    /* story */
-    .heart-layout { grid-template-columns: 1fr; gap: 32px; }
-    .ba-slider { margin-bottom: 32px; }
-    .pullquote { font-size: 0.95rem; }
-
-    /* find */
-    .find-grid { grid-template-columns: 1fr 1fr; }
-    .find-card { padding: 28px 20px; }
-    .find-footer { font-size: 0.85rem; margin-top: 32px; }
-
-    /* contact */
-    .contact-layout { grid-template-columns: 1fr; gap: 40px; }
-    .contact-input-row { grid-template-columns: 1fr; gap: 0; }
-
-    /* footer */
-    footer { padding: 40px 20px 24px; }
-    .footer-top { grid-template-columns: 1fr; gap: 24px; }
-    .footer-brand { font-size: 1.2rem; }
-    .footer-nav { gap: 6px 16px; }
-
-    /* floating button — smaller on mobile */
-    .float-side a { font-size: 0.4rem; padding: 10px 8px; letter-spacing: 1.5px; }
-
-    /* back to top */
-    #backToTop { bottom: 16px; left: 16px; width: 36px; height: 36px; }
-
-    /* admin */
-    .jb-admin-panel { padding: 20px; }
-    .jb-field-row { grid-template-columns: 1fr; }
+  // ── HELPERS ──
+  function resolveHref(href, anchor) {
+    // If it's an anchor and we're not on the homepage, prefix with /
+    if (anchor && CURRENT_PATH !== '/') return '/' + href;
+    return href;
   }
 
-  @media (max-width: 480px) {
-    .find-grid { grid-template-columns: 1fr; }
-    .hero-title { font-size: clamp(1.8rem, 10vw, 2.4rem); }
-    .section-title { font-size: clamp(1.5rem, 6vw, 2rem); }
-    .contact-form-wrap { padding: 24px 20px; }
-  }
-</style>
-</head>
-<body>
+  // ── INJECT NAV ──
+  function injectNav() {
+    const placeholder = document.getElementById('jb-nav');
+    if (!placeholder) return;
 
-<!-- ANNOUNCEMENT -->
-<div class="jb-announcement" id="jbAnnouncement" role="alert" aria-live="polite">
-  <p class="jb-announcement-text" id="jbAnnouncementText"></p>
-  <button class="jb-announcement-close" onclick="jbDismissAnnouncement()" aria-label="Dismiss">×</button>
-</div>
+    const links = NAV_LINKS.map(l => `
+      <li role="listitem">
+        <a href="${resolveHref(l.href, l.anchor)}" onclick="if(window.closeNav)closeNav()">${l.label}</a>
+      </li>`).join('');
 
-<!-- NAV -->
+    placeholder.outerHTML = `
 <nav role="navigation" aria-label="Main navigation">
   <a class="nav-logo" href="/" aria-label="The Jesus Barn — Home">
     <img src="/images/The-Jesus-Barn-Logo.png" alt="The Jesus Barn">
   </a>
   <ul class="nav-links" id="navLinks" role="list">
-    <li role="listitem"><a href="#video" onclick="closeNav()">Our Story</a></li>
-    <li role="listitem"><a href="#free" onclick="closeNav()">What's Here</a></li>
-    <li role="listitem"><a href="/needs" onclick="closeNav()">BLESSing Fund</a></li>
-    <li role="listitem"><a href="/give" class="nav-cta" onclick="closeNav()">Give Now</a></li>
-    <li role="listitem"><a onclick="jbPromptAdmin(); closeNav();" class="nav-admin-link" aria-label="Admin">·</a></li>
+    ${links}
+    <li role="listitem">
+      <a href="${NAV_CTA.href}" class="nav-cta" onclick="if(window.closeNav)closeNav()">${NAV_CTA.label}</a>
+    </li>
+    <li role="listitem">
+      <a onclick="if(window.jbPromptAdmin)jbPromptAdmin();if(window.closeNav)closeNav();" class="nav-admin-link" aria-label="Admin">·</a>
+    </li>
   </ul>
   <button class="nav-burger" id="navBurger" onclick="toggleNav()" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
-</nav>
+</nav>`;
+  }
 
-<!-- HERO -->
-<section id="hero" aria-label="Welcome to The Jesus Barn">
-  <div class="hero-inner">
-    <p class="hero-eyebrow">Piedmont, Oklahoma · Est. 2026</p>
-    <h1 class="hero-title">
-      <span class="underline">One Body.</span> One Table.<br>All Welcome.
-    </h1>
-    <div class="hero-rule"></div>
-    <p class="hero-sub">"You don't have to believe exactly what we believe to come hang out."</p>
-    <div class="hero-buttons">
-      <a href="#video" class="btn-primary">Our Story</a>
-      <a href="#free" class="btn-outline">What's Here</a>
-    </div>
-  </div>
-  <a class="hero-scroll" href="#acts" aria-label="Scroll down">
-    <div class="scroll-line"></div>
-    <span class="scroll-text">Scroll</span>
-  </a>
-</section>
+  // ── INJECT FOOTER ──
+  function injectFooter() {
+    const placeholder = document.getElementById('jb-footer');
+    if (!placeholder) return;
 
-<!-- ACTS BANNER -->
-<div id="acts" role="complementary">
-  <p>Open. Free. Together. — Planned to welcome the community seven days a week, with space for everyday visits and the love of Jesus always in the room.</p>
-</div>
+    const footerLinks = FOOTER_LINKS.map(l =>
+      `<li><a href="${resolveHref(l.href, l.anchor)}">${l.label}</a></li>`
+    ).join('');
 
-<!-- VIDEO -->
-<section id="video" aria-labelledby="video-title">
-  <div class="container">
-    <div class="video-layout">
-      <div>
-        <p class="section-eyebrow light">Watch Our Story</p>
-        <h2 class="section-title" id="video-title">See What<br>God Is Building</h2>
-        <p class="video-body">This is more than a building — it's a vision for what Christian community should be.</p>
-        <blockquote class="video-quote">
-          "For where two or three gather in my name, there am I with them."
-          <span>— Matthew 18:20</span>
-        </blockquote>
-      </div>
-      <div>
-        <div class="video-embed">
-          <iframe
-            src="https://www.youtube.com/embed/zz7qCTLDZZY?rel=0&modestbranding=1&controls=1&fs=1&color=white"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-            allowfullscreen title="The Jesus Barn — Our Story"></iframe>
-        </div>
-        <p class="video-caption">The Jesus Barn · Piedmont, Oklahoma</p>
-      </div>
-    </div>
-  </div>
-</section>
+    const socialLinks = SOCIAL.map(s =>
+      `<a class="social-link" href="${s.href}" target="_blank" rel="noopener noreferrer" aria-label="${s.label}">${s.svg}</a>`
+    ).join('');
 
-<!-- OUR HEART -->
-<section id="story" aria-labelledby="story-title">
-  <div class="container">
-    <p class="section-eyebrow">Our Heart</p>
-    <h2 class="section-title" id="story-title">Why We Do What We Do</h2>
-    <div class="ba-slider" id="baSlider" aria-label="Before and after barn comparison">
-      <div class="ba-after"><img src="images/Barn After.jpg" alt="The Jesus Barn — Vision"></div>
-      <div class="ba-before" id="baBefore"><img src="images/Barn Before.jpg" alt="The Jesus Barn — Now"></div>
-      <div class="ba-handle" id="baHandle" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="Compare before and after">
-        <div class="ba-handle-line"></div>
-        <div class="ba-handle-circle">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
-            <polyline points="15 18 9 12 15 6" transform="translate(-1,0)"/>
-            <polyline points="9 18 15 12 9 6" transform="translate(1,0)"/>
-          </svg>
-        </div>
-        <div class="ba-handle-line"></div>
-      </div>
-      <div class="ba-label ba-label-before">Now</div>
-      <div class="ba-label ba-label-after">Vision</div>
-    </div>
-    <div class="heart-layout">
-      <div class="heart-body">
-        <p>The vision is simple — a welcoming place where the community can encounter Jesus through genuine love and everyday connection. A church that feels like a community center. A space that brings together the warmth of a café, the comfort of a living room, and the openness of a gathering place.</p>
-        <p>We believe we should be one body in Christ — using our individual gifts and talents to serve our amazing Piedmont community. As followers of Christ, we have the answer the world is seeking, and an opportunity to build something beautiful together.</p>
-      </div>
-      <div>
-        <blockquote class="pullquote">
-          "Do not despise these small beginnings."
-          <span>— Zechariah 4:10</span>
-        </blockquote>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHAT YOU'LL FIND -->
-<section id="free" aria-labelledby="free-title">
-  <div class="container">
-    <p class="section-eyebrow light">What You'll Find Here</p>
-    <h2 class="section-title" id="free-title">A Free Place<br>for Everyone</h2>
-    <p class="find-sub">Come in, take a breath, share coffee, bring the kids, meet a friend, or simply spend time in a safe and caring place. No cost. No catch. All welcome.</p>
-    <div class="find-grid">
-      <div class="find-card">
-        <div class="find-card-title">Coffee &amp; Connection</div>
-        <div class="find-card-desc">Free coffee, tea, juice, and snacks with room to sit, talk, and build friendships.</div>
-      </div>
-      <div class="find-card">
-        <div class="find-card-title">Faith &amp; Encouragement</div>
-        <div class="find-card-desc">Worship music, prayer, Bible studies, and a short daily message centered on Jesus.</div>
-      </div>
-      <div class="find-card">
-        <div class="find-card-title">Play &amp; Belonging</div>
-        <div class="find-card-desc">Indoor and outdoor play, games, books, and comfortable space for every generation.</div>
-      </div>
-      <div class="find-card">
-        <div class="find-card-title">Service &amp; Community</div>
-        <div class="find-card-desc">A community garden and practical opportunities to care for neighbors and serve together.</div>
-      </div>
-    </div>
-    <p class="find-footer">The Jesus Barn will serve as a lighthouse in Piedmont — helping people find hope, safety, community, and the arms of Jesus.</p>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" aria-labelledby="contact-title">
-  <div class="container">
-    <div class="contact-layout">
-      <div>
-        <p class="section-eyebrow">Get In Touch</p>
-        <h2 class="section-title" id="contact-title">Have a Question?<br>We're Here.</h2>
-        <p class="contact-body">Have a question? A prayer request? Just want to connect? We're here — and we'd love to hear from you. No question is too small. No need is too big.</p>
-        <div class="contact-details">
-          <div class="contact-detail-item">
-            <span class="contact-detail-label">Email</span>
-            <a href="mailto:hello@thejesusbarn.org" class="contact-detail-value">hello@thejesusbarn.org</a>
-          </div>
-          <div class="contact-detail-item">
-            <span class="contact-detail-label">Location</span>
-            <span class="contact-detail-value">Piedmont, Oklahoma</span>
-          </div>
-          <div class="contact-detail-item">
-            <span class="contact-detail-label">Follow Along</span>
-            <div class="contact-social">
-              <a href="https://www.facebook.com/groups/27263925436532413" target="_blank" rel="noopener noreferrer" class="contact-social-link" aria-label="Facebook">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-              </a>
-              <a href="https://www.youtube.com/channel/UCBxbHdnu2TBXkr1hMBAVUNQ/" target="_blank" rel="noopener noreferrer" class="contact-social-link" aria-label="YouTube">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#141414"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="contact-form-wrap">
-          <div class="contact-input-row">
-            <div class="contact-input-group" id="ctGrpName">
-              <label for="ctName">Your Name <span class="required">*</span></label>
-              <input type="text" id="ctName" placeholder="First and last name" autocomplete="name">
-              <p class="contact-field-error">Please enter your name.</p>
-            </div>
-            <div class="contact-input-group" id="ctGrpEmail">
-              <label for="ctEmail">Email <span class="required">*</span></label>
-              <input type="email" id="ctEmail" placeholder="you@email.com" autocomplete="email">
-              <p class="contact-field-error">Please enter a valid email.</p>
-            </div>
-          </div>
-          <div class="contact-input-group" id="ctGrpMsg">
-            <label for="ctMessage">Your Message <span class="required">*</span></label>
-            <textarea id="ctMessage" placeholder="A question, a prayer request, or just a hello — we'd love to hear from you..."></textarea>
-            <p class="contact-field-error">Please enter a message.</p>
-          </div>
-          <input type="text" id="ctHoneypot" style="display:none;" tabindex="-1" autocomplete="off">
-          <button class="contact-submit" onclick="submitContact()">Send a Message</button>
-          <div class="contact-status" id="ctStatus"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
+    placeholder.outerHTML = `
 <footer role="contentinfo">
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">The Jesus Barn</div>
-      <ul class="footer-nav">
-        <li><a href="#video">Our Story</a></li>
-        <li><a href="#free">What's Here</a></li>
-        <li><a href="/needs">BLESSing Fund</a></li>
-        <li><a href="/give">Give Now</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
-      </ul>
+      <ul class="footer-nav">${footerLinks}</ul>
     </div>
-    <div class="footer-social">
-      <a class="social-link" href="https://www.facebook.com/groups/27263925436532413" target="_blank" rel="noopener noreferrer" aria-label="Facebook Group">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-      </a>
-      <a class="social-link" href="https://www.youtube.com/channel/UCBxbHdnu2TBXkr1hMBAVUNQ/" target="_blank" rel="noopener noreferrer" aria-label="YouTube Channel">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#141414"/></svg>
-      </a>
-    </div>
+    <div class="footer-social">${socialLinks}</div>
     <div class="footer-bottom">
-      <span class="footer-copy">© 2026 The Jesus Barn · Piedmont, Oklahoma<span class="footer-dot" onclick="jbPromptAdmin()" title=""></span></span>
+      <span class="footer-copy">© ${new Date().getFullYear()} The Jesus Barn · Piedmont, Oklahoma<span class="footer-dot" onclick="if(window.jbPromptAdmin)jbPromptAdmin()" title=""></span></span>
       <span class="footer-copy"><a href="mailto:hello@thejesusbarn.org" style="color:inherit;text-decoration:none;">hello@thejesusbarn.org</a></span>
     </div>
   </div>
-</footer>
-
-<!-- FLOATING BUTTON -->
-<div class="float-side">
-  <a href="/needs">Community BLESSing Fund</a>
-</div>
-
-<!-- BACK TO TOP -->
-<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="18 15 12 9 6 15"/></svg>
-</button>
-
-<!-- ADMIN LOGIN MODAL -->
-<div class="jb-login-backdrop" id="jbLoginBackdrop">
-  <div class="jb-login-modal">
-    <p class="jb-login-title">Admin Access</p>
-    <input type="password" class="jb-login-input" id="jbLoginPwd" placeholder="Password" onkeydown="if(event.key==='Enter')jbLogin()">
-    <p class="jb-login-error" id="jbLoginError">Incorrect password.</p>
-    <button class="jb-btn jb-btn-primary" style="width:100%;" onclick="jbLogin()">Enter</button>
-  </div>
-</div>
-
-<!-- ADMIN OVERLAY -->
-<div class="jb-admin-overlay" id="jbAdminOverlay" onclick="jbCloseAdmin()"></div>
-
-<!-- ADMIN PANEL -->
-<div class="jb-admin-panel" id="jbPanel">
-  <div class="jb-admin-header">
-    <span class="jb-admin-logo">The Jesus Barn · Admin</span>
-    <button class="jb-admin-close" onclick="jbCloseAdmin()" aria-label="Close">×</button>
-  </div>
-  <div class="jb-admin-tabs">
-    <button class="jb-admin-tab active" onclick="jbSwitchTab('giving', this)">Giving</button>
-    <button class="jb-admin-tab" onclick="jbSwitchTab('signups', this)">Signups</button>
-    <button class="jb-admin-tab" onclick="jbSwitchTab('wall', this)">Community Wall</button>
-    <button class="jb-admin-tab" onclick="jbSwitchTab('needswall', this)">Needs Wall</button>
-    <button class="jb-admin-tab" onclick="jbSwitchTab('announcement', this)">Announcement</button>
-  </div>
-
-  <!-- GIVING -->
-  <div class="jb-admin-pane active" id="jbPane-giving">
-    <p class="jb-section-label">Designated Giving</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
-      <div style="background:var(--off-white);border-radius:2px;padding:20px;border-left:3px solid var(--near-black);">
-        <p style="font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--mid-grey);margin-bottom:8px;">The Jesus Barn</p>
-        <p id="givingBarnTotal" style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--near-black);">—</p>
-        <p id="givingBarnCount" style="font-family:'Lato',sans-serif;font-size:0.68rem;color:var(--mid-grey);margin-top:4px;">— donations</p>
-      </div>
-      <div style="background:var(--off-white);border-radius:2px;padding:20px;border-left:3px solid var(--red);">
-        <p style="font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--mid-grey);margin-bottom:8px;">BLESSing Fund</p>
-        <p id="givingNeedTotal" style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--near-black);">—</p>
-        <p id="givingNeedCount" style="font-family:'Lato',sans-serif;font-size:0.68rem;color:var(--mid-grey);margin-top:4px;">— donations</p>
-      </div>
-    </div>
-    <p class="jb-section-label">Recent Donations</p>
-    <div class="jb-filter-wrap">
-      <button class="jb-filter-btn active" onclick="jbFilterGiving('all',this)">All</button>
-      <button class="jb-filter-btn" onclick="jbFilterGiving('barn',this)">Jesus Barn</button>
-      <button class="jb-filter-btn" onclick="jbFilterGiving('blessing',this)">BLESSing Fund</button>
-    </div>
-    <div id="jbGivingItems"></div>
-    <div class="jb-status" id="jbGivingStatus"></div>
-  </div>
-
-  <!-- SIGNUPS -->
-  <div class="jb-admin-pane" id="jbPane-signups">
-    <p class="jb-section-label">Volunteer Signups</p>
-    <div id="jbSignupItems"></div>
-    <div class="jb-status" id="jbSignupsStatus"></div>
-  </div>
-
-  <!-- COMMUNITY WALL -->
-  <div class="jb-admin-pane" id="jbPane-wall">
-    <p class="jb-section-label">Community Wall Posts</p>
-    <div class="jb-filter-wrap">
-      <button class="jb-filter-btn active" onclick="jbFilterWall('all',this)">All</button>
-      <button class="jb-filter-btn" onclick="jbFilterWall('pending',this)">Pending</button>
-      <button class="jb-filter-btn" onclick="jbFilterWall('approved',this)">Approved</button>
-    </div>
-    <div id="jbWallAdminItems"></div>
-    <div class="jb-status" id="jbWallStatus"></div>
-  </div>
-
-  <!-- NEEDS WALL -->
-  <div class="jb-admin-pane" id="jbPane-needswall">
-    <p class="jb-section-label">BLESSing Fund Nominations</p>
-    <div class="jb-filter-wrap">
-      <button class="jb-filter-btn active" onclick="jbFilterNeedsWall('all',this)">All</button>
-      <button class="jb-filter-btn" onclick="jbFilterNeedsWall('pending',this)">Pending</button>
-      <button class="jb-filter-btn" onclick="jbFilterNeedsWall('approved',this)">Approved</button>
-      <button class="jb-filter-btn" onclick="jbFilterNeedsWall('met',this)">Met</button>
-    </div>
-    <div id="jbNeedsWallItems"></div>
-    <div class="jb-status" id="jbNeedsWallStatus"></div>
-  </div>
-
-  <!-- ANNOUNCEMENT -->
-  <div class="jb-admin-pane" id="jbPane-announcement">
-    <p class="jb-section-label">Announcement Banner</p>
-    <div class="jb-field" style="margin-bottom:16px;">
-      <label>Banner Text</label>
-      <textarea id="jbAnnText" rows="3"></textarea>
-    </div>
-    <div class="jb-field-row">
-      <div class="jb-field">
-        <label>Link Label (optional)</label>
-        <input type="text" id="jbAnnLabel" placeholder="Learn More">
-      </div>
-      <div class="jb-field">
-        <label>Link Target (optional)</label>
-        <input type="text" id="jbAnnTarget" placeholder="#section or /page">
-      </div>
-    </div>
-    <div class="jb-field" style="margin-bottom:20px;">
-      <label><input type="checkbox" id="jbAnnActive" style="margin-right:8px;">Active (show banner)</label>
-    </div>
-    <button class="jb-btn jb-btn-primary" onclick="jbSaveAnnouncement()">Save Announcement</button>
-    <div class="jb-status" id="jbAnnStatus"></div>
-  </div>
-</div>
-
-<script>
-const JB = {
-  SCRIPT_URL       : 'https://script.google.com/macros/s/AKfycbycmcGiPFA0Pfj0w1G8QVWeR_UpOmu2DNhpY8TXMQigL8-HJPHjDi7E0mdRVw4FXoMusQ/exec',
-  WALL_URL         : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=79572446&single=true&output=csv',
-  SIGNUPS_URL      : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=1464935464&single=true&output=csv',
-  ANNOUNCEMENT_URL : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=124696312&single=true&output=csv',
-  SECRET           : 'jbadmin'
-};
-
-// ── NAV ──
-function toggleNav() {
-  const links = document.getElementById('navLinks');
-  const burger = document.getElementById('navBurger');
-  links.classList.toggle('open');
-  burger.setAttribute('aria-expanded', links.classList.contains('open'));
-}
-function closeNav() {
-  document.getElementById('navLinks').classList.remove('open');
-  document.getElementById('navBurger').setAttribute('aria-expanded', 'false');
-}
-
-// ── BACK TO TOP ──
-const btt = document.getElementById('backToTop');
-if (btt) window.addEventListener('scroll', () => {
-  btt.classList.toggle('visible', window.scrollY > 400);
-});
-
-// ── BEFORE/AFTER SLIDER ──
-(function() {
-  const slider = document.getElementById('baSlider');
-  const before = document.getElementById('baBefore');
-  const handle = document.getElementById('baHandle');
-  if (!slider) return;
-  let dragging = false;
-  function setPos(x) {
-    const rect = slider.getBoundingClientRect();
-    let pct = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
-    before.style.clipPath = `inset(0 ${(1-pct)*100}% 0 0)`;
-    handle.style.left = (pct*100) + '%';
-    handle.setAttribute('aria-valuenow', Math.round(pct*100));
+</footer>`;
   }
-  slider.addEventListener('mousedown', e => { dragging = true; setPos(e.clientX); });
-  window.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
-  window.addEventListener('mouseup', () => dragging = false);
-  slider.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
-  window.addEventListener('touchmove', e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
-  window.addEventListener('touchend', () => dragging = false);
-})();
 
-// ── ANNOUNCEMENT ──
-let jbAnnouncement = { text: '', active: false, linkLabel: '', linkTarget: '' };
-async function loadAnnouncement() {
-  try {
-    const dismissed = localStorage.getItem('jbAnnouncementDismissed');
-    const rows = parseCSV(await (await fetch(JB.ANNOUNCEMENT_URL+'&t='+Date.now())).text());
-    rows.forEach(r => {
-      if (r[0] === 'text')        jbAnnouncement.text        = r[1] || '';
-      if (r[0] === 'active')      jbAnnouncement.active      = (r[1]||'').toLowerCase() === 'true';
-      if (r[0] === 'linkLabel')   jbAnnouncement.linkLabel   = r[1] || '';
-      if (r[0] === 'linkTarget')  jbAnnouncement.linkTarget  = r[1] || '';
-    });
-    if (dismissed === jbAnnouncement.text) return;
-    renderAnnouncement();
-  } catch(e) { console.warn('Announcement load failed', e); }
-}
-function renderAnnouncement() {
-  const el = document.getElementById('jbAnnouncement');
-  const txt = document.getElementById('jbAnnouncementText');
-  if (!jbAnnouncement.active || !jbAnnouncement.text) {
-    el.classList.remove('visible'); document.body.classList.remove('has-announcement'); return;
-  }
-  let html = jbAnnouncement.text;
-  if (jbAnnouncement.linkLabel && jbAnnouncement.linkTarget) {
-    html += ` <a href="${jbAnnouncement.linkTarget}" style="color:#1A1410;font-weight:700;text-decoration:underline;margin-left:8px;">${jbAnnouncement.linkLabel}</a>`;
-  }
-  txt.innerHTML = html;
-  el.classList.add('visible');
-  document.body.classList.add('has-announcement');
-}
-function jbDismissAnnouncement() {
-  localStorage.setItem('jbAnnouncementDismissed', jbAnnouncement.text);
-  document.getElementById('jbAnnouncement').classList.remove('visible');
-  document.body.classList.remove('has-announcement');
-}
+  // ── NAV TOGGLE ──
+  window.toggleNav = function() {
+    const links = document.getElementById('navLinks');
+    const burger = document.getElementById('navBurger');
+    if (!links) return;
+    links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', links.classList.contains('open'));
+  };
 
-// ── CSV PARSER ──
-function parseCSV(text) {
-  return text.trim().split('\n').map(line => {
-    const cells = []; let cur = '', inQ = false;
-    for (let i = 0; i < line.length; i++) {
-      if (line[i] === '"') { inQ = !inQ; }
-      else if (line[i] === ',' && !inQ) { cells.push(cur); cur = ''; }
-      else cur += line[i];
-    }
-    cells.push(cur);
-    return cells.map(c => c.trim().replace(/^"|"$/g,''));
+  window.closeNav = function() {
+    const links = document.getElementById('navLinks');
+    const burger = document.getElementById('navBurger');
+    if (!links) return;
+    links.classList.remove('open');
+    if (burger) burger.setAttribute('aria-expanded', 'false');
+  };
+
+  // ── RUN ──
+  document.addEventListener('DOMContentLoaded', function() {
+    injectNav();
+    injectFooter();
   });
-}
 
-// ── CONTACT FORM ──
-async function submitContact() {
-  if (document.getElementById('ctHoneypot').value) return;
-  const name = document.getElementById('ctName').value.trim();
-  const email = document.getElementById('ctEmail').value.trim();
-  const msg = document.getElementById('ctMessage').value.trim();
-  let valid = true;
-  const nGrp = document.getElementById('ctGrpName');
-  const eGrp = document.getElementById('ctGrpEmail');
-  const mGrp = document.getElementById('ctGrpMsg');
-  nGrp.classList.toggle('error', !name); if (!name) valid = false;
-  eGrp.classList.toggle('error', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)); if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) valid = false;
-  mGrp.classList.toggle('error', !msg); if (!msg) valid = false;
-  if (!valid) return;
-  const status = document.getElementById('ctStatus');
-  status.className = 'contact-status'; status.textContent = 'Sending...'; status.style.display = 'block';
-  try {
-    await fetch(JB.SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ sheet:'contact', name, email, message: msg }) });
-    status.className = 'contact-status success';
-    status.textContent = 'Thank you! We\'ll be in touch soon.';
-    ['ctName','ctEmail','ctMessage'].forEach(id => document.getElementById(id).value = '');
-  } catch(e) {
-    status.className = 'contact-status error';
-    status.textContent = 'Something went wrong. Please email hello@thejesusbarn.org directly.';
-  }
-}
-
-// ── ADMIN ──
-let jbToken = null;
-let jbTyped = '';
-document.addEventListener('keydown', e => {
-  if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
-  jbTyped += e.key.toLowerCase();
-  if (jbTyped.length > 10) jbTyped = jbTyped.slice(-10);
-  if (jbTyped.endsWith(JB.SECRET)) jbPromptAdmin();
-});
-
-function jbPromptAdmin() {
-  document.getElementById('jbLoginBackdrop').classList.add('open');
-  setTimeout(() => document.getElementById('jbLoginPwd').focus(), 100);
-}
-
-async function jbLogin() {
-  const pwd = document.getElementById('jbLoginPwd').value;
-  const err = document.getElementById('jbLoginError');
-  err.style.display = 'none';
-  try {
-    const res = await fetch('/api/auth', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ password: pwd }) });
-    const data = await res.json();
-    if (data.token) {
-      jbToken = data.token;
-      document.getElementById('jbLoginBackdrop').classList.remove('open');
-      document.getElementById('jbLoginPwd').value = '';
-      jbOpenAdmin();
-    } else { err.style.display = 'block'; }
-  } catch(e) { err.style.display = 'block'; err.textContent = 'Connection error. Try again.'; }
-}
-
-function jbOpenAdmin() {
-  document.getElementById('jbAdminOverlay').classList.add('open');
-  document.getElementById('jbPanel').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  loadGivingAdmin();
-}
-
-function jbCloseAdmin() {
-  document.getElementById('jbAdminOverlay').classList.remove('open');
-  document.getElementById('jbPanel').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function jbSwitchTab(tab, btn) {
-  document.querySelectorAll('.jb-admin-tab').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.jb-admin-pane').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('jbPane-' + tab).classList.add('active');
-  if (tab === 'giving')      loadGivingAdmin();
-  if (tab === 'signups')     loadSignups();
-  if (tab === 'wall')        loadWallAdmin();
-  if (tab === 'needswall')   loadNeedsWallAdmin();
-  if (tab === 'announcement') loadAnnouncement().then(jbPopulateAnnouncementPane);
-}
-
-// ── GIVING ADMIN ──
-let jbGivingData = [], jbGivingFilter = 'all';
-async function loadGivingAdmin() {
-  const items = document.getElementById('jbGivingItems');
-  const status = document.getElementById('jbGivingStatus');
-  items.innerHTML = '<p class="jb-empty-state">Loading donations...</p>';
-  try {
-    const res = await fetch('/api/giving');
-    const data = await res.json();
-    if (data.error) throw new Error(data.error);
-    jbGivingData = data.donations || [];
-    document.getElementById('givingBarnTotal').textContent = '$' + (data.barnTotal||0).toLocaleString('en-US',{minimumFractionDigits:2});
-    document.getElementById('givingBarnCount').textContent = (data.barnCount||0) + ' donation' + (data.barnCount!==1?'s':'');
-    document.getElementById('givingNeedTotal').textContent = '$' + (data.needTotal||0).toLocaleString('en-US',{minimumFractionDigits:2});
-    document.getElementById('givingNeedCount').textContent = (data.needCount||0) + ' donation' + (data.needCount!==1?'s':'');
-    jbRenderGivingAdmin();
-  } catch(e) { items.innerHTML = '<p class="jb-empty-state">Could not load donations. Check Stripe API key.</p>'; }
-}
-function jbFilterGiving(f, btn) {
-  jbGivingFilter = f;
-  document.querySelectorAll('#jbPane-giving .jb-filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  jbRenderGivingAdmin();
-}
-function jbRenderGivingAdmin() {
-  const c = document.getElementById('jbGivingItems');
-  const filtered = jbGivingFilter === 'all' ? jbGivingData : jbGivingData.filter(d => jbGivingFilter === 'blessing' ? (d.designation === 'blessing' || d.designation === 'need') : d.designation === 'barn');
-  if (!filtered.length) { c.innerHTML = '<p class="jb-empty-state">No donations found.</p>'; return; }
-  c.innerHTML = filtered.map(d => `
-    <div class="jb-wall-item">
-      <div class="jb-wall-item-name">${d.name}
-        <span class="jb-wall-badge ${d.designation === 'blessing' || d.designation === 'need' ? 'pending' : 'approved'}">${d.designation === 'blessing' || d.designation === 'need' ? 'BLESSing Fund' : 'Jesus Barn'}</span>
-        ${d.recurring ? '<span class="jb-wall-badge" style="background:#e8e8e8;color:#555;">Monthly</span>' : ''}
-      </div>
-      <p class="jb-wall-item-msg" style="font-size:1.1rem;font-weight:700;color:var(--near-black);">$${d.amount.toFixed(2)}</p>
-      <p class="jb-wall-item-msg">${d.email} · ${d.date}</p>
-    </div>`).join('');
-}
-
-// ── SIGNUPS ADMIN ──
-async function loadSignups() {
-  const el = document.getElementById('jbSignupItems');
-  el.innerHTML = '<p class="jb-empty-state">Loading...</p>';
-  try {
-    const rows = parseCSV(await (await fetch(JB.SIGNUPS_URL+'&t='+Date.now())).text());
-    const data = rows.slice(1).filter(r => r[0]).map(r => ({ name:r[0], email:r[1], phone:r[2], role:r[3], message:r[4], date:r[5] }));
-    if (!data.length) { el.innerHTML = '<p class="jb-empty-state">No signups yet.</p>'; return; }
-    el.innerHTML = data.map(s => `
-      <div class="jb-wall-item">
-        <div class="jb-wall-item-name">${s.name} <span class="jb-wall-badge approved">${s.role}</span></div>
-        <p class="jb-wall-item-msg">${s.email}${s.phone ? ' · ' + s.phone : ''}</p>
-        ${s.message ? `<p class="jb-wall-item-msg" style="margin-top:6px;font-style:italic;">"${s.message}"</p>` : ''}
-        ${s.date ? `<p class="jb-wall-item-msg" style="font-size:0.65rem;color:var(--mid-grey);margin-top:4px;">${s.date}</p>` : ''}
-      </div>`).join('');
-  } catch(e) { el.innerHTML = '<p class="jb-empty-state">Could not load signups.</p>'; }
-}
-
-// ── WALL ADMIN ──
-let jbWallAdmin = [], jbWallFilter = 'all';
-async function loadWallAdmin() {
-  const el = document.getElementById('jbWallAdminItems');
-  el.innerHTML = '<p class="jb-empty-state">Loading...</p>';
-  try {
-    const rows = parseCSV(await (await fetch(JB.WALL_URL+'&t='+Date.now())).text());
-    jbWallAdmin = rows.slice(1).filter(r => r[0]).map(r => ({ name:r[0], location:r[1], message:r[2], status:r[3]||'pending' }));
-    jbRenderWallAdmin();
-  } catch(e) { el.innerHTML = '<p class="jb-empty-state">Could not load wall posts.</p>'; }
-}
-function jbFilterWall(f, btn) {
-  jbWallFilter = f;
-  document.querySelectorAll('#jbPane-wall .jb-filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  jbRenderWallAdmin();
-}
-function jbRenderWallAdmin() {
-  const c = document.getElementById('jbWallAdminItems');
-  const filtered = jbWallFilter === 'all' ? jbWallAdmin : jbWallAdmin.filter(w => w.status === jbWallFilter);
-  if (!filtered.length) { c.innerHTML = '<p class="jb-empty-state">No posts found.</p>'; return; }
-  c.innerHTML = filtered.map((w, i) => `
-    <div class="jb-wall-item">
-      <div class="jb-wall-item-name">${w.name}${w.location ? ', '+w.location : ''} <span class="jb-wall-badge ${w.status}">${w.status}</span></div>
-      <p class="jb-wall-item-msg">"${w.message}"</p>
-      <div class="jb-wall-actions">
-        ${w.status !== 'approved' ? `<button class="jb-btn jb-btn-primary" onclick="jbApproveWall(${i})">Approve</button>` : ''}
-        <button class="jb-btn jb-btn-danger" onclick="jbDeleteWall(${i})">Delete</button>
-      </div>
-    </div>`).join('');
-}
-async function jbApproveWall(i) {
-  const w = jbWallAdmin[i]; w.status = 'approved'; jbRenderWallAdmin();
-  await fetch(JB.SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ sheet:'wall-update', name:w.name, message:w.message, status:'approved' }) });
-  document.getElementById('jbWallStatus').textContent = 'Approved!'; document.getElementById('jbWallStatus').className = 'jb-status success';
-  setTimeout(() => { document.getElementById('jbWallStatus').className = 'jb-status'; }, 2500);
-}
-async function jbDeleteWall(i) {
-  if (!confirm('Delete this post?')) return;
-  const w = jbWallAdmin[i];
-  await fetch(JB.SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ sheet:'wall-delete', name:w.name, message:w.message }) });
-  jbWallAdmin.splice(i, 1); jbRenderWallAdmin();
-}
-
-// ── NEEDS WALL ADMIN ──
-let jbNeedsWall = [], jbNeedsWallFilter = 'all';
-async function loadNeedsWallAdmin() {
-  const el = document.getElementById('jbNeedsWallItems');
-  el.innerHTML = '<p class="jb-empty-state">Loading...</p>';
-  try {
-    const res = await fetch(JB.SCRIPT_URL + '?action=needs-wall-all&t=' + Date.now());
-    const data = await res.json();
-    jbNeedsWall = data.entries || [];
-    jbRenderNeedsWallAdmin();
-  } catch(e) { el.innerHTML = '<p class="jb-empty-state">Could not load nominations.</p>'; }
-}
-function jbFilterNeedsWall(f, btn) {
-  jbNeedsWallFilter = f;
-  document.querySelectorAll('#jbPane-needswall .jb-filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  jbRenderNeedsWallAdmin();
-}
-function jbRenderNeedsWallAdmin() {
-  const c = document.getElementById('jbNeedsWallItems');
-  const filtered = jbNeedsWallFilter === 'all' ? jbNeedsWall : jbNeedsWall.filter(e => e.status === jbNeedsWallFilter);
-  if (!filtered.length) { c.innerHTML = '<p class="jb-empty-state">No nominations found.</p>'; return; }
-  c.innerHTML = filtered.map((e, i) => `
-    <div class="jb-wall-item">
-      <div class="jb-wall-item-name">${e.firstName||e.name||'—'} ${e.lastName||''} <span class="jb-wall-badge ${e.status}">${e.status}</span></div>
-      ${e.submitter ? `<p class="jb-wall-item-msg" style="font-size:0.7rem;color:var(--mid-grey);">Submitted by: ${e.submitter}${e.submitterPhone?' · '+e.submitterPhone:''}${e.submitterEmail?' · '+e.submitterEmail:''}</p>` : ''}
-      ${e.theirPhone||e.theirEmail ? `<p class="jb-wall-item-msg" style="font-size:0.7rem;color:var(--mid-grey);">Their contact: ${e.theirPhone||''}${e.theirEmail?' · '+e.theirEmail:''}</p>` : ''}
-      <p class="jb-wall-item-msg"><strong>Description:</strong> ${e.description||e.name||'—'}</p>
-      <p class="jb-wall-item-msg"><strong>Situation:</strong> ${e.situation||'—'}</p>
-      ${e.prayer ? `<p class="jb-wall-item-msg" style="font-style:italic;">"${e.prayer}"</p>` : ''}
-      <div class="jb-wall-actions">
-        ${e.status !== 'approved' ? `<button class="jb-btn jb-btn-primary" onclick="jbApproveNeedsWall(${i})">Approve</button>` : ''}
-        ${e.status !== 'met' ? `<button class="jb-btn" style="background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;" onclick="jbMarkNeedMet(${i})">Mark Met</button>` : ''}
-        <button class="jb-btn jb-btn-danger" onclick="jbDeleteNeedsWall(${i})">Delete</button>
-      </div>
-    </div>`).join('');
-}
-async function jbApproveNeedsWall(i) {
-  const e = jbNeedsWall[i]; e.status = 'approved'; jbRenderNeedsWallAdmin();
-  await fetch(JB.SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ action:'needs-wall-update', name:e.firstName||e.name, description:e.description, status:'approved' }) });
-}
-async function jbMarkNeedMet(i) {
-  const e = jbNeedsWall[i]; e.status = 'met'; jbRenderNeedsWallAdmin();
-  await fetch(JB.SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ action:'needs-wall-update', name:e.firstName||e.name, description:e.description, status:'met' }) });
-}
-async function jbDeleteNeedsWall(i) {
-  if (!confirm('Delete this nomination?')) return;
-  const e = jbNeedsWall[i];
-  await fetch(JB.SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ action:'needs-wall-delete', name:e.firstName||e.name, description:e.description }) });
-  jbNeedsWall.splice(i, 1); jbRenderNeedsWallAdmin();
-}
-
-// ── ANNOUNCEMENT ADMIN ──
-function jbPopulateAnnouncementPane() {
-  document.getElementById('jbAnnText').value = jbAnnouncement.text || '';
-  document.getElementById('jbAnnLabel').value = jbAnnouncement.linkLabel || '';
-  document.getElementById('jbAnnTarget').value = jbAnnouncement.linkTarget || '';
-  document.getElementById('jbAnnActive').checked = jbAnnouncement.active;
-}
-async function jbSaveAnnouncement() {
-  const text   = document.getElementById('jbAnnText').value.trim();
-  const label  = document.getElementById('jbAnnLabel').value.trim();
-  const target = document.getElementById('jbAnnTarget').value.trim();
-  const active = document.getElementById('jbAnnActive').checked;
-  const status = document.getElementById('jbAnnStatus');
-  status.className = 'jb-status'; status.textContent = 'Saving...';
-  try {
-    await fetch(JB.SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ sheet:'announcement', text, active: active.toString(), linkLabel: label, linkTarget: target }) });
-    jbAnnouncement = { text, active, linkLabel: label, linkTarget: target };
-    renderAnnouncement();
-    status.className = 'jb-status success'; status.textContent = 'Saved!';
-  } catch(e) { status.className = 'jb-status error'; status.textContent = 'Error saving.'; }
-  setTimeout(() => { status.className = 'jb-status'; }, 3000);
-}
-
-// ── INIT ──
-loadAnnouncement();
-</script>
-</body>
-</html>
+})();
