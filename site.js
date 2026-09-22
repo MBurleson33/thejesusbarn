@@ -6,14 +6,16 @@
   }
 
   const NAV_LINKS = [
-    { label: 'Our Story',     h: '#video',  anchor: true },
-    { label: "What's Here",   h: '#free',   anchor: true },
-    { label: 'BLESSing Fund', h: '/needs',  anchor: false },
+    { label: 'Our Story',     h: '#video',     anchor: true },
+    { label: "What's Here",   h: '#free',      anchor: true },
+    { label: 'Volunteer',     h: '/volunteer', anchor: false },
+    { label: 'BLESSing Fund', h: '/needs',     anchor: false },
   ];
 
   const FOOTER_LINKS = [
     { label: 'Our Story',      h: '#video',             anchor: true },
     { label: "What's Here",    h: '#free',              anchor: true },
+    { label: 'Volunteer',      h: '/volunteer',         anchor: false },
     { label: 'BLESSing Fund',  h: '/needs',             anchor: false },
     { label: 'Give Now',       h: '/give',              anchor: false },
     { label: 'Contact',        h: '#contact',           anchor: true },
