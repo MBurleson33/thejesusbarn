@@ -807,7 +807,7 @@
     font-weight: 300;
     color: var(--dark-grey);
     line-height: 1.9;
-    margin-bottom: 32px;
+    margin-bottom: 0;
   }
 
   .heart-body p + p { margin-top: 16px; }
@@ -815,10 +815,10 @@
   .pullquote {
     padding: 20px 0 20px 24px;
     border-left: 3px solid var(--near-black);
-    margin: 32px 0 40px;
+    margin: 0 0 0;
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    font-size: clamp(1rem, 2vw, 1.2rem);
     color: var(--near-black);
     line-height: 1.6;
   }
@@ -2248,8 +2248,8 @@
     .involve-sub { text-align: center !important; }
     .needs-title { text-align: left !important; }
     .progress-label { text-align: center !important; }
-    .pullquote { text-align: left !important; }
-    .heart-body { text-align: center !important; }
+    .pullquote { text-align: left !important; margin: 0; }
+    .heart-body { text-align: left !important; }
 
     /* funding stats full width */
     .funding-stats { flex-direction: row; }
