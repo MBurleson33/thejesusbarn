@@ -710,23 +710,6 @@ async function jbSaveAnnouncement(){
   setTimeout(()=>{status.className='jb-status';},3000);
 }
 
-// ── VOLUNTEER FORM ──
-async function submitVolunteer() {
-  if (document.getElementById('volHoney').value) return;
-  const name=document.getElementById('volName').value.trim(),phone=document.getElementById('volPhone').value.trim(),email=document.getElementById('volEmail').value.trim();
-  const status=document.getElementById('volStatus');
-  if (!name||!phone||!email) { status.textContent='Please fill in your name, phone, and email.';status.style.cssText='background:var(--off-white);color:#888;display:block;';return; }
-  const areas=[...document.querySelectorAll('#volunteer input[type="checkbox"][value]:checked')].map(c=>c.value).join(', ');
-  const prefs=['Text','Phone call','Email'].filter((_,i)=>[document.getElementById('volPrefText'),document.getElementById('volPrefCall'),document.getElementById('volPrefEmail')][i].checked).join(', ');
-  const btn=document.querySelector('#volunteer button[onclick]');
-  btn.textContent='Submitting...';btn.disabled=true;
-  try {
-    await fetch(JB.SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({sheet:'volunteer',name,phone,email,address:document.getElementById('volAddress').value.trim(),city:document.getElementById('volCity').value.trim(),zip:document.getElementById('volZip').value.trim(),contactPref:prefs,bestTime:document.getElementById('volBestTime').value.trim(),story:document.getElementById('volStory').value.trim(),church:document.getElementById('volChurch').value.trim(),scripture:document.getElementById('volScripture').value.trim(),why:document.getElementById('volWhy').value.trim(),ideas:document.getElementById('volIdeas').value.trim(),concerns:document.getElementById('volConcerns').value.trim(),prayer:document.getElementById('volPrayer').value.trim(),serveAreas:areas,other:document.getElementById('volOther').value.trim()})});
-    status.textContent="Thank you! We're so grateful for your heart to serve. We'll be in touch soon.";status.style.cssText='background:#f0faf4;color:#1a7a3a;display:block;';
-    btn.textContent='Submitted ✓';btn.style.background='#1a7a3a';
-  } catch(e) { status.textContent='Something went wrong. Please email hello@thejesusbarn.org directly.';status.style.cssText='background:#fff5f5;color:#c00;display:block;';btn.textContent='Submit Volunteer Form';btn.disabled=false; }
-}
-
 loadAnnouncement();
 </script>
 </body>
