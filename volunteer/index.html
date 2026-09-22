@@ -107,15 +107,6 @@ nav {
 .field textarea { resize: vertical; min-height: 90px; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-/* ── CHECKBOXES ── */
-.check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
-.check-item {
-  display: flex; align-items: flex-start; gap: 10px;
-  font-family: 'Lato', sans-serif; font-size: 0.78rem; font-weight: 300;
-  color: var(--dark-grey); cursor: pointer; line-height: 1.4;
-}
-.check-item input[type="checkbox"] { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; cursor: pointer; accent-color: var(--near-black); }
-
 /* ── CONTACT PREF ── */
 .pref-row { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 18px; }
 .pref-item {
@@ -123,6 +114,43 @@ nav {
   font-family: 'Lato', sans-serif; font-size: 0.85rem; color: var(--dark-grey); cursor: pointer;
 }
 .pref-item input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; accent-color: var(--near-black); }
+
+/* ── SERVE ACCORDION ── */
+.serve-category { border: 1px solid var(--light-grey); border-radius: 2px; margin-bottom: 8px; overflow: hidden; }
+.serve-category-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px; cursor: pointer; background: var(--off-white);
+  transition: background 0.2s; user-select: none;
+}
+.serve-category-header:hover { background: var(--light-grey); }
+.serve-category-header.open { background: var(--near-black); }
+.serve-category-title {
+  font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.8rem;
+  color: var(--near-black); display: flex; align-items: center; gap: 10px;
+}
+.serve-category-header.open .serve-category-title { color: var(--white); }
+.serve-category-count {
+  font-family: 'Lato', sans-serif; font-size: 0.65rem; font-weight: 300;
+  color: var(--mid-grey); background: var(--white); padding: 2px 8px;
+  border-radius: 10px; display: none;
+}
+.serve-category-count.has-selections { display: inline-block; color: var(--near-black); }
+.serve-category-header.open .serve-category-count { background: rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); }
+.serve-chevron { color: var(--mid-grey); transition: transform 0.25s; flex-shrink: 0; }
+.serve-category-header.open .serve-chevron { transform: rotate(180deg); color: rgba(255,255,255,0.6); }
+.serve-subcategories {
+  display: none; padding: 16px 18px 20px;
+  border-top: 1px solid var(--light-grey); background: var(--white);
+}
+.serve-subcategories.open { display: block; }
+.serve-sub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.serve-sub-item {
+  display: flex; align-items: flex-start; gap: 9px;
+  font-family: 'Lato', sans-serif; font-size: 0.78rem; font-weight: 300;
+  color: var(--dark-grey); cursor: pointer; line-height: 1.4; padding: 4px 0;
+}
+.serve-sub-item input[type="checkbox"] { width: 15px; height: 15px; flex-shrink: 0; margin-top: 1px; cursor: pointer; accent-color: var(--near-black); }
+.serve-sub-item:hover { color: var(--near-black); }
 
 /* ── SUBMIT ── */
 .vol-submit {
@@ -161,9 +189,9 @@ nav {
   .vol-form-wrap { padding: 40px 20px; }
   .vol-grid { grid-template-columns: 1fr; gap: 0; }
   .field-row { grid-template-columns: 1fr; gap: 0; }
-  .check-grid { grid-template-columns: 1fr; }
+  .serve-sub-grid { grid-template-columns: 1fr; }
   .vol-footer { padding: 24px 20px; }
-}
+  .serve-sub-grid { grid-template-columns: 1fr; }
 </style>
 </head>
 <body>
@@ -238,22 +266,9 @@ nav {
 
       <div class="vol-panel">
         <p class="vol-panel-title">Where Would You Love to Serve?</p>
-        <p style="font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:300;color:var(--mid-grey);margin-bottom:20px;line-height:1.6;">Select all that interest you — you may choose more than one.</p>
-        <div class="check-grid">
-          <label class="check-item"><input type="checkbox" value="Construction & Maintenance"> Construction &amp; Maintenance</label>
-          <label class="check-item"><input type="checkbox" value="Worship"> Worship</label>
-          <label class="check-item"><input type="checkbox" value="Hospitality & Coffee"> Hospitality &amp; Coffee</label>
-          <label class="check-item"><input type="checkbox" value="Garden & Outdoor"> Garden &amp; Outdoor</label>
-          <label class="check-item"><input type="checkbox" value="Kids Department"> Kids Department</label>
-          <label class="check-item"><input type="checkbox" value="Safety & Traffic"> Safety &amp; Traffic</label>
-          <label class="check-item"><input type="checkbox" value="Prayer & Ministry"> Prayer &amp; Ministry</label>
-          <label class="check-item"><input type="checkbox" value="Cleaning & Facilities"> Cleaning &amp; Facilities</label>
-          <label class="check-item"><input type="checkbox" value="Events & Connection"> Events &amp; Connection</label>
-          <label class="check-item"><input type="checkbox" value="Media & Creative"> Media &amp; Creative</label>
-          <label class="check-item"><input type="checkbox" value="Donations & Supply"> Donations &amp; Supply</label>
-          <label class="check-item"><input type="checkbox" value="Administration & Scheduling"> Administration &amp; Scheduling</label>
-        </div>
-        <div class="field" style="margin-top:8px;"><label>Anything else you'd like us to know?</label><textarea id="volOther" rows="3" placeholder="Any other thoughts or questions..."></textarea></div>
+        <p style="font-family:'Lato',sans-serif;font-size:0.78rem;font-weight:300;color:var(--mid-grey);margin-bottom:20px;line-height:1.6;">Select a team to see the roles available. You can open multiple teams and select as many roles as you like.</p>
+        <div id="serveAccordion"></div>
+        <div class="field" style="margin-top:24px;"><label>Anything else you'd like us to know?</label><textarea id="volOther" rows="3" placeholder="Any other thoughts or questions..."></textarea></div>
       </div>
 
       <div class="vol-panel">
@@ -281,6 +296,70 @@ nav {
 <script>
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbycmcGiPFA0Pfj0w1G8QVWeR_UpOmu2DNhpY8TXMQigL8-HJPHjDi7E0mdRVw4FXoMusQ/exec';
 
+// ── SERVE AREAS ACCORDION ──
+const SERVE_AREAS = [
+  { cat: 'Construction & Maintenance', subs: ['Carpentry','Electrical','Plumbing','Painting','Drywall','Flooring','Trim / Finish Work','Cabinetry','General Labor','Cleanup Crew','Trucks / Trailers','Material Pickup / Delivery','Tool Organization','Outdoor Construction','Punch-List / Final Details','HVAC','Electrical Repair','Plumbing Repair','Appliance Repair','Carpentry Repair','Door / Hardware Repair','Painting Touch-Ups','Technology Troubleshooting','Furniture Repair','Preventive Maintenance','Other'] },
+  { cat: 'Worship', subs: ['Worship Leader','Vocals','Acoustic Guitar','Keys','Prayer Team','Scripture Reader','Sound / Audio','Livestream / Tech','Set-Up / Tear-Down','Other'] },
+  { cat: 'Hospitality & Coffee', subs: ['Greeter / Welcome Team','New Guest Connection','Event Help','Common Area Tidying','Supply Restocking','Encouragement / Guest Care','Coffee Maker / Barista','Tea / Juice Service','Snack Prep','Serving Counter','Table Cleaning','Donation Organization','Food-Safety Support','Guest Follow-Up','Other'] },
+  { cat: 'Garden & Outdoor', subs: ['Gardening','Landscaping','Planting','Watering','Vegetable / Herb Garden','Flower Care','Mowing','Weed Control','Outdoor Cleanup','Playground / Picnic Area Upkeep','Seasonal Planting','Teaching Kids / Families About Gardening','Other'] },
+  { cat: 'Kids Department', subs: ['Elementary-Age Helpers','Bible Story Helper','Crafts','Games','Check-In / Check-Out','Playground Supervision','Toy / Book Organization','Cleaning / Sanitizing','Special-Needs Support','Other'] },
+  { cat: 'Safety & Traffic', subs: ['Security Volunteer','Door Monitoring','First Aid / CPR','Emergency Response Planning','Radio / Communication','Child-Safety Awareness','Incident Documentation','Shuttle Driver','Drop-Off / Pick-Up','Traffic Flow','Directional Sign Setup','Golf Cart Driver','Pedestrian Escort','Accessibility Assistance','Event-Day Coordination','Other'] },
+  { cat: 'Prayer & Ministry', subs: ['Intercessory Prayer','Prayer Partner','Encouragement Ministry','Follow-Up Prayer','Scripture Support','Listening / Guest Care','Other'] },
+  { cat: 'Cleaning & Facilities', subs: ['Daily Cleaning','Bathrooms','Trash','Floors','Windows','Furniture Reset','Laundry','Supply Restocking','Minor Repairs','Deep-Clean Team','Other'] },
+  { cat: 'Events & Connection', subs: ['Event Planning','Decorating','Tables / Chairs Setup','Community Meals','Youth Nights','Worship Nights','Family Activities','Seasonal Events','Classes / Workshops','Cleanup Crew','Books / Library Area','Games / Puzzles','Teen Hangout Activities','Reading Area','Family Games','Conversation / Connection Activities','Other'] },
+  { cat: 'Media & Creative', subs: ['Photography','Video','Social Media','Graphic Design','Flyers / Signs','Website','Testimony Stories','Event Promotion','Announcement Slides','Livestream Support','Other'] },
+  { cat: 'Donations & Supply', subs: ['Receive Donations','Sort / Organize Supplies','Inventory','Pickup Coordination','Wish List Communication','Storage Organization','Donor Thank-Yous','Other'] },
+  { cat: 'Administration & Scheduling', subs: ['Volunteer Scheduling','Contact Lists','Team Communication','Forms / Sign-Ups','Calendar / Events','Supply Tracking','Meeting Notes','Follow-Up','Other'] },
+];
+
+function buildAccordion() {
+  const wrap = document.getElementById('serveAccordion');
+  if (!wrap) return;
+  wrap.innerHTML = SERVE_AREAS.map((area, i) => {
+    const id = 'cat_' + i;
+    const subs = area.subs.map((sub, j) => `
+      <label class="serve-sub-item">
+        <input type="checkbox" data-cat="${area.cat}" value="${sub}" onchange="updateCatCount(${i})">
+        ${sub}
+      </label>`).join('');
+    return `
+      <div class="serve-category" id="catWrap_${i}">
+        <div class="serve-category-header" id="catHead_${i}" onclick="toggleCat(${i})">
+          <span class="serve-category-title">
+            ${area.cat}
+            <span class="serve-category-count" id="catCount_${i}"></span>
+          </span>
+          <svg class="serve-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="serve-subcategories" id="catSubs_${i}">
+          <div class="serve-sub-grid">${subs}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function toggleCat(i) {
+  const head = document.getElementById('catHead_' + i);
+  const subs = document.getElementById('catSubs_' + i);
+  const isOpen = head.classList.contains('open');
+  head.classList.toggle('open', !isOpen);
+  subs.classList.toggle('open', !isOpen);
+}
+
+function updateCatCount(i) {
+  const checked = document.querySelectorAll(`#catSubs_${i} input[type="checkbox"]:checked`).length;
+  const countEl = document.getElementById('catCount_' + i);
+  if (checked > 0) {
+    countEl.textContent = checked + ' selected';
+    countEl.classList.add('has-selections');
+  } else {
+    countEl.textContent = '';
+    countEl.classList.remove('has-selections');
+  }
+}
+
+buildAccordion();
+
 async function submitVolunteer() {
   if (document.getElementById('volHoney').value) return;
   const name  = document.getElementById('volName').value.trim();
@@ -303,7 +382,8 @@ async function submitVolunteer() {
     return;
   }
 
-  const areas = [...document.querySelectorAll('.check-grid input[type="checkbox"]:checked')].map(c => c.value).join(', ');
+  const areas = [...document.querySelectorAll('#serveAccordion input[type="checkbox"]:checked')]
+    .map(c => c.getAttribute('data-cat') + ': ' + c.value).join('; ');
   const prefs = [
     document.getElementById('volPrefText').checked  ? 'Text' : null,
     document.getElementById('volPrefCall').checked  ? 'Phone call' : null,
