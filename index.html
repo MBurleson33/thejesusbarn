@@ -169,6 +169,16 @@ body.has-announcement .nav-logo { top: 38px; }
 .find-card-desc { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.78rem; color: rgba(255,255,255,0.4); line-height: 1.8; }
 .find-footer { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.95rem; color: rgba(255,255,255,0.3); text-align: center; margin-top: 48px; line-height: 1.7; }
 
+/* ── VOLUNTEER FORM ── */
+.vol-field { margin-bottom: 16px; }
+.vol-field label { display: block; font-family: 'Lato', sans-serif; font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: var(--dark-grey); margin-bottom: 5px; }
+.vol-field input, .vol-field textarea { width: 100%; padding: 10px 14px; background: var(--off-white); border: 1px solid var(--light-grey); border-radius: 2px; font-family: 'Lato', sans-serif; font-size: 0.88rem; color: var(--near-black); outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+.vol-field input:focus, .vol-field textarea:focus { border-color: var(--near-black); background: var(--white); }
+.vol-field textarea { resize: vertical; min-height: 80px; }
+.vol-field input::placeholder, .vol-field textarea::placeholder { color: var(--mid-grey); }
+.vol-check { display: flex; align-items: center; gap: 8px; font-family: 'Lato', sans-serif; font-size: 0.78rem; font-weight: 300; color: var(--dark-grey); cursor: pointer; line-height: 1.4; }
+.vol-check input[type="checkbox"] { width: 16px; height: 16px; flex-shrink: 0; cursor: pointer; }
+
 /* ── CONTACT ── */
 #contact { background: var(--off-white); padding: 100px 0; }
 #contact .section-eyebrow { color: var(--dark-grey); }
@@ -622,7 +632,7 @@ function renderAnnouncement(){
 }
 function jbDismissAnnouncement(){localStorage.setItem('jbAnnDismissed',jbAnn.text);document.getElementById('jbAnnouncement').classList.remove('visible');document.body.classList.remove('has-announcement');}
 
-// ── CONTACT ──
+    #volunteer .container > div { grid-template-columns: 1fr; }
 async function submitContact(){
   if(document.getElementById('ctHoney').value)return;
   const name=document.getElementById('ctName').value.trim(),email=document.getElementById('ctEmail').value.trim(),msg=document.getElementById('ctMsg').value.trim();
@@ -699,6 +709,24 @@ async function jbSaveAnnouncement(){
   catch(e){status.className='jb-status error';status.textContent='Error.';}
   setTimeout(()=>{status.className='jb-status';},3000);
 }
+
+// ── VOLUNTEER FORM ──
+async function submitVolunteer() {
+  if (document.getElementById('volHoney').value) return;
+  const name=document.getElementById('volName').value.trim(),phone=document.getElementById('volPhone').value.trim(),email=document.getElementById('volEmail').value.trim();
+  const status=document.getElementById('volStatus');
+  if (!name||!phone||!email) { status.textContent='Please fill in your name, phone, and email.';status.style.cssText='background:var(--off-white);color:#888;display:block;';return; }
+  const areas=[...document.querySelectorAll('#volunteer input[type="checkbox"][value]:checked')].map(c=>c.value).join(', ');
+  const prefs=['Text','Phone call','Email'].filter((_,i)=>[document.getElementById('volPrefText'),document.getElementById('volPrefCall'),document.getElementById('volPrefEmail')][i].checked).join(', ');
+  const btn=document.querySelector('#volunteer button[onclick]');
+  btn.textContent='Submitting...';btn.disabled=true;
+  try {
+    await fetch(JB.SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({sheet:'volunteer',name,phone,email,address:document.getElementById('volAddress').value.trim(),city:document.getElementById('volCity').value.trim(),zip:document.getElementById('volZip').value.trim(),contactPref:prefs,bestTime:document.getElementById('volBestTime').value.trim(),story:document.getElementById('volStory').value.trim(),church:document.getElementById('volChurch').value.trim(),scripture:document.getElementById('volScripture').value.trim(),why:document.getElementById('volWhy').value.trim(),ideas:document.getElementById('volIdeas').value.trim(),concerns:document.getElementById('volConcerns').value.trim(),prayer:document.getElementById('volPrayer').value.trim(),serveAreas:areas,other:document.getElementById('volOther').value.trim()})});
+    status.textContent="Thank you! We're so grateful for your heart to serve. We'll be in touch soon.";status.style.cssText='background:#f0faf4;color:#1a7a3a;display:block;';
+    btn.textContent='Submitted ✓';btn.style.background='#1a7a3a';
+  } catch(e) { status.textContent='Something went wrong. Please email hello@thejesusbarn.org directly.';status.style.cssText='background:#fff5f5;color:#c00;display:block;';btn.textContent='Submit Volunteer Form';btn.disabled=false; }
+}
+
 loadAnnouncement();
 </script>
 </body>
