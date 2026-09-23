@@ -10,7 +10,6 @@
     { label: "What's Here",    h: '#free',      anchor: true },
     { label: 'Volunteer',      h: '/volunteer', anchor: false },
     { label: 'Community Wall', h: '/wall',      anchor: false },
-    { label: 'BLESSing Fund',  h: '/needs',     anchor: false },
   ];
 
   const FOOTER_LINKS = [
