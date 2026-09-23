@@ -16,6 +16,7 @@
     { label: 'Our Story',      h: '#video',             anchor: true },
     { label: "What's Here",    h: '#free',              anchor: true },
     { label: 'Volunteer',      h: '/volunteer',         anchor: false },
+    { label: 'Community Wall', h: '/wall',              anchor: false },
     { label: 'BLESSing Fund',  h: '/needs',             anchor: false },
     { label: 'Give Now',       h: '/give',              anchor: false },
     { label: 'Contact',        h: '#contact',           anchor: true },
