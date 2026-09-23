@@ -632,7 +632,6 @@ function renderAnnouncement(){
 }
 function jbDismissAnnouncement(){localStorage.setItem('jbAnnDismissed',jbAnn.text);document.getElementById('jbAnnouncement').classList.remove('visible');document.body.classList.remove('has-announcement');}
 
-    #volunteer .container > div { grid-template-columns: 1fr; }
 async function submitContact(){
   if(document.getElementById('ctHoney').value)return;
   const name=document.getElementById('ctName').value.trim(),email=document.getElementById('ctEmail').value.trim(),msg=document.getElementById('ctMsg').value.trim();
