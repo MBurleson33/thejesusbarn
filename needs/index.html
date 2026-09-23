@@ -228,36 +228,98 @@
     line-height: 1.1;
   }
 
-  .needs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 20px;
+  .needs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
     margin-bottom: 32px;
     width: 100%;
   }
 
-  .needs-grid:has(.need-card:only-child) .need-card {
-    grid-column: 1 / -1;
-    max-width: 100%;
+  .need-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: start;
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
   }
 
-  .needs-grid:has(.need-card:only-child) {
-    grid-template-columns: 1fr;
-  }
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-left: 3px solid var(--red);
-    border-radius: 2px;
-    padding: 24px;
+  .need-item:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+
+  .need-item.met { opacity: 0.5; }
+
+  .need-item-left { display: flex; flex-direction: column; gap: 6px; }
+
+  .need-item-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.52rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 10px;
   }
 
-  .need-card.met {
-    border-left-color: #1a7a3a;
-    opacity: 0.6;
+  .need-item-desc {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.5;
   }
+
+  .need-item-situation {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.7;
+  }
+
+  .need-item-prayer {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.25);
+    line-height: 1.6;
+    padding-left: 12px;
+    border-left: 2px solid rgba(255,255,255,0.1);
+  }
+
+  .need-item-met-badge {
+    font-family: 'Cinzel', serif;
+    font-size: 0.42rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #4caf50;
+    background: rgba(76,175,80,0.1);
+    border: 1px solid rgba(76,175,80,0.2);
+    padding: 2px 7px;
+    border-radius: 2px;
+  }
+
+  .need-item-help {
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  .need-item-help a {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding-bottom: 2px;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .need-item-help a:hover { color: var(--white); border-color: var(--white); }
 
   .need-card-name {
     font-family: 'Playfair Display', serif;
@@ -590,7 +652,7 @@
   <p class="section-eyebrow">Current Needs</p>
   <h2 class="section-title">People Who Need Support</h2>
   <p style="font-family:'Lato',sans-serif;font-weight:300;font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.9;margin-bottom:36px;">If you see a need you can help with, click <em style="color:rgba(255,255,255,0.6);">"I can help with this"</em> — it will open an email to our team. Just include your name, phone number, and how you'd like to help. We'll take it from there and coordinate privately.</p>
-  <div id="needsGrid" class="needs-grid"></div>
+  <div id="needsGrid" class="needs-list"></div>
   <div id="needsPager" class="needs-pager" style="display:none;">
     <button onclick="needsNextPage()">See More Needs</button>
   </div>
@@ -720,19 +782,21 @@
     }
 
     grid.innerHTML = visible.map(n => {
-      const sit = needsTruncate(n.situation || '', 160);
+      const sit = needsTruncate(n.situation || '', 200);
       const met = n.status === 'met';
       const subject = encodeURIComponent('I can help — ' + n.description);
       return `
-        <div class="need-card${met ? ' met' : ''}">
-          <div class="need-card-name">
-            ${n.firstName}
-            ${met ? '<span class="need-card-met-badge">Need Met ✓</span>' : ''}
+        <div class="need-item${met ? ' met' : ''}">
+          <div class="need-item-left">
+            <p class="need-item-name">
+              ${n.firstName}
+              ${met ? '<span class="need-item-met-badge">Need Met ✓</span>' : ''}
+            </p>
+            <p class="need-item-desc">${n.description}</p>
+            ${n.situation ? `<p class="need-item-situation">${sit.short}</p>` : ''}
+            ${n.prayer ? `<p class="need-item-prayer">"${n.prayer}"</p>` : ''}
           </div>
-          <p class="need-card-desc">${n.description}</p>
-          ${n.situation ? `<p class="need-card-desc" style="margin-top:-4px;">${sit.short}</p>` : ''}
-          ${n.prayer ? `<p class="need-card-prayer">"${n.prayer}"</p>` : ''}
-          ${!met ? `<div class="need-card-help"><a href="mailto:hello@thejesusbarn.org?subject=${subject}">I can help with this →</a></div>` : ''}
+          ${!met ? `<div class="need-item-help"><a href="mailto:hello@thejesusbarn.org?subject=${subject}">I can help →</a></div>` : ''}
         </div>`;
     }).join('');
 
