@@ -141,14 +141,19 @@ nav {
   font-size: 1rem; color: rgba(255,255,255,0.2);
 }
 
-/* 3-column masonry */
-.wall-grid { columns: 3; column-gap: 20px; }
+/* 3-column grid — fills left to right */
+.wall-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: start;
+}
 .wall-card {
-  break-inside: avoid; background: #161616;
+  background: #161616;
   border: 1px solid rgba(255,255,255,0.07);
-  padding: 24px; margin-bottom: 20px;
-  border-radius: 2px; transition: border-color 0.2s;
-  display: inline-block; width: 100%;
+  padding: 24px;
+  border-radius: 2px;
+  transition: border-color 0.2s;
 }
 .wall-card:hover { border-color: rgba(255,255,255,0.15); }
 .wall-quote-mark {
@@ -210,11 +215,11 @@ nav {
     min-height: auto;
   }
   .wall-right { padding: 40px 20px 56px; }
-  .wall-grid { columns: 2; column-gap: 14px; }
+  .wall-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .wall-footer { padding: 20px; }
 }
 @media (max-width: 540px) {
-  .wall-grid { columns: 1; }
+  .wall-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -622,7 +627,7 @@ nav {
   .wall-footer { padding: 20px; }
 }
 @media (max-width: 560px) {
-  .wall-grid { columns: 1; }
+  .wall-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
