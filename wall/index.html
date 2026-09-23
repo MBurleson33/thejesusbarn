@@ -44,6 +44,415 @@ nav {
 
 /* ── HERO ── */
 .wall-hero {
+  padding: 120px 48px 56px;
+  max-width: 1200px; margin: 0 auto;
+}
+.wall-eyebrow {
+  font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 4px;
+  text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 16px;
+}
+.wall-title {
+  font-family: 'Playfair Display', serif; font-weight: 900;
+  font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.05;
+  color: var(--white); margin-bottom: 12px;
+}
+.wall-sub {
+  font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.9rem;
+  color: rgba(255,255,255,0.35); line-height: 1.9; max-width: 480px;
+}
+.wall-divider { width: 40px; height: 2px; background: var(--red); margin: 20px 0; }
+
+/* ── MAIN LAYOUT ── */
+.wall-main {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 360px 1fr;
+  gap: 0; align-items: start;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ── LEFT — SUBMIT FORM ── */
+.wall-left {
+  position: sticky; top: 80px;
+  padding: 48px 40px 48px 48px;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  min-height: calc(100vh - 80px);
+}
+.submit-eyebrow {
+  font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 3px;
+  text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 12px;
+}
+.submit-title {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 1.3rem; color: var(--white); margin-bottom: 8px; line-height: 1.2;
+}
+.submit-sub {
+  font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.78rem;
+  color: rgba(255,255,255,0.3); line-height: 1.8; margin-bottom: 28px;
+}
+.wall-field { margin-bottom: 16px; }
+.wall-field label {
+  display: block; font-family: 'Lato', sans-serif; font-size: 0.55rem;
+  letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.25);
+  margin-bottom: 6px;
+}
+.wall-field input, .wall-field textarea {
+  width: 100%; padding: 10px 14px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 2px; font-family: 'Lato', sans-serif; font-size: 0.85rem;
+  color: var(--white); outline: none; transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+.wall-field input:focus, .wall-field textarea:focus {
+  border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.06);
+}
+.wall-field input::placeholder, .wall-field textarea::placeholder { color: rgba(255,255,255,0.18); }
+.wall-field textarea { resize: vertical; min-height: 120px; }
+.wall-field.error input, .wall-field.error textarea { border-color: var(--red); }
+.char-count {
+  font-family: 'Lato', sans-serif; font-size: 0.58rem;
+  color: rgba(255,255,255,0.18); text-align: right; margin-top: 4px;
+}
+.char-count.near-limit { color: rgba(255,165,0,0.5); }
+.wall-submit-btn {
+  width: 100%; background: var(--white); color: var(--near-black); border: none;
+  font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.68rem;
+  letter-spacing: 2px; text-transform: uppercase; padding: 14px;
+  cursor: pointer; transition: background 0.2s; border-radius: 2px; margin-top: 4px;
+}
+.wall-submit-btn:hover { background: var(--off-white); }
+.wall-submit-btn:disabled { opacity: 0.5; cursor: default; }
+.wall-submit-note {
+  font-family: 'Lato', sans-serif; font-size: 0.6rem; font-weight: 300;
+  color: rgba(255,255,255,0.18); line-height: 1.7; margin-top: 10px; text-align: center;
+}
+.wall-status {
+  margin-top: 14px; padding: 12px 14px; border-radius: 2px;
+  font-family: 'Lato', sans-serif; font-size: 0.8rem; line-height: 1.6; display: none;
+}
+.wall-status.success { background: rgba(76,175,80,0.08); color: #4caf50; border: 1px solid rgba(76,175,80,0.2); display: block; }
+.wall-status.error { background: rgba(255,0,0,0.05); color: rgba(255,100,100,0.8); display: block; }
+
+/* ── RIGHT — FEED ── */
+.wall-right { padding: 48px 48px 64px 40px; }
+
+.wall-loading {
+  text-align: center; padding: 80px 0;
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1rem; color: rgba(255,255,255,0.2);
+}
+
+/* 3-column masonry */
+.wall-grid { columns: 3; column-gap: 20px; }
+.wall-card {
+  break-inside: avoid; background: #161616;
+  border: 1px solid rgba(255,255,255,0.07);
+  padding: 24px; margin-bottom: 20px;
+  border-radius: 2px; transition: border-color 0.2s;
+  display: inline-block; width: 100%;
+}
+.wall-card:hover { border-color: rgba(255,255,255,0.15); }
+.wall-quote-mark {
+  font-family: 'Playfair Display', serif; font-size: 2.5rem; line-height: 0.7;
+  color: var(--red); opacity: 0.45; margin-bottom: 10px; display: block;
+}
+.wall-message {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: clamp(0.82rem, 1.2vw, 0.92rem); color: rgba(255,255,255,0.7);
+  line-height: 1.75; margin-bottom: 16px;
+}
+.wall-meta {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06);
+}
+.wall-name {
+  font-family: 'Cinzel', serif; font-size: 0.48rem; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(255,255,255,0.35);
+}
+.wall-location {
+  font-family: 'Lato', sans-serif; font-size: 0.6rem; font-weight: 300;
+  color: rgba(255,255,255,0.18); margin-top: 2px;
+}
+.wall-badge-featured {
+  font-family: 'Cinzel', serif; font-size: 0.4rem; letter-spacing: 1.5px;
+  text-transform: uppercase; color: #e8c96a;
+  background: rgba(232,201,106,0.08); border: 1px solid rgba(232,201,106,0.2);
+  padding: 3px 8px; border-radius: 2px; flex-shrink: 0;
+}
+
+.wall-load-more { text-align: center; margin-top: 32px; }
+.btn-load {
+  font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.68rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  background: transparent; color: rgba(255,255,255,0.35);
+  border: 1px solid rgba(255,255,255,0.12); padding: 12px 28px;
+  cursor: pointer; transition: all 0.2s; border-radius: 2px;
+}
+.btn-load:hover { color: var(--white); border-color: rgba(255,255,255,0.35); }
+
+/* ── FOOTER ── */
+.wall-footer {
+  background: #080808; padding: 24px 48px; text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.wall-footer p { font-family: 'Lato', sans-serif; font-size: 0.6rem; font-weight: 300; color: rgba(255,255,255,0.18); letter-spacing: 0.5px; line-height: 1.8; }
+.wall-footer a { color: rgba(255,255,255,0.18); text-decoration: none; transition: color 0.2s; }
+.wall-footer a:hover { color: rgba(255,255,255,0.5); }
+
+/* ── MOBILE ── */
+@media (max-width: 960px) {
+  nav { padding: 0 20px; }
+  .nav-logo img { height: 72px; top: 4px; }
+  .wall-hero { padding: 110px 20px 40px; }
+  .wall-main { grid-template-columns: 1fr; }
+  .wall-left {
+    position: static; padding: 40px 20px;
+    border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06);
+    min-height: auto;
+  }
+  .wall-right { padding: 40px 20px 56px; }
+  .wall-grid { columns: 2; column-gap: 14px; }
+  .wall-footer { padding: 20px; }
+}
+@media (max-width: 540px) {
+  .wall-grid { columns: 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">
+    <img src="/images/The-Jesus-Barn-Logo.png" alt="The Jesus Barn">
+  </a>
+  <a class="nav-back" href="/">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to Site
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="wall-hero">
+  <p class="wall-eyebrow">The Jesus Barn Community</p>
+  <h1 class="wall-title">What People<br>Are Saying</h1>
+  <div class="wall-divider"></div>
+  <p class="wall-sub">A place for the community to share — encouragement, gratitude, stories, and what God is doing in Piedmont.</p>
+</div>
+
+<!-- MAIN -->
+<div class="wall-main">
+
+  <!-- LEFT — FORM -->
+  <div class="wall-left">
+    <p class="submit-eyebrow">Add Your Voice</p>
+    <h2 class="submit-title">Share Something<br>With the Community</h2>
+    <p class="submit-sub">Posts are reviewed before appearing on the wall. We read every one.</p>
+
+    <div class="wall-field" id="wfName">
+      <label>Your Name *</label>
+      <input type="text" id="wName" placeholder="First name or full name" autocomplete="name">
+    </div>
+    <div class="wall-field">
+      <label>Location (optional)</label>
+      <input type="text" id="wLocation" placeholder="e.g. Piedmont, OK">
+    </div>
+    <div class="wall-field" id="wfMsg">
+      <label>Your Message *</label>
+      <textarea id="wMessage" maxlength="400" placeholder="Share something with the community..." oninput="updateCount()"></textarea>
+      <p class="char-count" id="wCount">400 characters remaining</p>
+    </div>
+    <input type="text" id="wHoney" style="display:none;" tabindex="-1" autocomplete="off">
+    <button class="wall-submit-btn" id="wBtn" onclick="submitWall()">Post to the Wall</button>
+    <p class="wall-submit-note">Your post will appear after review.</p>
+    <div class="wall-status" id="wStatus"></div>
+  </div>
+
+  <!-- RIGHT — FEED -->
+  <div class="wall-right">
+    <div id="wallLoading" class="wall-loading">Loading community posts...</div>
+    <div id="wallGrid" class="wall-grid"></div>
+    <div class="wall-load-more" id="wallLoadMore" style="display:none;">
+      <button class="btn-load" onclick="loadMore()">Load More</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="wall-footer">
+  <p>© 2026 The Jesus Barn · Piedmont, Oklahoma</p>
+  <p><a href="/">thejesusbarn.org</a> · <a href="mailto:hello@thejesusbarn.org">hello@thejesusbarn.org</a></p>
+</footer>
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbycmcGiPFA0Pfj0w1G8QVWeR_UpOmu2DNhpY8TXMQigL8-HJPHjDi7E0mdRVw4FXoMusQ/exec';
+const WALL_CSV  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFmaX_W16oQbNcqNjjTxjGCT-sCRO-g-BlRgxtS4TOrfkoybpt0Xi7fxrMQTAl5uXvdEHfU3gHqn3S/pub?gid=79572446&single=true&output=csv';
+const PER_PAGE  = 9;
+
+let allPosts = [], shown = 0;
+
+// ── SHUFFLE ──
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// ── LOAD POSTS ──
+async function loadWall() {
+  try {
+    const res  = await fetch(WALL_CSV + '&t=' + Date.now());
+    const text = await res.text();
+    const rows = parseCSV(text);
+    const approved = rows.slice(1).filter(r => r[0] && r[2] && (r[3] === 'approved' || r[3] === 'featured'));
+    allPosts = shuffle(approved); // shuffle on every page load
+    document.getElementById('wallLoading').style.display = 'none';
+    if (!allPosts.length) {
+      document.getElementById('wallLoading').textContent = 'No posts yet — be the first to share!';
+      document.getElementById('wallLoading').style.display = 'block';
+      return;
+    }
+    renderPosts();
+  } catch(e) {
+    document.getElementById('wallLoading').textContent = 'Could not load posts. Please try again later.';
+  }
+}
+
+function renderPosts() {
+  const grid  = document.getElementById('wallGrid');
+  const slice = allPosts.slice(shown, shown + PER_PAGE);
+  slice.forEach(post => {
+    const card = document.createElement('div');
+    card.className = 'wall-card';
+    const isFeatured = post[3] === 'featured';
+    card.innerHTML = `
+      <span class="wall-quote-mark">"</span>
+      <p class="wall-message">${escHtml(post[2])}</p>
+      <div class="wall-meta">
+        <div>
+          <p class="wall-name">${escHtml(post[0])}</p>
+          ${post[1] ? `<p class="wall-location">${escHtml(post[1])}</p>` : ''}
+        </div>
+        ${isFeatured ? '<span class="wall-badge-featured">Featured ✦</span>' : ''}
+      </div>`;
+    grid.appendChild(card);
+  });
+  shown += slice.length;
+  document.getElementById('wallLoadMore').style.display = shown < allPosts.length ? 'block' : 'none';
+}
+
+function loadMore() { renderPosts(); }
+
+// ── CHAR COUNT ──
+function updateCount() {
+  const val = document.getElementById('wMessage').value;
+  const rem = 400 - val.length;
+  const el  = document.getElementById('wCount');
+  el.textContent = rem + ' characters remaining';
+  el.classList.toggle('near-limit', rem < 60);
+}
+
+// ── SUBMIT ──
+async function submitWall() {
+  if (document.getElementById('wHoney').value) return;
+  const name   = document.getElementById('wName').value.trim();
+  const loc    = document.getElementById('wLocation').value.trim();
+  const msg    = document.getElementById('wMessage').value.trim();
+  const status = document.getElementById('wStatus');
+  const btn    = document.getElementById('wBtn');
+
+  document.getElementById('wfName').classList.toggle('error', !name);
+  document.getElementById('wfMsg').classList.toggle('error', !msg);
+  if (!name || !msg) return;
+
+  btn.textContent = 'Submitting...'; btn.disabled = true;
+  status.className = 'wall-status';
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sheet: 'wall-submit', name, location: loc, message: msg })
+    });
+    status.textContent = 'Thank you, ' + name.split(' ')[0] + '! Your post has been submitted and will appear after review.';
+    status.className = 'wall-status success';
+    document.getElementById('wName').value = '';
+    document.getElementById('wLocation').value = '';
+    document.getElementById('wMessage').value = '';
+    updateCount();
+    btn.textContent = 'Post to the Wall'; btn.disabled = false;
+  } catch(e) {
+    status.textContent = 'Something went wrong. Please try again or email hello@thejesusbarn.org.';
+    status.className = 'wall-status error';
+    btn.textContent = 'Post to the Wall'; btn.disabled = false;
+  }
+}
+
+// ── UTILS ──
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function parseCSV(text) {
+  return text.trim().split('\n').map(line => {
+    const cells=[]; let cur='', inQ=false;
+    for (let i=0; i<line.length; i++) {
+      if (line[i]==='"') { inQ=!inQ; }
+      else if (line[i]===',' && !inQ) { cells.push(cur); cur=''; }
+      else cur+=line[i];
+    }
+    cells.push(cur);
+    return cells.map(c=>c.trim().replace(/^"|"$/g,''));
+  });
+}
+
+loadWall();
+</script>
+</body>
+</html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Community Wall — The Jesus Barn</title>
+<meta name="description" content="What people are saying about The Jesus Barn community in Piedmont, Oklahoma.">
+<link rel="canonical" href="https://www.thejesusbarn.org/wall">
+<link rel="icon" type="image/png" href="/images/The-Jesus-Barn-Logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --white:      #FFFFFF;
+  --off-white:  #F5F5F5;
+  --light-grey: #E8E8E8;
+  --mid-grey:   #AAAAAA;
+  --dark-grey:  #555555;
+  --near-black: #1C1C1C;
+  --black:      #0A0A0A;
+  --red:        #ff0000;
+}
+html { font-size: 18px; scroll-behavior: smooth; }
+body { font-family: 'Lato', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 80px;
+  background: rgba(10,10,10,0.96); backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-logo { text-decoration: none; display: flex; align-items: center; }
+.nav-logo img { height: 100px; width: auto; position: relative; top: 10px; }
+.nav-back {
+  font-family: 'Lato', sans-serif; font-size: 0.72rem; letter-spacing: 0.5px;
+  color: rgba(255,255,255,0.4); text-decoration: none;
+  display: flex; align-items: center; gap: 8px; transition: color 0.2s;
+}
+.nav-back:hover { color: var(--white); }
+
+/* ── HERO ── */
+.wall-hero {
   padding: 140px 48px 80px; background: var(--black);
   border-bottom: 1px solid rgba(255,255,255,0.06);
   max-width: 1100px; margin: 0 auto;
