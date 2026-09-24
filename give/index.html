@@ -846,6 +846,8 @@
 
   const STRIPE_PK = 'pk_live_51TYnsFGbx1cK90QJu8cJqUwBtcluapHtZB4XD0DDsDKn5Y1GkZlH956BBoGcNqoTnUkzIwd3BHpQW3FJJ3EnKLBq00V6Iz78HQ';
   const stripe = Stripe(STRIPE_PK);
+  let selectedFreq = 'once';
+  let selectedAmount = null;
   const elements = stripe.elements({
     appearance: { theme: 'flat', variables: { colorPrimary: '#1c1c1c', colorBackground: '#F5F5F5', colorText: '#1c1c1c', colorDanger: '#cc0000', fontFamily: 'Lato, sans-serif', borderRadius: '2px' } }
   });
@@ -962,14 +964,25 @@
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // confirm card payment
-      const result = await stripe.confirmCardPayment(data.clientSecret, {
-        payment_method: {
-          card: cardElement,
-          billing_details: { name, email }
-        },
-        receipt_email: email
-      });
+      let result;
+      if (data.type === 'setup') {
+        // Monthly — confirm setup intent
+        result = await stripe.confirmCardSetup(data.clientSecret, {
+          payment_method: {
+            card: cardElement,
+            billing_details: { name, email }
+          }
+        });
+      } else {
+        // One-time — confirm payment intent
+        result = await stripe.confirmCardPayment(data.clientSecret, {
+          payment_method: {
+            card: cardElement,
+            billing_details: { name, email }
+          },
+          receipt_email: email
+        });
+      }
 
       if (result.error) throw new Error(result.error.message);
 
